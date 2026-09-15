@@ -1,36 +1,17 @@
 """Command-line entry point.
 
-    uv run main.py --list            recent significant quakes
-    uv run main.py --latest          plan for the most recent one
-    uv run main.py --quake <id>      plan for a specific quake id
+    uv run main.py --list                recent significant quakes
+    uv run main.py --latest              airbridge plan for the newest one
+    uv run main.py --quake us7000pn9s    airbridge plan for any USGS event id
 """
 
 import argparse
 import sys
 
+from airlift.airbridge import Assumptions, build_plan
 from airlift.airports import load_airports
-from airlift.planner import plan
-from airlift.quakes import fetch_quakes
-
-
-def print_plan(quake, options, limit):
-    print()
-    print(quake)
-    print()
-    if not options:
-        print("  no usable airfields within range")
-        return
-    print(f"  {'dist':>8}  {'airport':<48} {'runway':>9}  {'surface':<9} aircraft")
-    print(f"  {'-' * 8}  {'-' * 48} {'-' * 9}  {'-' * 9} {'-' * 30}")
-    for o in options[:limit]:
-        label = f"{o.airport.ident}  {o.airport.name}"[:48]
-        names = " ".join(a.name for a in o.aircraft)
-        print(
-            f"  {o.distance_km:>5.0f} km  {label:<48} "
-            f"{o.airport.longest_runway_ft:>6,} ft  {o.airport.surface[:9]:<9} {names}"
-        )
-    if len(options) > limit:
-        print(f"  ... {len(options) - limit} more within range")
+from airlift.report import render_text, write_html
+from airlift.usgs import fetch_event, fetch_recent
 
 
 def main() -> int:
@@ -38,34 +19,33 @@ def main() -> int:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--list", action="store_true", help="list recent quakes")
     group.add_argument("--latest", action="store_true", help="plan for the newest quake")
-    group.add_argument("--quake", metavar="ID", help="plan for a specific USGS quake id")
-    parser.add_argument("--min-mag", type=float, default=5.5, help="minimum magnitude (default 5.5)")
-    parser.add_argument("--radius", type=float, default=300, help="search radius in km (default 300)")
-    parser.add_argument("--limit", type=int, default=15, help="rows to show (default 15)")
+    group.add_argument("--quake", metavar="ID", help="plan for a specific USGS event id")
+    parser.add_argument("--min-mag", type=float, default=5.5, help="minimum magnitude for --list/--latest (default 5.5)")
+    parser.add_argument("--fleet", type=int, default=12, help="C-130-class shuttle aircraft available (default 12)")
+    parser.add_argument("--forward-km", type=float, default=150, help="forward strips within this distance of the damage centre")
+    parser.add_argument("--no-html", action="store_true", help="skip writing the HTML map")
     args = parser.parse_args()
 
-    quakes = fetch_quakes(min_magnitude=args.min_mag)
-    if not quakes:
-        print(f"no quakes at or above M{args.min_mag} in the past week")
-        return 0
-
-    if args.list:
-        for q in quakes:
-            print(f"{q.id:<14} {q}")
-        return 0
-
-    if args.latest:
-        quake = quakes[0]
+    if args.list or args.latest:
+        quakes = fetch_recent(min_magnitude=args.min_mag)
+        if not quakes:
+            print(f"no quakes at or above M{args.min_mag} in the past week")
+            return 0
+        if args.list:
+            for q in quakes:
+                print(f"{q.id:<14} {q}")
+            return 0
+        quake_id = quakes[0].id
     else:
-        matches = [q for q in quakes if q.id == args.quake]
-        if not matches:
-            print(f"quake id {args.quake!r} not found; run --list to see ids", file=sys.stderr)
-            return 1
-        quake = matches[0]
+        quake_id = args.quake
 
+    event = fetch_event(quake_id)
     airports = load_airports()
-    options = plan(quake, airports, radius_km=args.radius)
-    print_plan(quake, options, args.limit)
+    plan = build_plan(event, airports, Assumptions(shuttle_fleet=args.fleet, forward_max_km=args.forward_km))
+    print(render_text(plan))
+    if not args.no_html:
+        path = write_html(plan)
+        print(f"map written to {path}")
     return 0
 
 

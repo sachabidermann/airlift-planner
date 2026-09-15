@@ -24,10 +24,15 @@ class Airport:
     ident: str          # ICAO-style code, e.g. WIEE
     name: str
     country: str        # ISO-2 code
+    kind: str           # large_airport / medium_airport / small_airport
     lat: float
     lon: float
     longest_runway_ft: int
     surface: str        # surface of the longest open runway
+
+    @property
+    def label(self) -> str:
+        return f"{self.ident} {self.name}"
 
 
 def _download(url: str, dest: Path) -> Path:
@@ -74,6 +79,7 @@ def load_airports() -> list[Airport]:
                     ident=row["ident"],
                     name=row["name"],
                     country=row["iso_country"],
+                    kind=row["type"],
                     lat=float(row["latitude_deg"]),
                     lon=float(row["longitude_deg"]),
                     longest_runway_ft=runway[0],
