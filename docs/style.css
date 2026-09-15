@@ -162,7 +162,8 @@ select {
 .g-cand { background: var(--cand); border-radius: 50%; width: 6px; height: 6px; margin: 2px; }
 .g-quake { background: var(--ink); border-radius: 50%; }
 .g-centre { border: 2px solid var(--ink); border-radius: 50%; width: 6px; height: 6px; }
-.g-contour { height: 2px; width: 14px; background: linear-gradient(90deg, #ffc800, #ff0000); margin: 4px 0; }
+.g-contour { height: 8px; width: 22px; background: linear-gradient(90deg, #ffff00, #ffc800, #ff9100, #ff0000); margin: 1px 0; opacity: .8; }
+.g-leg { height: 0; width: 18px; border-top: 2px dashed var(--gateway); margin: 4px 0; }
 
 /* markers on the map */
 .mk { display: block; box-sizing: border-box; }

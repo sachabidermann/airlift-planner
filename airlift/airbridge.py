@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 from . import demand as demand_model
 from .aircraft import C17, SHUTTLE, Aircraft, biggest_usable
 from .airports import Airport
-from .geo import distance_km
+from .geo import distance_km, same_country
 from .survivability import runway_usability
 from .usgs import Event
 
@@ -180,7 +180,7 @@ def forward_candidates(fields: list[Field], country: str | None, a: Assumptions)
         if f.in_zone
         and f.airport.longest_runway_ft >= a.forward_min_runway_ft
         and f.usability >= a.min_usability
-        and (not a.domestic_only or country is None or f.airport.country == country)
+        and (not a.domestic_only or country is None or same_country(f.airport.country, country))
     ]
 
 
@@ -253,14 +253,18 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
     fields = evaluate_fields(event, airports, centre, a)
     dem = demand_model.estimate(event.exposure)
 
-    country = event.exposure.main_country() if event.exposure else None
+    known = {ap.country for ap in airports}
+    country = event.exposure.main_country(valid=known) if event.exposure else None
     if country is None and fields:
         country = fields[0].airport.country
     strips = forward_candidates(fields, country, a)
 
     cands = gateway_candidates(fields, a)
-    domestic = [g for g in cands if g.field.airport.country == country][:12]
-    foreign = [g for g in cands if g.field.airport.country != country][:8]
+    # Every candidate is worked out in full: ranking by raw inflow first would
+    # drop a slightly shaken airport next to the damage in favour of pristine
+    # ones hundreds of kilometres away.
+    domestic = [g for g in cands if same_country(g.field.airport.country, country)]
+    foreign = [g for g in cands if not same_country(g.field.airport.country, country)]
 
     best_domestic = best_foreign = None
     for gw in domestic:

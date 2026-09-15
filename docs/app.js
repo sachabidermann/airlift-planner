@@ -11,15 +11,6 @@
   const people = (n) => (n >= 1e6 ? `${fmt1.format(n / 1e6)}M` : n >= 1e3 ? `${fmtInt.format(n / 1e3)}k` : fmtInt.format(n));
   const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-  // Model gateway vs reality, for the scorecard. Notes come from data.json.
-  const SCORECARD = {
-    usp000h60h: { closed: "none; Port-au-Prince lost its tower and saturated", actual: "Port-au-Prince (Santo Domingo overflow)", actualIdent: "MTPP" },
-    us20002926: { closed: "none; Kathmandu runway damaged by heavy jets", actual: "Kathmandu", actualIdent: "VNKT" },
-    us6000jllz: { closed: "Hatay (runway fractured)", actual: "Adana and Incirlik", actualIdent: "LTAF" },
-    us7000kufc: { closed: "none", actual: "Marrakech", actualIdent: "GMMX" },
-    us7000pn9s: { closed: "Mandalay and Nay Pyi Taw (towers collapsed)", actual: "Yangon", actualIdent: "VYYY" },
-  };
-
   let DATA, events, current, plan, map, layers = [], lastBounds = null;
   let ledgerSort = { key: "dist", desc: false };
   let A = null; // current assumptions
@@ -100,13 +91,15 @@
     const e = current;
     $("event-title").textContent = e.title;
     const when = new Date(e.time).toUTCString().replace(" GMT", " UTC");
+    const kind = e.scenario ? `<span class="badge">USGS scenario, simulated</span>` : e.backtest ? `<span class="badge">Real event, backtest</span>` : `<span class="badge">This week</span>`;
     $("event-meta").innerHTML = [
       `<span>USGS ${esc(e.id)}</span>`,
-      `<span>${esc(when)}</span>`,
+      e.scenario ? "" : `<span>${esc(when)}</span>`,
+      kind,
       alertBadge(e.alert),
       `<span>Shaking: ${esc(e.mmi_source)}</span>`,
+      e.exposure_source ? `<span>Exposure: ${esc(e.exposure_source)}</span>` : "",
       e.country ? `<span>Affected country: ${esc(e.country)}</span>` : "",
-      e.backtest ? `<span class="badge">Backtest</span>` : `<span class="badge">This week</span>`,
     ].filter(Boolean).join("");
   }
 
@@ -137,6 +130,30 @@
       attribution: "&copy; OpenStreetMap contributors · USGS ShakeMap · OurAirports", maxZoom: 18, opacity: 0.8,
     }).addTo(map);
   }
+  // USGS ShakeMap intensity colours, one per whole MMI, blended between.
+  const MMI_COLORS = [[255,255,255],[255,255,255],[191,204,255],[160,230,255],[128,255,255],[122,255,147],[255,255,0],[255,200,0],[255,145,0],[255,0,0],[200,0,0]];
+  function mmiColor(m) {
+    const i = Math.max(0, Math.min(9, Math.floor(m))), t = Math.max(0, Math.min(1, m - i));
+    const a = MMI_COLORS[i], b = MMI_COLORS[Math.min(10, i + 1)];
+    return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+  }
+  function gridImage(g) {
+    const c = document.createElement("canvas");
+    c.width = g.nx; c.height = g.ny;
+    const ctx = c.getContext("2d"), img = ctx.createImageData(g.nx, g.ny);
+    for (let iy = 0; iy < g.ny; iy++) {
+      for (let ix = 0; ix < g.nx; ix++) {
+        const m = g.v[iy * g.nx + ix] / 10;
+        const row = g.ny - 1 - iy;                       // grid is south-to-north, canvas is top-down
+        const o = (row * g.nx + ix) * 4;
+        const [r, gg, b] = mmiColor(m);
+        img.data[o] = r; img.data[o + 1] = gg; img.data[o + 2] = b;
+        img.data[o + 3] = m < 4.5 ? 0 : Math.round(255 * Math.min(1, (m - 4.5) / 1.5));
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    return c.toDataURL();
+  }
   function fieldTip(f, extra) {
     return `<b>${esc(f.ident)} ${esc(f.name)}</b><br>` +
       `<span class="n">MMI ${M.roman(f.mmi)} · ${Math.round(f.use * 100)}% usable · ${fmtInt.format(f.runway)} ft ${esc(f.surface || "")}</span>` +
@@ -150,7 +167,9 @@
     const bounds = [];
     const col = { gateway: css("--gateway"), forward: css("--forward"), trap: css("--trap"), cand: css("--cand"), ink: css("--ink"), surface: css("--surface") };
 
-    if (e.contours) {
+    if (e.grid) {
+      add(L.imageOverlay(gridImage(e.grid), [[e.grid.y0, e.grid.x0], [e.grid.y1, e.grid.x1]], { opacity: 0.55, interactive: false }));
+    } else if (e.contours) {
       add(L.geoJSON(e.contours, { style: (f) => ({ color: f.properties.color, weight: 1.5, opacity: 0.9 }) })
         .bindTooltip((l) => `MMI ${l.feature.properties.value}`, { sticky: true }));
     }
@@ -179,7 +198,7 @@
       const f = alt.gateway.field;
       add(L.marker([f.lat, f.lon], { icon: L.divIcon({ className: "", html: '<span class="mk mk-alt"></span>', iconSize: [14, 14], iconAnchor: [7, 7] }) })
         .bindTooltip(fieldTip(f, `alternative gateway · would deliver ${fmtInt.format(alt.delivered)} t/day`)));
-      bounds.push([f.lat, f.lon]);
+      if (f.dist <= A.forward_max_km * 2) bounds.push([f.lat, f.lon]);   // keep the view on the damage zone
     }
     if (p.chosen) {
       const g = p.chosen.gateway.field;
@@ -388,20 +407,24 @@
     body.innerHTML = "";
     let hits = 0, total = 0;
     for (const e of events.filter((x) => x.backtest)) {
-      const s = SCORECARD[e.id];
       const p = e.id === current.id ? plan : M.build(e, DATA, A);
       const flags = p.traps.length ? p.traps.map((t) => `${t.ident}`).join(", ") : "none";
       const gw = p.chosen ? `${p.chosen.gateway.field.ident} ${p.chosen.gateway.field.name}` : "none";
-      const match = p.chosen && s && p.chosen.gateway.field.ident === s.actualIdent;
-      total++; if (match) hits++;
+      let matchCell;
+      if (!e.actual_ident) { matchCell = `<td class="note">n/a</td>`; }
+      else {
+        const match = p.chosen && p.chosen.gateway.field.ident === e.actual_ident;
+        total++; if (match) hits++;
+        matchCell = `<td class="${match ? "match-yes" : "match-no"}">${match ? "Yes" : "No"}</td>`;
+      }
       const tr = document.createElement("tr");
       tr.className = e.id === current.id ? "active" : "";
-      tr.innerHTML = `<td>${esc(e.name)}</td><td>${esc(flags)}</td><td>${esc(s ? s.closed : "")}</td><td>${esc(gw)}</td><td>${esc(s ? s.actual : "")}</td>` +
-        `<td class="${match ? "match-yes" : "match-no"}">${match ? "Yes" : "No"}</td>`;
+      tr.innerHTML = `<td>${esc(e.name)}</td><td>${esc(flags)}</td><td>${esc(e.closed || "")}</td><td>${esc(gw)}</td><td>${esc(e.actual || "")}</td>${matchCell}`;
       tr.addEventListener("click", () => selectEvent(e.id));
       body.appendChild(tr);
     }
-    $("scorecard-note").textContent = `Gateway matches reality in ${hits} of ${total} under the current assumptions. Every airport that really closed is flagged at the defaults. ` + (current.backtest && current.note ? `What happened: ${current.note}` : "");
+    $("scorecard-note").textContent = `Gateway matches reality in ${hits} of ${total} events where an airlift hub was actually used, under the current assumptions. ` +
+      (current.note ? `${current.scenario ? "About this scenario" : "What happened"}: ${current.note}` : "");
   }
 
   // ------------------------------------------------------------------ method text
@@ -424,7 +447,7 @@
     $("foot-built").textContent = `${builtText} · ${events.length} events`;
 
     const sel = $("event-select");
-    const groups = [["Backtests", events.filter((e) => e.backtest)], ["This week (USGS, M5.5+)", events.filter((e) => !e.backtest)]];
+    const groups = DATA.groups.map(([key, label]) => [label, events.filter((e) => e.group === key)]);
     for (const [label, list] of groups) {
       if (!list.length) continue;
       const og = document.createElement("optgroup");
@@ -445,7 +468,7 @@
     renderMethod();
     initMap();
     const hash = location.hash.replace("#", "");
-    const landing = events.some((e) => e.id === "us7000pn9s") ? "us7000pn9s" : events[0].id;
+    const landing = events.some((e) => e.id === "gllegacyhaywiredm7p05_se") ? "gllegacyhaywiredm7p05_se" : events[0].id;
     selectEvent(events.some((e) => e.id === hash) ? hash : landing, false);
     window.addEventListener("hashchange", () => { const h = location.hash.replace("#", ""); if (events.some((e) => e.id === h) && h !== current.id) selectEvent(h, false); });
     if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", recompute);

@@ -55,7 +55,8 @@
         <span><i class="glyph g-cand"></i>Other airfield</span>
         <span><i class="glyph g-quake"></i>Epicentre</span>
         <span><i class="glyph g-centre"></i>Damage centre</span>
-        <span><i class="glyph g-contour"></i>Shaking contour</span>
+        <span><i class="glyph g-leg"></i>Shuttle leg (straight line)</span>
+        <span><i class="glyph g-contour"></i>Shaking intensity, USGS ShakeMap (yellow VI to red X)</span>
       </div>
     </div>
 
@@ -125,7 +126,7 @@
   </section>
 
   <section class="card">
-    <div class="card-head"><h2>Backtest scorecard</h2><span class="card-sub">five major earthquakes replayed, compared with what relief operations actually did</span></div>
+    <div class="card-head"><h2>Backtest scorecard</h2><span class="card-sub">real earthquakes replayed, compared with what relief operations actually did</span></div>
     <div class="table-wrap">
       <table class="scorecard" id="scorecard">
         <thead><tr>
@@ -142,12 +143,12 @@
     <div class="method">
       <div>
         <h3>1. Airfield survivability</h3>
-        <p>The USGS ShakeMap gives estimated shaking intensity (MMI) on a grid around every significant quake. The intensity at each airport is turned into a probability that it can accept relief flights in the first days. The curve is a judgement anchored on five events, not a fitted model, and every backtest prints what the model saw at the airports that mattered so the curve can be argued with.</p>
+        <p>The USGS ShakeMap gives estimated shaking intensity (MMI) on a grid around every significant quake, real or simulated. The intensity at each airport is turned into a probability that it can accept relief flights in the first days. The curve is a judgement anchored on five events, not a fitted model, and every backtest prints what the model saw at the airports that mattered so the curve can be argued with.</p>
         <p class="formula" id="curve-text"></p>
       </div>
       <div>
         <h3>2. Demand</h3>
-        <p>USGS PAGER counts people exposed at each intensity. People at MMI VIII and above are the airbridge priority: severe damage, roads often cut. Each needs a daily minimum of food, medicine and a share of a family shelter kit spread over the first week. Water is excluded, because at 15 litres per person per day it is never flown at scale.</p>
+        <p>USGS PAGER counts people exposed at each intensity. For US scenarios without PAGER, exposure is rebuilt from Census county and city populations sampled against the shaking grid. People at MMI VIII and above are the airbridge priority: severe damage, roads often cut. Each needs a daily minimum of food, medicine and a share of a family shelter kit spread over the first week. Water is excluded, because at 15 litres per person per day it is never flown at scale.</p>
         <p class="formula" id="demand-text"></p>
       </div>
       <div>

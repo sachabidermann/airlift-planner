@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from .airbridge import Plan
+from .geo import same_country
 from .survivability import roman
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "out"
@@ -79,7 +80,7 @@ def render_text(plan: Plan) -> str:
 
     for alt in plan.alternatives:
         g = alt.gateway
-        kind = "foreign" if g.field.airport.country != plan.country else "domestic"
+        kind = "domestic" if same_country(g.field.airport.country, plan.country) else "foreign"
         lines.append(
             f"ALT ({kind})  {g.field.airport.label[:38]:<38} {g.field.dist_km:>5.0f} km   "
             f"would deliver {alt.delivered_tpd:,.0f} t/day"
@@ -190,7 +191,7 @@ def render_html(plan: Plan) -> str:
         )
     for alt in plan.alternatives:
         g = alt.gateway
-        kind = "Foreign" if g.field.airport.country != plan.country else "Domestic"
+        kind = "Domestic" if same_country(g.field.airport.country, plan.country) else "Foreign"
         parts.append(
             f"<p class='note'>{kind} alternative: {e(g.field.airport.label)} ({g.field.dist_km:.0f} km) "
             f"would deliver {alt.delivered_tpd:,.0f} t/day.</p>"

@@ -3,9 +3,9 @@
     uv run dashboard/build.py
 
 The dashboard (docs/index.html) re-runs the airbridge model in the browser, so
-this exports the *inputs* per event (evaluated airfields, exposure, contours),
-not a finished plan. The five backtests are always included, plus every M5.5+
-quake in the USGS feed for the past week.
+this exports the *inputs* per event (evaluated airfields, exposure, shaking
+grid), not a finished plan. Included: the US and international real events,
+the USGS scenarios, and every M5.5+ quake in the USGS feed for the past week.
 """
 
 import json
@@ -20,9 +20,11 @@ from airlift import demand as demand_model  # noqa: E402
 from airlift.aircraft import AIRCRAFT, is_paved  # noqa: E402
 from airlift.airbridge import Assumptions, damage_centre, evaluate_fields  # noqa: E402
 from airlift.airports import load_airports  # noqa: E402
+from airlift.geo import US_ALIASES  # noqa: E402
+from airlift.population import ensure_exposure  # noqa: E402
 from airlift.survivability import USABILITY  # noqa: E402
 from airlift.usgs import fetch_event, fetch_recent  # noqa: E402
-from run import EVENTS as BACKTESTS  # noqa: E402
+from run import EVENTS, SCENARIOS  # noqa: E402
 
 OUT = Path(__file__).resolve().parent.parent / "docs" / "data.json"
 
@@ -30,7 +32,8 @@ OUT = Path(__file__).resolve().parent.parent / "docs" / "data.json"
 EXPORT_A = Assumptions(forward_max_km=300)
 
 
-def export_event(event, airports, name=None, note=None, watch=None):
+def export_event(event, airports, meta=None, group="week"):
+    meta = meta or {}
     centre = damage_centre(event)
     fields = evaluate_fields(event, airports, centre, EXPORT_A)
     q = event.quake
@@ -51,39 +54,55 @@ def export_event(event, airports, name=None, note=None, watch=None):
             "mmi": round(f.mmi, 2), "dist": round(f.dist_km, 1),
             "best": f.best_aircraft.name if f.best_aircraft else None,
         })
+    grid = None
+    if event.shake:
+        g = event.shake.downsampled(120)
+        grid = {"x0": round(g.x0, 4), "x1": round(g.x1, 4), "nx": g.nx, "y0": round(g.y0, 4), "y1": round(g.y1, 4), "ny": g.ny,
+                "v": [int(round(v * 10)) for v in g.values]}
+    known = {ap.country for ap in airports}
+    country = event.exposure.main_country(valid=known) if event.exposure else None
+    if country is None and fields:
+        country = fields[0].airport.country
     return {
         "id": q.id,
-        "name": name or f"{q.place}, M{q.magnitude:.1f}",
+        "name": meta.get("name") or f"{q.place}, M{q.magnitude:.1f}",
         "title": str(q),
         "magnitude": q.magnitude,
         "place": q.place,
         "time": q.time.isoformat(),
+        "scenario": q.scenario,
         "lat": q.lat, "lon": q.lon,
         "alert": event.alert,
         "mmi_source": event.mmi_source,
+        "exposure_source": event.exposure.source if event.exposure else None,
         "centre": [round(centre[0], 4), round(centre[1], 4)],
-        "country": event.exposure.main_country() if event.exposure else (fields[0].airport.country if fields else None),
+        "country": country,
         "exposure": {str(k): v for k, v in event.exposure.by_mmi.items()} if event.exposure else None,
         "fields": keep,
-        "contours": event.contours,
-        "note": note,
-        "watch": watch or [],
-        "backtest": note is not None,
+        "grid": grid,
+        "contours": None if grid else event.contours,
+        "group": meta.get("group", group),
+        "note": meta.get("happened"),
+        "watch": meta.get("watch", []),
+        "backtest": "actual" in meta,
+        "closed": meta.get("closed"),
+        "actual": meta.get("actual"),
+        "actual_ident": meta.get("actual_ident"),
     }
 
 
 def main() -> int:
     airports = load_airports()
     events = []
-    for b in BACKTESTS:
-        print("backtest", b["id"])
-        events.append(export_event(fetch_event(b["id"]), airports, name=b["name"], note=b["happened"], watch=b["watch"]))
-    backtest_ids = {b["id"] for b in BACKTESTS}
+    for meta in EVENTS + SCENARIOS:
+        print(meta["group"], meta["id"])
+        events.append(export_event(ensure_exposure(fetch_event(meta["id"])), airports, meta))
+    known = {e["id"] for e in events}
     for q in fetch_recent(5.5):
-        if q.id in backtest_ids:
+        if q.id in known:
             continue
         print("recent", q.id)
-        events.append(export_event(fetch_event(q.id), airports))
+        events.append(export_event(fetch_event(q.id), airports, group="week"))
 
     data = {
         "built": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -93,6 +112,7 @@ def main() -> int:
             for a in AIRCRAFT
         ],
         "usability_curve": USABILITY,
+        "country_aliases": US_ALIASES,
         "demand": {
             "food_kg": demand_model.FOOD_KG, "medical_kg": demand_model.MEDICAL_KG,
             "shelter_kit_kg": demand_model.SHELTER_KIT_KG, "shelter_kit_people": demand_model.SHELTER_KIT_PEOPLE,
@@ -105,6 +125,12 @@ def main() -> int:
             "mog_gateway": {"large_airport": 6, "medium_airport": 3, "small_airport": 1},
             "mog_forward": {"large_airport": 3, "medium_airport": 2, "small_airport": 1},
         },
+        "groups": [
+            ["us-scenario", "United States: USGS scenario earthquakes"],
+            ["us-real", "United States: real events"],
+            ["intl-real", "International: real events"],
+            ["week", "This week worldwide (USGS, M5.5+)"],
+        ],
         "events": events,
     }
     OUT.parent.mkdir(exist_ok=True)

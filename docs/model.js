@@ -34,6 +34,12 @@
     return 1 - (dist - a.road_reach_km) / (a.forward_max_km - a.road_reach_km);
   }
 
+  function sameCountry(a, b, aliases) {
+    if (!a || !b) return false;
+    const al = aliases || {};
+    return (al[a] || a) === (al[b] || b);
+  }
+
   function demand(exposure, d) {
     if (!exposure) return null;
     let affected = 0, priority = 0;
@@ -62,6 +68,7 @@
       .sort((x, y) => x.dist - y.dist);
 
     const country = event.country;
+    const AL = data.country_aliases || {};
     const dem = demand(event.exposure, data.demand);
 
     // 2. gateway candidates
@@ -83,7 +90,7 @@
         f.in_zone &&
         f.runway >= a.forward_min_runway_ft &&
         f.use >= a.min_usability &&
-        (!a.domestic_only || !country || f.country === country)
+        (!a.domestic_only || !country || sameCountry(f.country, country, AL))
     );
 
     function allocate(gw) {
@@ -120,8 +127,8 @@
       return x.gateway.field.dist < y.gateway.field.dist;
     };
 
-    const domestic = gateways.filter((g) => g.field.country === country).slice(0, 12);
-    const foreign = gateways.filter((g) => g.field.country !== country).slice(0, 8);
+    const domestic = gateways.filter((g) => sameCountry(g.field.country, country, AL));
+    const foreign = gateways.filter((g) => !sameCountry(g.field.country, country, AL));
     let bestD = null, bestF = null;
     for (const g of domestic) { const o = workOut(g); if (better(o, bestD)) bestD = o; }
     for (const g of foreign) { const o = workOut(g); if (better(o, bestF)) bestF = o; }
@@ -148,7 +155,7 @@
     return { event, country, demand: dem, chosen, alternatives, delivered, people, coverage, traps, naive, fields, assumptions: a };
   }
 
-  const api = { build, usability, roman, haversine, directCredit, demand };
+  const api = { build, usability, roman, haversine, directCredit, demand, sameCountry };
   root.AirliftModel = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof self !== "undefined" ? self : globalThis);
