@@ -43,6 +43,18 @@ people sustained        1.7M/day
 coverage of need         18%   (rest must come by road, sea, or local supply)
 ```
 
+## Dashboard
+
+The whole model also runs in the browser. `docs/` is a static dashboard: pick any of the five backtests or this week's quakes, move the sliders (shuttle fleet, flying hours, forward radius, knocked-out threshold, domestic only) and watch the airbridge, the map, the survivability chart, the airfield ledger and the scorecard recompute live. No server, no framework, no keys.
+
+```
+uv run dashboard/build.py        # refresh docs/data.json from USGS
+node dashboard/test_model.js     # browser model must match the Python planner
+python3 -m http.server 8766 --directory docs   # then open http://localhost:8766
+```
+
+The JavaScript port of the planner is checked against the Python output on every backtest, to the tonne. Add `?theme=light` or `?theme=dark` to force a theme; the event id in the URL hash makes a link to a specific plan, for example `#us7000pn9s`.
+
 ## Does it work? Five real earthquakes, replayed
 
 `uv run backtests/run.py` replays five major quakes and compares the plan with what relief operations actually did. Full detail in [backtests/RESULTS.md](backtests/RESULTS.md).

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airlift Planner</title>
+<meta name="description" content="Earthquake airbridge decision support: which airfields survived, how much relief is needed, and how much an airlift can deliver.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="wordmark">Airlift Planner</span>
+    <span class="tagline">Earthquake airbridge decision support</span>
+  </div>
+  <div class="topbar-controls">
+    <label class="select-wrap">
+      <span class="select-label">Event</span>
+      <select id="event-select" aria-label="Select earthquake"></select>
+    </label>
+    <span class="built" id="built"></span>
+    <a class="toplink" href="https://github.com/sachabidermann/airlift-planner">Source</a>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="event-strip">
+    <div>
+      <h1 id="event-title"></h1>
+      <div class="meta" id="event-meta"></div>
+    </div>
+    <div class="event-nav">
+      <button class="btn" id="prev-event" aria-label="Previous event">Previous</button>
+      <button class="btn" id="next-event" aria-label="Next event">Next</button>
+    </div>
+  </section>
+
+  <section class="kpis" id="kpis" aria-label="Key figures"></section>
+
+  <section class="main-grid">
+    <div class="card map-card">
+      <div class="card-head">
+        <h2>Airbridge map</h2>
+        <span class="card-sub" id="map-sub"></span>
+      </div>
+      <div id="map" role="img" aria-label="Map of airfields, shaking contours and the proposed airbridge"></div>
+      <div class="legend" id="legend">
+        <span><i class="glyph g-gateway"></i>Gateway</span>
+        <span><i class="glyph g-alt"></i>Alternative</span>
+        <span><i class="glyph g-forward"></i>Forward strip</span>
+        <span><i class="glyph g-trap"></i>Likely knocked out</span>
+        <span><i class="glyph g-cand"></i>Other airfield</span>
+        <span><i class="glyph g-quake"></i>Epicentre</span>
+        <span><i class="glyph g-centre"></i>Damage centre</span>
+        <span><i class="glyph g-contour"></i>Shaking contour</span>
+      </div>
+    </div>
+
+    <aside class="side">
+      <div class="card">
+        <div class="card-head">
+          <h2>Assumptions</h2>
+          <button class="btn btn-quiet" id="reset">Reset</button>
+        </div>
+        <div class="controls" id="controls">
+          <label class="ctl">
+            <span class="ctl-label">Shuttle fleet <em id="v-fleet"></em></span>
+            <input type="range" id="c-fleet" min="2" max="40" step="1">
+            <span class="ctl-hint">C-130J class aircraft for the forward leg</span>
+          </label>
+          <label class="ctl">
+            <span class="ctl-label">Flying hours per day <em id="v-ops"></em></span>
+            <input type="range" id="c-ops" min="8" max="24" step="1">
+          </label>
+          <label class="ctl">
+            <span class="ctl-label">Forward radius <em id="v-fwd"></em></span>
+            <input type="range" id="c-fwd" min="50" max="300" step="10">
+            <span class="ctl-hint">Strips within this distance of the damage centre, or shaken at MMI VI.5+</span>
+          </label>
+          <label class="ctl">
+            <span class="ctl-label">Minimum usability <em id="v-use"></em></span>
+            <input type="range" id="c-use" min="0.2" max="0.9" step="0.05">
+            <span class="ctl-hint">Airfields below this are treated as knocked out</span>
+          </label>
+          <label class="ctl ctl-check">
+            <input type="checkbox" id="c-dom">
+            <span>Domestic gateway and strips only</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card" id="gateway-card"></div>
+      <div class="card" id="forward-card"></div>
+    </aside>
+  </section>
+
+  <section class="two-col">
+    <div class="card">
+      <div class="card-head"><h2>Forward strip throughput</h2><span class="card-sub">tonnes per day, shuttle allocation</span></div>
+      <div class="chart" id="bars-chart"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Airfield survivability</h2><span class="card-sub">usability curve, this event's airfields plotted</span></div>
+      <div class="chart" id="curve-chart"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>Airfield ledger</h2>
+      <div class="ledger-tools">
+        <span class="card-sub" id="ledger-count"></span>
+        <input type="search" id="ledger-filter" placeholder="Filter by name, code, country, role" aria-label="Filter airfields">
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="ledger" id="ledger">
+        <thead><tr id="ledger-head"></tr></thead>
+        <tbody id="ledger-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>Backtest scorecard</h2><span class="card-sub">five major earthquakes replayed, compared with what relief operations actually did</span></div>
+    <div class="table-wrap">
+      <table class="scorecard" id="scorecard">
+        <thead><tr>
+          <th>Event</th><th>Model flags as knocked out</th><th>Actually closed</th><th>Model gateway</th><th>Gateway actually used</th><th>Match</th>
+        </tr></thead>
+        <tbody id="scorecard-body"></tbody>
+      </table>
+    </div>
+    <p class="note" id="scorecard-note"></p>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>Method</h2></div>
+    <div class="method">
+      <div>
+        <h3>1. Airfield survivability</h3>
+        <p>The USGS ShakeMap gives estimated shaking intensity (MMI) on a grid around every significant quake. The intensity at each airport is turned into a probability that it can accept relief flights in the first days. The curve is a judgement anchored on five events, not a fitted model, and every backtest prints what the model saw at the airports that mattered so the curve can be argued with.</p>
+        <p class="formula" id="curve-text"></p>
+      </div>
+      <div>
+        <h3>2. Demand</h3>
+        <p>USGS PAGER counts people exposed at each intensity. People at MMI VIII and above are the airbridge priority: severe damage, roads often cut. Each needs a daily minimum of food, medicine and a share of a family shelter kit spread over the first week. Water is excluded, because at 15 litres per person per day it is never flown at scale.</p>
+        <p class="formula" id="demand-text"></p>
+      </div>
+      <div>
+        <h3>3. Airbridge</h3>
+        <p>Heavy jets fly into a gateway; C-130s shuttle the last leg into strips inside the damage zone. Capacity is ramp spots times daily turnarounds times payload, discounted by usability. Gateways are chosen in the affected country first; cargo landing near the damage centre counts as delivered by road, fading to nothing at the forward radius. Regional airports are capped at C-17 class aircraft.</p>
+        <p class="formula">delivered = min(inflow, road share + shuttle tonnes)</p>
+      </div>
+    </div>
+    <h3>Limitations</h3>
+    <ul class="limits">
+      <li>Not an operational tool. The usability curve is judgement. Aircraft figures are public planning approximations.</li>
+      <li>Straight-line distances. No fuel stocks, customs, handling equipment, weather, airspace or road network, which is why the model diverges from reality in Turkey 2023 and Myanmar 2025.</li>
+      <li>The airport table is today's, so replays of older events can offer airports that did not exist at the time.</li>
+      <li>Small quakes without a ShakeMap fall back to a published intensity-vs-distance formula (Allen, Wald and Worden, 2012).</li>
+    </ul>
+    <h3>Data</h3>
+    <p class="note">USGS Earthquake Hazards Program: event feed, ShakeMap, PAGER. OurAirports: airports and runways, public domain. All free, no keys. Map tiles by OpenStreetMap contributors.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>Airlift Planner. Built by Sacha Bidermann as a public-data decision-support study.</span>
+  <span id="foot-built"></span>
+</footer>
+
+<div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="model.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
