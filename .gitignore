@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Downloaded data cache (re-created on first run)
+data/
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
