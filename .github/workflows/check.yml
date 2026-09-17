@@ -8,9 +8,9 @@ jobs:
   offline-checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.1.0
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - name: Unit tests and browser-model parity (no network data needed)
