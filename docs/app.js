@@ -122,7 +122,7 @@
     const quiet = !p.fields.some((f) => f.mmi >= 6);
     $("kpis").innerHTML = [
       kpi("Airlift capacity into zone", `${fmtInt.format(p.delivered)}<small>t/day</small>`,
-        !g ? "no usable gateway in range" : p.delivered === 0 ? `${esc(g.field.ident)} is usable, but nothing can reach the zone from it` : `upper bound, via ${esc(g.field.ident)}; t = metric tons`),
+        g ? `upper bound, via ${esc(g.field.ident)}; t = metric tons` : p.candidates ? "airports qualify as gateways, but nothing can reach the zone" : "no usable gateway in range"),
       kpi("People it could supply", people(p.people), `at ${fmt2.format(DATA.demand.kg_per_person_day)} kg per person per day`),
       kpi("Share of need", share, shareSub),
       kpi("Priority population", d ? people(d.priority) : "n/a", d ? `at MMI VIII or above; ${people(d.affected)} at VII or above` : "no population exposure"),
@@ -232,7 +232,7 @@
     }
     add(L.circleMarker([e.lat, lon(e.lon)], { radius: 6, color: col.ink, weight: 2, fillColor: col.ink, fillOpacity: 1 }).bindTooltip("Epicenter"));
     add(L.circleMarker([e.center[0], e.center[1]], { radius: 4, color: col.ink, weight: 1.5, fillColor: col.surface, fillOpacity: 1 })
-      .bindTooltip(`Damage center (weighted by ${esc(e.center_basis)})`));
+      .bindTooltip(e.center_basis === "epicenter" ? "Damage center (the epicenter)" : `Damage center (weighted by ${esc(e.center_basis)})`));
     bounds.push([e.lat, lon(e.lon)], e.center);
     lastBounds = bounds;
     $("map-sub").textContent = `${p.fields.length} candidate airfields within ${fmtInt.format(A.gateway_max_km)} km of the damage center`;
@@ -242,7 +242,10 @@
   function renderGateway() {
     const p = plan;
     if (!p.chosen) {
-      $("gateway-card").innerHTML = `<div class="card-head"><h2>Gateway</h2></div><div class="empty">No usable gateway: no airport within ${fmtInt.format(A.gateway_max_km)} km has a paved runway of ${fmtInt.format(A.gateway_min_runway_ft)} ft or more and usability of ${pct(A.min_usability)} or more.</div>`;
+      const why = p.candidates
+        ? `No gateway chosen: ${p.candidates} airports qualify, but none is within ${fmtInt.format(A.forward_max_km)} km of the damage center and no forward strip is usable, so nothing can reach the zone.`
+        : `No usable gateway: no large or medium airport within ${fmtInt.format(A.gateway_max_km)} km has a runway of ${fmtInt.format(A.gateway_min_runway_ft)} ft or more and usability of ${pct(A.min_usability)} or more.`;
+      $("gateway-card").innerHTML = `<div class="card-head"><h2>Gateway</h2></div><div class="empty">${why}</div>`;
       return;
     }
     const g = p.chosen.gateway, f = g.field;

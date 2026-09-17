@@ -14,7 +14,7 @@ It is a student project and a planning model, not an operational tool.
 
 ## Quick start
 
-Requires [uv](https://docs.astral.sh/uv/). The first run downloads about 100 MB of public data into `data/`.
+Requires [uv](https://docs.astral.sh/uv/). The first run downloads about 30 MB of public data into `data/`; the full check brings it to about 100 MB.
 
 ```
 git clone https://github.com/sachabidermann/airlift-planner
@@ -61,7 +61,7 @@ scripts/check.sh              # also reruns the backtests, the verification and 
 
 ## Terms
 
-- **MMI:** Modified Mercalli Intensity, a I to X scale of how hard the ground shook at one place. VI is strong shaking with light damage; VIII is severe with heavy damage.
+- **MMI:** Modified Mercalli Intensity, a I to XII scale of how hard the ground shook at one place; ShakeMap reports values up to X. VI is strong shaking with light damage; VIII is severe with heavy damage.
 - **ShakeMap:** the USGS map of estimated MMI around an earthquake, published as a grid and revised as data arrives.
 - **PAGER:** the USGS estimate of how many people were exposed to each MMI level.
 - **Airbridge:** a sustained shuttle of cargo flights into a disaster area.
@@ -78,7 +78,7 @@ Formulas and the source of every constant are in [METHOD.md](METHOD.md).
 
 1. **Usability.** Read the ShakeMap intensity at every airport within 1,000 km of the damage center and map it to a usability probability. A nearest-airfield rule picks the airport that was shaken hardest; this step is what avoids that.
 2. **Need.** Take the people at MMI VIII and above, from PAGER, or from a Census reconstruction where PAGER was not run. Multiply by a daily ration of food, medical supplies and a share of a shelter kit: 1.13 kg per person per day.
-3. **Airbridge.** Heavy jets fly into a gateway; C-130s shuttle cargo on to forward strips. Throughput uses the formula in Air Force Pamphlet 10-1403: parking spots × planning payload × operating hours ÷ ground time × 0.85. Every candidate gateway is worked out in full and the one that moves the most into the zone wins. Gateways in the affected country are preferred.
+3. **Airbridge.** Heavy jets fly into a gateway; C-130s shuttle cargo on to forward strips. Throughput uses the formula in Air Force Pamphlet 10-1403: parking spots × planning payload × operating hours ÷ ground time × 0.85. Every candidate gateway is worked out in full. The one that moves the most into the zone wins, except that candidates within 10% of the best count as tied and the nearest of them wins. Gateways in the affected country are preferred.
 4. **Result.** Airlift capacity into the zone in t/day, how many people that could supply, and the share of need.
 
 | module | job |
@@ -110,11 +110,11 @@ Nine real earthquakes, compared with what happened. Generated detail, including 
 | Nepal 2015, M7.8 | none | runway later damaged by heavy jets | Kathmandu | Kathmandu | yes |
 | Turkey 2023, M7.8 | Kahramanmaras (48%), Hatay (34%) | Hatay closed six days | Gaziantep | Adana and Incirlik | no |
 | Morocco 2023, M6.8 | none | none | Marrakech | Marrakech | yes |
-| Myanmar 2025, M7.7 | Mandalay, Nay Pyi Taw, 3 other fields | Mandalay and Nay Pyi Taw closed a week | Heho | Yangon | no |
+| Myanmar 2025, M7.7 | Mandalay, Nay Pyi Taw, 3 other fields | Mandalay and Nay Pyi Taw closed to commercial flights for a week; relief flights from day 2 and day 4 | Heho | Yangon | no |
 
-Gateway matches in 3 of the 5 events where a relief gateway was used. The other four earthquakes had no relief airlift, so they only test the flags.
+Gateway matches in 3 of the 5 events where a relief gateway was used. The other four earthquakes had no sustained relief airlift, so they only test the flags.
 
-Three airports closed after the shaking (Hatay, Mandalay, Nay Pyi Taw) and the model flagged all three. It also flagged Kahramanmaras at 48%, which stayed open to relief flights, and three other Myanmar fields whose outcome I could not find. It missed Oakland in 1989: the runway cracked from liquefaction at MMI VII, where the curve gives 92%. Intensity does not capture soft ground.
+Three airports closed after the shaking (Hatay, Mandalay, Nay Pyi Taw) and the model flagged all three. Hatay was shut for six days. Nay Pyi Taw took military relief flights two days after the earthquake and Mandalay after four, so those two flags are only partly borne out. The model also flagged Kahramanmaras at 48%, which stayed open to relief flights, and three other Myanmar fields whose outcome I could not find. It missed Oakland in 1989: the runway cracked from liquefaction at MMI VII, where the curve gives 92%. Intensity does not capture soft ground.
 
 In Turkey and Myanmar the model picks an intact airport close to the damage. Responders used a larger airport farther away. The model cannot explain that choice because it does not see customs, fuel or cargo handling. Gaziantep did take relief flights in 2023.
 
@@ -127,9 +127,9 @@ Scenario earthquakes from the USGS scenario catalog, run through the planner unc
 | scenario | people at MMI VIII+ | gateway | flagged as likely knocked out | airlift capacity | share of need |
 |---|---:|---|---|---:|---:|
 | HayWired M7.0, San Francisco Bay Area | 5.4M | San Francisco | 9, including Oakland, San Jose, Hayward and Livermore | 3,160 t/day | 51% |
-| ShakeOut M7.8, Los Angeles | 8.5M | Los Angeles | 17, including Ontario, San Bernardino, Chino and Fullerton | 3,395 t/day | 35% |
+| ShakeOut M7.8, Los Angeles | 8.5M | Long Beach | 17, including Ontario, San Bernardino, Chino and Fullerton | 3,168 t/day | 32% |
 | Cascadia M9.0, Pacific Northwest | 136k | Portland | none; tsunami is not modeled | 3,070 t/day | exceeds need |
-| Seattle Fault M7.5 | 2.4M | Whidbey Island NAS | 4: Sea-Tac, Boeing Field, Renton, Bremerton | 1,315 t/day | 48% |
+| Seattle Fault M7.5 | 2.4M | Paine Field | 4: Sea-Tac, Boeing Field, Renton, Bremerton | 1,252 t/day | 46% |
 | New Madrid M7.7, Memphis | 306k | Memphis | 10 airfields in Arkansas, Missouri and Tennessee | 3,138 t/day | exceeds need |
 | Puerto Rico Trench M8.5 | 2.1M | San Juan | none | 2,110 t/day | 88% |
 
@@ -142,13 +142,13 @@ Seattle and New Madrid use USGS PAGER exposure. The other four use the Census re
 1. Our grid is read at 4,155 cities from the USGS PAGER city lists for nine events and compared with the intensity PAGER assigned. For eight events the mean difference is 0.16 or less. Anchorage is +0.44; its ShakeMap was revised 489 days after PAGER ran, which is a likely cause. The largest single-city difference is 1.53. This checks that the grid is read correctly. It says nothing about whether ShakeMap itself is right.
 2. The parser for the older `grid.xml` format agrees with the current format at 500 random points: mean difference 0.004, largest 0.39.
 3. The fallback distance formula, used only until USGS publishes a ShakeMap, is off by 0.70 intensity units on average across 1,532 airports.
-4. The Census reconstruction, run on events that also have PAGER, gives 0.87 of PAGER's count at MMI VIII and above for the Seattle scenario and 1.05 for New Madrid. Small counts are unreliable.
+4. The Census reconstruction, run on events that also have PAGER, gives 0.87 of PAGER's count at MMI VIII and above for the Seattle scenario and 1.05 for New Madrid. At MMI VII and above the ratios run from 0.47 (Anchorage, where the Census point for a very large municipality sits 33 km from the city) to 0.99. Small counts are unreliable.
 
 The browser port of the model is checked against the Python planner on 135 cases (`node dashboard/test_model.js`).
 
 ## Limitations
 
-- Capacity is an upper bound. Parking spots are assumed from airport size (6, 3 or 1), not taken from real ramp plans.
+- Capacity is an upper bound. Parking spots are assumed from airport size (6 at a large gateway, 3 at a medium one), not taken from real ramp plans.
 - The usability curve is a judgment call, not a fitted model. FEMA's Hazus has published fragility curves that should replace it.
 - Distances are straight lines.
 - The model ignores liquefaction, tsunami, fuel supply, customs, ground handling, weather, airspace limits and road conditions.

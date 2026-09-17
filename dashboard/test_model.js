@@ -5,7 +5,7 @@
 // dashboard/expected.json is written by `uv run dashboard/build.py` from
 // airlift.airbridge.build_plan, for every backtest and scenario under nine
 // assumption sets that span the dashboard's sliders. For each case this test
-// compares the gateway, tonnes delivered, share of need, the airfields flagged
+// compares the gateway, metric tons per day, share of need, the airfields flagged
 // as knocked out and the forward strips in use.
 const fs = require("fs");
 const path = require("path");

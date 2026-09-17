@@ -5,7 +5,8 @@
 #   scripts/check.sh --offline  steps 1 and 2 only, no network
 #
 # Steps 3-5 regenerate backtests/RESULTS.md, backtests/VERIFICATION.md,
-# docs/data.json and dashboard/expected.json. If `git status` then shows
+# docs/data.json and dashboard/expected.json. The airport-table date and hash
+# in RESULTS.md differ on any later day. If `git status` shows other
 # differences beyond the build timestamp, an input changed upstream:
 # OurAirports updates nightly and USGS revises ShakeMaps. RESULTS.md records
 # the input hashes and ShakeMap versions so you can tell which.

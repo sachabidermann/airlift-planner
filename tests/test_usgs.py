@@ -145,7 +145,7 @@ def test_pager_xml_bins_by_rounded_intensity():
     assert exp.main_country() == "NP"
 
 
-@pytest.mark.parametrize("bad", ["../..", "..", "a/b", "", "us7000 pn9s", "x" * 200, "/etc/passwd"])
+@pytest.mark.parametrize("bad", ["../..", "..", ".", ".hidden", "a/b", "", "us7000 pn9s", "x" * 200, "/etc/passwd"])
 def test_event_id_cannot_escape_the_cache(bad):
     with pytest.raises(ValueError):
         fetch_event(bad, refresh=True)

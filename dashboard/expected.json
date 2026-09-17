@@ -478,9 +478,9 @@
      "shuttle_fleet": 40,
      "ops_hours": 24
     },
-    "gateway": "KONT",
-    "delivered": 1883.784,
-    "coverage": 8303.833646,
+    "gateway": "KSBD",
+    "delivered": 1873.663,
+    "coverage": 8259.221716,
     "traps": [],
     "forwards": [
      "00CA",
@@ -540,9 +540,9 @@
     "assumptions": {
      "forward_max_km": 300
     },
-    "gateway": "KONT",
-    "delivered": 2576.473,
-    "coverage": 11357.24873,
+    "gateway": "KSBD",
+    "delivered": 2571.915,
+    "coverage": 11337.156069,
     "traps": [],
     "forwards": [
      "00CA",
@@ -639,13 +639,12 @@
      "forward_max_km": 200,
      "min_usability": 0.6
     },
-    "gateway": "KONT",
-    "delivered": 805.069,
-    "coverage": 3548.794191,
+    "gateway": "KSBD",
+    "delivered": 802.248,
+    "coverage": 3536.356424,
     "traps": [],
     "forwards": [
      "00CA",
-     "04CA",
      "0CL1",
      "0CL8",
      "11CL",
@@ -665,6 +664,7 @@
      "KMHV",
      "KNID",
      "KTSP",
+     "KVCV",
      "KWJF"
     ]
    }
@@ -1989,9 +1989,9 @@
   "sclegacyshakeout2full_se": [
    {
     "assumptions": {},
-    "gateway": "KLAX",
-    "delivered": 3394.898,
-    "coverage": 0.350811,
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
     "traps": [
      "04CA",
      "46CN",
@@ -2012,11 +2012,11 @@
      "KWJF"
     ],
     "forwards": [
+     "4CL4",
      "CA70",
-     "K9L2",
      "KHHR",
      "KL65",
-     "KLGB",
+     "KLAX",
      "KRAL",
      "KSLI",
      "KSMO",
@@ -2027,9 +2027,9 @@
     "assumptions": {
      "shuttle_fleet": 4
     },
-    "gateway": "KLAX",
-    "delivered": 3221.99,
-    "coverage": 0.332944,
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
     "traps": [
      "04CA",
      "46CN",
@@ -2051,7 +2051,7 @@
     ],
     "forwards": [
      "KHHR",
-     "KLGB",
+     "KSLI",
      "KSMO"
     ]
    },
@@ -2060,9 +2060,9 @@
      "shuttle_fleet": 40,
      "ops_hours": 24
     },
-    "gateway": "KLAX",
-    "delivered": 4073.878,
-    "coverage": 0.420974,
+    "gateway": "KLGB",
+    "delivered": 3801.175,
+    "coverage": 0.392794,
     "traps": [
      "04CA",
      "46CN",
@@ -2092,7 +2092,6 @@
      "7CA1",
      "99CL",
      "CA70",
-     "CL46",
      "K9L2",
      "KAJO",
      "KAPV",
@@ -2105,9 +2104,10 @@
      "KL65",
      "KL77",
      "KL94",
-     "KLGB",
+     "KLAX",
      "KNFG",
      "KRAL",
+     "KRIR",
      "KSAS",
      "KSLI",
      "KSMO",
@@ -2163,9 +2163,9 @@
     "assumptions": {
      "forward_max_km": 300
     },
-    "gateway": "KLAX",
-    "delivered": 3394.898,
-    "coverage": 0.350811,
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
     "traps": [
      "04CA",
      "46CN",
@@ -2187,10 +2187,10 @@
     ],
     "forwards": [
      "CA70",
-     "K9L2",
+     "KF70",
      "KHHR",
      "KL65",
-     "KLGB",
+     "KLAX",
      "KRAL",
      "KSLI",
      "KSMO",
@@ -2201,9 +2201,9 @@
     "assumptions": {
      "min_usability": 0.3
     },
-    "gateway": "KLAX",
-    "delivered": 3394.898,
-    "coverage": 0.350811,
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
     "traps": [
      "46CN",
      "63CA",
@@ -2217,11 +2217,11 @@
      "KWJF"
     ],
     "forwards": [
+     "4CL4",
      "CA70",
-     "K9L2",
      "KHHR",
      "KL65",
-     "KLGB",
+     "KLAX",
      "KRAL",
      "KSLI",
      "KSMO",
@@ -2232,9 +2232,9 @@
     "assumptions": {
      "min_usability": 0.8
     },
-    "gateway": "KLAX",
-    "delivered": 3394.898,
-    "coverage": 0.350811,
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
     "traps": [
      "04CA",
      "0CL1",
@@ -2278,11 +2278,11 @@
      "KWJF"
     ],
     "forwards": [
+     "4CL4",
      "CA70",
-     "K9L2",
      "KHHR",
      "KL65",
-     "KLGB",
+     "KLAX",
      "KRAL",
      "KSLI",
      "KSMO",
@@ -2293,9 +2293,9 @@
     "assumptions": {
      "domestic_only": false
     },
-    "gateway": "KLAX",
-    "delivered": 3394.898,
-    "coverage": 0.350811,
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
     "traps": [
      "04CA",
      "46CN",
@@ -2316,11 +2316,11 @@
      "KWJF"
     ],
     "forwards": [
+     "4CL4",
      "CA70",
-     "K9L2",
      "KHHR",
      "KL65",
-     "KLGB",
+     "KLAX",
      "KRAL",
      "KSLI",
      "KSMO",
@@ -2334,9 +2334,9 @@
      "forward_max_km": 200,
      "min_usability": 0.6
     },
-    "gateway": "KLAX",
-    "delivered": 1357.959,
-    "coverage": 0.140325,
+    "gateway": "KLGB",
+    "delivered": 1267.058,
+    "coverage": 0.130931,
     "traps": [
      "04CA",
      "0CL1",
@@ -2368,9 +2368,11 @@
     "forwards": [
      "4CL4",
      "51CA",
+     "6CA5",
      "7CA1",
      "CA70",
      "K9L2",
+     "KAPV",
      "KCPM",
      "KEDW",
      "KF70",
@@ -2379,14 +2381,12 @@
      "KL65",
      "KL77",
      "KL94",
-     "KLGB",
+     "KLAX",
      "KRAL",
      "KSAS",
      "KSLI",
      "KSMO",
-     "KTOA",
-     "KTSP",
-     "KWHP"
+     "KTOA"
     ]
    }
   ],
@@ -2635,9 +2635,9 @@
   "wa22sfz01_se": [
    {
     "assumptions": {},
-    "gateway": "KNUW",
-    "delivered": 1315.493,
-    "coverage": 0.486155,
+    "gateway": "KPAE",
+    "delivered": 1252.105,
+    "coverage": 0.462729,
     "traps": [
      "KBFI",
      "KPWT",
@@ -2648,8 +2648,9 @@
      "K0S9",
      "KAWO",
      "KGRF",
-     "KPAE",
+     "KNRA",
      "KPLU",
+     "KS36",
      "KSHN",
      "KTCM",
      "KTIW",
@@ -2661,9 +2662,9 @@
     "assumptions": {
      "shuttle_fleet": 4
     },
-    "gateway": "KTCM",
-    "delivered": 1256.482,
-    "coverage": 0.464346,
+    "gateway": "KPAE",
+    "delivered": 1252.105,
+    "coverage": 0.462729,
     "traps": [
      "KBFI",
      "KPWT",
@@ -2671,8 +2672,9 @@
      "KSEA"
     ],
     "forwards": [
-     "KGRF",
      "KPLU",
+     "KSHN",
+     "KTCM",
      "KTIW"
     ]
    },
@@ -2731,9 +2733,9 @@
     "assumptions": {
      "forward_max_km": 50
     },
-    "gateway": "KTCM",
-    "delivered": 1256.482,
-    "coverage": 0.464346,
+    "gateway": "KPAE",
+    "delivered": 1252.105,
+    "coverage": 0.462729,
     "traps": [
      "KBFI",
      "KPWT",
@@ -2742,11 +2744,11 @@
     ],
     "forwards": [
      "1WA6",
-     "KPAE",
      "KPLU",
      "KS36",
      "KS50",
      "KSHN",
+     "KTCM",
      "KTIW"
     ]
    },
@@ -2802,9 +2804,9 @@
     "assumptions": {
      "min_usability": 0.8
     },
-    "gateway": "KNUW",
-    "delivered": 1315.493,
-    "coverage": 0.486155,
+    "gateway": "KPAE",
+    "delivered": 1252.105,
+    "coverage": 0.462729,
     "traps": [
      "1WA6",
      "KBFI",
@@ -2815,10 +2817,11 @@
      "KSEA"
     ],
     "forwards": [
+     "3WA9",
      "K0S9",
      "KAWO",
      "KGRF",
-     "KPAE",
+     "KNRA",
      "KPLU",
      "KSHN",
      "KTCM",
@@ -2831,9 +2834,9 @@
     "assumptions": {
      "domestic_only": false
     },
-    "gateway": "KNUW",
-    "delivered": 1315.493,
-    "coverage": 0.486155,
+    "gateway": "KPAE",
+    "delivered": 1252.105,
+    "coverage": 0.462729,
     "traps": [
      "KBFI",
      "KPWT",
@@ -2844,8 +2847,9 @@
      "K0S9",
      "KAWO",
      "KGRF",
-     "KPAE",
+     "KNRA",
      "KPLU",
+     "KS36",
      "KSHN",
      "KTCM",
      "KTIW",
@@ -2860,9 +2864,9 @@
      "forward_max_km": 200,
      "min_usability": 0.6
     },
-    "gateway": "KPDX",
-    "delivered": 593.757,
-    "coverage": 0.219429,
+    "gateway": "KEAT",
+    "delivered": 534.933,
+    "coverage": 0.19769,
     "traps": [
      "1WA6",
      "KBFI",
@@ -2875,7 +2879,7 @@
      "49WA",
      "K0S9",
      "KAWO",
-     "KCLS",
+     "KBVS",
      "KGRF",
      "KNRA",
      "KNUW",

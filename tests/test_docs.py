@@ -58,6 +58,6 @@ def test_quick_start_example_matches_results():
 def test_verification_figures_match():
     assert "Total cities compared: 4,155." in VERIFICATION and "4,155 cities" in README
     pooled = re.search(r"\*\*all events pooled\*\* \| ([\d,]+) \| ([\d.]+) \|", VERIFICATION)
-    assert pooled and f"off by {pooled.group(2)} intensity units on average across {pooled.group(1)} airports" in README.replace(",", "").replace("1532", "1532")
+    assert pooled and f"off by {pooled.group(2)} intensity units on average across {pooled.group(1)} airports" in README.replace(",", "")
     legacy = re.search(r"mean difference ([+-][\d.]+), mean absolute [\d.]+, largest ([\d.]+)", VERIFICATION)
     assert legacy and f"mean difference {legacy.group(1).lstrip('+')}, largest {legacy.group(2)}" in README

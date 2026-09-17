@@ -66,7 +66,12 @@
 
   // airbridge.build_plan. The damage center and each airfield's MMI and
   // distance are computed in Python and arrive in `event`.
+  const NUMERIC_ASSUMPTIONS = ["ops_hours", "shuttle_fleet", "queue_efficiency", "gateway_max_km", "gateway_min_runway_ft",
+    "forward_max_km", "zone_min_mmi", "forward_min_runway_ft", "min_usability", "road_reach_km", "min_sorties", "near_tie"];
+
   function build(event, data, a) {
+    // A missing setting would turn comparisons into NaN and quietly produce an empty plan.
+    for (const k of NUMERIC_ASSUMPTIONS) if (typeof a[k] !== "number" || Number.isNaN(a[k])) throw new Error(`missing assumption: ${k}`);
     const byName = Object.fromEntries(data.aircraft.map((x) => [x.name, x]));
     const CAP = byName[data.medium_airport_cap], SHUTTLE = byName[data.shuttle.name];
     const curve = data.usability_curve;
@@ -142,22 +147,21 @@
       return { gateway: gw, forwards, delivered: Math.min(gw.inflow, byRoad + forwarded) };
     }
 
-    const better = (x, y) => {
-      if (!y) return true;
-      if (Math.abs(x.delivered - y.delivered) > 1e-9) return x.delivered > y.delivered;
-      return x.gateway.field.dist < y.gateway.field.dist;
-    };
-
-    let bestD = null, bestF = null;
-    for (const g of gateways) {
-      const o = workOut(g);
-      if (sameCountry(g.field.country, country, AL)) { if (better(o, bestD)) bestD = o; }
-      else if (better(o, bestF)) bestF = o;
+    // airbridge.pick: the nearest of the options within near_tie of the best capacity
+    function pick(options) {
+      options = options.filter((o) => o.delivered > 0);
+      if (!options.length) return null;
+      const best = Math.max(...options.map((o) => o.delivered));
+      const close = options.filter((o) => o.delivered >= best * (1 - a.near_tie));
+      close.sort((x, y) => x.gateway.field.dist - y.gateway.field.dist || y.delivered - x.delivered);
+      return close[0];
     }
 
-    let chosen, alternatives;
-    if (bestD && bestD.delivered > 0) { chosen = bestD; alternatives = bestF ? [bestF] : []; }
-    else { chosen = bestF; alternatives = bestD ? [bestD] : []; }
+    const options = gateways.map(workOut);
+    const bestD = pick(options.filter((o) => sameCountry(o.gateway.field.country, country, AL)));
+    const bestF = pick(options.filter((o) => !sameCountry(o.gateway.field.country, country, AL)));
+    const chosen = bestD || bestF;
+    const alternatives = bestD && bestF ? [bestF] : [];
 
     const delivered = chosen ? chosen.delivered : 0;
     const people = (delivered * 1000) / data.demand.kg_per_person_day;
@@ -174,7 +178,7 @@
     }
     for (const alt of alternatives) if (alt.gateway.field.role === "candidate") alt.gateway.field.role = "alternative";
 
-    return { event, country, demand: dem, chosen, alternatives, delivered, people, coverage, traps, naive, fields, assumptions: a };
+    return { event, country, demand: dem, chosen, alternatives, delivered, people, coverage, traps, naive, fields, candidates: gateways.length, assumptions: a };
   }
 
   const api = { build, usability, roman, haversine, directCredit, stripCredit, demand, sameCountry };

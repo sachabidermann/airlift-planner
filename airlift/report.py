@@ -31,7 +31,8 @@ def render_text(plan: Plan) -> str:
     lines.append("")
     if not any(f.mmi >= 6 for f in plan.fields):
         lines.append("note: no airfield was shaken above MMI V; little or no airlift need is expected. The plan below is hypothetical.")
-    lines.append(f"damage center        {plan.center[0]:.2f}, {plan.center[1]:.2f}   (weighted by {plan.center_basis})")
+    basis = "the epicenter" if plan.center_basis == "epicenter" else f"weighted by {plan.center_basis}"
+    lines.append(f"damage center        {plan.center[0]:.2f}, {plan.center[1]:.2f}   ({basis})")
     if plan.demand:
         d = plan.demand
         lines.append(f"exposure source      {ev.exposure.source}")
@@ -59,8 +60,11 @@ def render_text(plan: Plan) -> str:
             )
 
     lines.append("")
-    if plan.gateway is None:
-        lines.append(f"no usable gateway: no airport within {a.gateway_max_km:,.0f} km has a paved runway of "
+    if plan.gateway is None and plan.gateway_candidates:
+        lines.append(f"no gateway chosen: {plan.gateway_candidates} airports qualify, but none is within {a.forward_max_km:,.0f} km "
+                     "of the damage center and no forward strip is usable, so nothing can reach the zone")
+    elif plan.gateway is None:
+        lines.append(f"no usable gateway: no large or medium airport within {a.gateway_max_km:,.0f} km has a runway of "
                      f"{a.gateway_min_runway_ft:,} ft or more and usability of {pct(a.min_usability)} or more")
     else:
         g = plan.gateway

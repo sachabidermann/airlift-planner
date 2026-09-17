@@ -25,7 +25,7 @@ Steps 3 to 5 download about 100 MB into `data/` on the first run, from `earthqua
 
 ### 1. Unit tests: `uv run pytest -q`
 
-Expected: every test passes (66 at the time of writing). No network; every test builds its own small inputs, except `tests/test_docs.py`, which reads the committed reports.
+Expected: every test passes (70 at the time of writing). No network; every test builds its own small inputs, except `tests/test_docs.py`, which reads the committed reports.
 
 | file | what it proves |
 |---|---|
@@ -43,7 +43,7 @@ The dashboard runs a JavaScript port of the planner (`docs/model.js`). `dashboar
 
 Writes `backtests/RESULTS.md`. Its first section records the inputs: the download date and SHA-256 of the airport tables, and the ShakeMap version and date for every event. Then a scorecard for the nine real events, a table for the six scenarios, and one section per event with the model's values at the airports that mattered, the plan, what actually happened, and sources.
 
-The tables in `README.md` are copied from this file. `tests/test_docs.py` fails if they disagree.
+The tables in `README.md` are copied from this file. `tests/test_docs.py` fails if the scorecard sentence, the match column, the scenario table's numbers or the headline verification figures disagree with the generated reports.
 
 What happened in each earthquake, and the source for each statement, is in `backtests/events.py`.
 
@@ -62,7 +62,7 @@ Rebuilds `docs/data.json` and `dashboard/expected.json` from fresh downloads and
 
 ## If results differ from the committed files
 
-After step 5, `git status` should show `docs/data.json` changed (it carries a build timestamp and the past week's earthquakes). If `RESULTS.md` also changed, an input changed upstream: OurAirports is updated nightly, and USGS revises ShakeMaps, sometimes years later. Compare the Inputs section of `RESULTS.md` with the committed one to see which.
+After step 5, `git status` should show `docs/data.json` changed (it carries a build timestamp and the past week's earthquakes). Expect the two airport-table lines in the Inputs section of `RESULTS.md` to differ on any later day, because OurAirports publishes a new file nightly. Any other difference in `RESULTS.md` means a result changed, which means an input changed upstream: OurAirports is updated nightly, and USGS revises ShakeMaps, sometimes years later. Compare the Inputs section of `RESULTS.md` with the committed one to see which.
 
 To re-fetch one event's USGS products: `uv run main.py --quake <id> --refresh`. To start clean, delete `data/`.
 
@@ -75,7 +75,7 @@ uv run main.py --quake us6000jllz --fleet 24 --forward-km 200
 
 The output lists every airfield flagged, the gateway with its inflow, each forward strip with leg, sorties and tons, and the totals. The formulas are in [METHOD.md](METHOD.md), so any line can be recomputed with a calculator. Example, SFO in the HayWired scenario:
 
-    6 spots x 100 t x (20 h / 3.0 h) x 0.85 x 0.929 usability = 3,160 t/day
+    6 spots x 100 t x (20 h / 3.0 h) x 0.85 x 0.9293 usability = 3,160 t/day
 
 ## The dashboard
 

@@ -41,7 +41,7 @@ OurAirports changes nightly and USGS revises ShakeMaps, so results are tied to t
 | Nepal 2015, M7.8 | none | none; Kathmandu runway later damaged by heavy jets | VNKT Tribhuvan International Airport | Kathmandu | yes |
 | Turkey 2023, M7.8 | LTCN (48%), LTDA (34%) | Hatay (runway fractured, closed six days) | LTAJ Gaziantep Oğuzeli International Airport | Adana and Incirlik | no |
 | Morocco 2023, M6.8 | none | none | GMMX Marrakesh Menara Airport | Marrakech | yes |
-| Myanmar 2025, M7.7 | VYST (38%), VYMD (19%), VYNT (23%), VYCZ (39%), VYTO (41%) | Nay Pyi Taw (tower collapsed) and Mandalay (runway, terminal and radar damage), both for a week | VYHH Heho Airport | Yangon | no |
+| Myanmar 2025, M7.7 | VYST (38%), VYMD (19%), VYNT (23%), VYCZ (39%), VYTO (41%) | Nay Pyi Taw (tower collapsed) and Mandalay (runway, terminal and radar damage), both closed to commercial flights for a week | VYHH Heho Airport | Yangon | no |
 
 Gateway matches in 3 of the 5 events where a relief gateway was used. Events with no relief airlift are not scored on gateway choice.
 
@@ -50,9 +50,9 @@ Gateway matches in 3 of the 5 events where a relief gateway was used. Events wit
 | scenario | people at MMI VIII+ | gateway | flagged as likely knocked out | airlift capacity | share of need |
 |---|---:|---|---:|---:|---:|
 | HayWired scenario, M7.0 Hayward Fault (San Francisco Bay Area) | 5.4M | KSFO San Francisco International Airport | 9 | 3,160 t/day | 51% |
-| ShakeOut scenario, M7.8 southern San Andreas (Los Angeles) | 8.5M | KLAX Los Angeles International Airport | 17 | 3,395 t/day | 35% |
+| ShakeOut scenario, M7.8 southern San Andreas (Los Angeles) | 8.5M | KLGB Long Beach International Airport | 17 | 3,168 t/day | 32% |
 | Cascadia scenario, M9.0 subduction zone (Pacific Northwest) | 136k | KPDX Portland International Airport | 0 | 3,070 t/day | exceeds need |
-| Seattle Fault scenario, M7.5 (Seattle) | 2.4M | KNUW Whidbey Island Naval Air Station (Ault Field) | 4 | 1,315 t/day | 48% |
+| Seattle Fault scenario, M7.5 (Seattle) | 2.4M | KPAE Seattle Paine Field International Airport | 4 | 1,252 t/day | 46% |
 | New Madrid scenario, M7.7 (Memphis) | 306k | KMEM Frederick W. Smith International Airport | 10 | 3,138 t/day | exceeds need |
 | Puerto Rico Trench scenario, M8.5 (Caribbean) | 2.1M | TJSJ Luis Munoz Marin International Airport | 0 | 2,110 t/day | 88% |
 
@@ -232,7 +232,7 @@ Shaking: USGS ShakeMap v1, 2020-07-07. Exposure: USGS PAGER. PAGER alert: red.
 
 **What happened**
 
-Kathmandu (VNKT) was the only international airport and saturated. Heavy jets damaged the runway and aircraft over 196 tonnes were banned. Indian Air Force helicopters flew from Pokhara (VNPK). Pokhara International (listed as NP-0003) opened in 2023 and did not exist at the time.
+Kathmandu (VNKT) was the only international airport and saturated. Heavy jets damaged the runway and aircraft over 196 metric tons were banned. Indian Air Force helicopters flew from Pokhara (VNPK). Pokhara International (listed as NP-0003) opened in 2023 and did not exist at the time.
 
 Sources:
 
@@ -324,7 +324,7 @@ Shaking: USGS ShakeMap v23, 2025-06-06. Exposure: USGS PAGER. PAGER alert: red.
 - Gateway: **VYHH Heho Airport**, 75 km, MMI VII, inflow 1,241 t/day
 - Forward strips: VYPU Pakhokku Airport (61 t/day), VYMY Monywar Airport (56 t/day), VYAS Anisakan Airport (53 t/day), VYBG Bagan Airport (14 t/day), VYLY Lanywa Airport (12 t/day), and 2 more
 - Flagged as likely knocked out: VYST Shante Air Base (MMI IX, 38%), VYMD Mandalay International Airport (MMI X, 19%), VYNT Nay Pyi Taw International Airport (MMI IX, 23%), VYCZ Chanmyathazi Airport (MMI IX, 39%), VYTO Taungoo Airport (MMI IX, 41%)
-- Best foreign alternative: ZPJM Lancang Jingmai Airport, capacity 278 t/day
+- Best foreign alternative: VTCC Chiang Mai International Airport, capacity 278 t/day
 - Airlift capacity into zone: **1,150 t/day** (upper bound), enough for about 1.0M people, 10% of estimated need
 
 **What happened**
@@ -389,11 +389,11 @@ Shaking: USGS ShakeMap v5, 2019-08-10. Exposure: US Census 2023 reconstruction (
 
 **Plan**
 
-- Gateway: **KLAX Los Angeles International Airport**, 65 km, MMI V, inflow 3,395 t/day
-- Forward strips: KHHR Jack Northrop Field Hawthorne Municipal Airport (147 t/day), KSMO Santa Monica Municipal Airport (146 t/day), KLGB Long Beach International Airport (215 t/day), KTOA Zamperini Field (68 t/day), KSLI Los Alamitos Army Air Field (135 t/day), and 4 more
+- Gateway: **KLGB Long Beach International Airport**, 47 km, MMI VII, inflow 3,168 t/day
+- Forward strips: KHHR Jack Northrop Field Hawthorne Municipal Airport (145 t/day), KSMO Santa Monica Municipal Airport (142 t/day), KSLI Los Alamitos Army Air Field (139 t/day), KTOA Zamperini Field (68 t/day), KL65 Perris Valley Airport (67 t/day), and 4 more
 - Flagged as likely knocked out: KCNO Chino Airport (MMI IX, 38%), KONT Ontario International Airport (MMI VIII, 45%), KCCB Upland-Cable Airport (MMI IX, 44%), KPOC Brackett Field (MMI IX, 43%), KFUL Fullerton Municipal Airport (MMI IX, 36%), KEMT San Gabriel Valley Airport (MMI X, 10%), KSBD San Bernardino International Airport (MMI X, 11%), KREI Redlands Municipal Airport (MMI X, 19%), 46CN Crystal Airport (MMI X, 10%), 04CA Gray Butte Field (MMI IX, 38%), KPMD Palmdale Regional Airport / USAF Plant 42 Airport (MMI X, 10%), KWJF General William J Fox Airfield (MMI X, 10%), KL00 Rosamond Skypark Airport (MMI IX, 31%), KPSP Palm Springs International Airport (MMI X, 17%), KUDD Bermuda Dunes Airport (MMI X, 10%), KTRM Jacqueline Cochran Regional Airport (MMI X, 10%), 63CA Desert Air Sky Ranch Airport (MMI X, 10%)
 - Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 864 t/day
-- Airlift capacity into zone: **3,395 t/day** (upper bound), enough for about 3.0M people, 35% of estimated need
+- Airlift capacity into zone: **3,168 t/day** (upper bound), enough for about 2.8M people, 32% of estimated need
 
 **About this scenario**
 
@@ -452,11 +452,11 @@ Shaking: USGS ShakeMap v1, 2024-04-01. Exposure: USGS PAGER. PAGER alert: red.
 
 **Plan**
 
-- Gateway: **KNUW Whidbey Island Naval Air Station (Ault Field)**, 95 km, MMI VI, inflow 1,315 t/day
-- Forward strips: KPAE Seattle Paine Field International Airport (140 t/day), KSHN Sanderson Field (65 t/day), KTCM McChord Air Force Base (130 t/day), KPLU Pierce County-Thun Field (65 t/day), KTIW Tacoma Narrows Airport (127 t/day), and 5 more
+- Gateway: **KPAE Seattle Paine Field International Airport**, 41 km, MMI VI, inflow 1,252 t/day
+- Forward strips: KTCM McChord Air Force Base (136 t/day), KPLU Pierce County-Thun Field (68 t/day), KSHN Sanderson Field (67 t/day), KTIW Tacoma Narrows Airport (133 t/day), KGRF Gray Army Air Field (130 t/day), and 6 more
 - Flagged as likely knocked out: KBFI King County International Airport - Boeing Field (MMI IX, 36%), KRNT Renton Municipal Airport (MMI IX, 42%), KSEA Seattle–Tacoma International Airport (MMI VIII, 46%), KPWT Bremerton National Airport (MMI VIII, 45%)
 - Best foreign alternative: CYYJ Victoria International Airport, capacity 864 t/day
-- Airlift capacity into zone: **1,315 t/day** (upper bound), enough for about 1.2M people, 48% of estimated need
+- Airlift capacity into zone: **1,252 t/day** (upper bound), enough for about 1.1M people, 46% of estimated need
 
 **About this scenario**
 

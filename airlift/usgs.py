@@ -274,7 +274,7 @@ class Exposure:
 
         PAGER splits the United States into internal region codes (WU west,
         EU east, XF California); they are counted as US. Pass the set of real
-        country codes as `valid` to ignore anything else unrecognised.
+        country codes as `valid` to ignore anything else unrecognized.
         """
         totals: dict[str, int] = {}
         for code, levels in self.by_country.items():
@@ -347,9 +347,9 @@ def _cached_get(url: str, dest: Path) -> bytes:
     """Download once. Written to a temporary name first so a failed download never leaves a partial file."""
     if dest.exists():
         return dest.read_bytes()
-    dest.parent.mkdir(parents=True, exist_ok=True)
     response = requests.get(url, timeout=600)
     response.raise_for_status()
+    dest.parent.mkdir(parents=True, exist_ok=True)
     tmp = dest.with_name(dest.name + ".part")
     tmp.write_bytes(response.content)
     tmp.replace(dest)
@@ -373,7 +373,7 @@ def fetch_event(quake_id: str, refresh: bool = False) -> Event:
     """
     # The id becomes a folder name that refresh later deletes, so it must be a
     # plain USGS id and nothing that can climb out of the cache directory.
-    if not re.fullmatch(r"[A-Za-z0-9_.]{1,80}", quake_id) or ".." in quake_id:
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.]{0,79}", quake_id) or ".." in quake_id:
         raise ValueError(f"not a USGS event id: {quake_id!r}")
     folder = CACHE_DIR / quake_id
     if not refresh:

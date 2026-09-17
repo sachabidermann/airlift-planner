@@ -17,7 +17,7 @@ Only large, medium and small airports are used. Heliports, seaplane bases, close
 
 ## 2. Airfield usability
 
-`survivability.py` maps MMI at the airfield to the probability that it can take relief flights in the first days. Linear between these points:
+`survivability.py` maps MMI (the Modified Mercalli Intensity scale, I to XII; ShakeMap reports up to X) at the airfield to the probability that it can take relief flights in the first days. Linear between these points:
 
 | MMI | V | VI | VII | VIII | IX | X |
 |---|---|---|---|---|---|---|
@@ -52,7 +52,7 @@ When need is under 5 t/day the "share of need" figure is not shown.
 
 For US events without PAGER (`population.py`): every incorporated place is a point with its 2023 population, and what is left of each county after subtracting its places is spread over a disc the size of the county. Puerto Rico uses municipio populations. Each point is sampled against the ShakeMap grid and binned by rounded intensity, as PAGER does. A place's people are spread over its land area but never thinner than 1,000 per km². The national total of the points equals the Census county total, and the code checks that on load.
 
-`backtests/VERIFICATION.md`, section 4, runs this method on US events that do have PAGER. At MMI VIII and above it gives 0.87 of PAGER's count for the Seattle Fault scenario and 1.05 for New Madrid. Small counts are unreliable. It counts US residents only and uses 2023 population even for the 1989 replay.
+`backtests/VERIFICATION.md`, section 4, runs this method on US events that do have PAGER. At MMI VIII and above it gives 0.87 of PAGER's count for the Seattle Fault scenario and 1.05 for New Madrid. At MMI VII and above the ratios run from 0.47 to 0.99. The low end is Anchorage: the Census point for that very large municipality sits 33 km from the city, where the shaking was weaker. Small counts are unreliable. It counts US residents only and uses 2023 population even for the 1989 replay.
 
 ## 4. Damage center
 
@@ -81,8 +81,8 @@ Shuttle legs use the C-130J's AFPAM block speed, 530 km/h.
 | assumption | value | basis |
 |---|---|---|
 | Airfield operating hours | 20 per day | AFPAM tabulates 10, 16 and 24. |
-| Gateway parking spots | 6 large, 3 medium, 1 small airport | Judgment. Real ramp plans are not public. Port-au-Prince in 2010 had six unloading spots, which were the bottleneck (Veatch and Goentzel 2018, https://www.emerald.com/jhlscm/article/8/4/430/223654/Feeding-the-bottleneck-airport-congestion-during ). |
-| Forward strip parking spots | 3, 2, 1 | Judgment. |
+| Gateway parking spots | 6 at a large airport, 3 at a medium one (small airports are never gateways) | Judgment. Real ramp plans are not public. Port-au-Prince in 2010 had six unloading spots, which were the bottleneck (Veatch and Goentzel 2018, https://www.emerald.com/jhlscm/article/8/4/430/223654/Feeding-the-bottleneck-airport-congestion-during ). |
+| Forward strip parking spots | 3 large, 2 medium, 1 small | Judgment. |
 | Shuttle fleet | 12 C-130s | Judgment; a dashboard slider. |
 | Medium airports capped at the C-17 | | Judgment: they rarely have the pavement strength or ramp for a C-5 or 747. |
 
@@ -90,7 +90,7 @@ Because parking spots are assumed, capacity is an upper bound. It is not a forec
 
 ### Gateway
 
-A gateway candidate is a large or medium airport within 1,000 km of the damage center, with a paved or unpaved runway of 7,000 ft or more that at least one aircraft can use, and usability of at least the minimum. Every candidate is worked out in full and the one that moves the most cargo into the zone wins; ties go to the nearer. Gateways in the affected country are preferred, and US territories count as domestic. A foreign gateway is chosen only if no domestic one can move anything. The best option on the other side is reported as the alternative.
+A gateway candidate is a large or medium airport within 1,000 km of the damage center, with a paved or unpaved runway of 7,000 ft or more that at least one aircraft can use, and usability of at least the minimum. Every candidate is worked out in full. The one that moves the most cargo into the zone wins, except that candidates within 10% of the best count as tied and the nearest of them wins: a few percent of capacity is inside the model's precision and should not outrank being closer to the damage. A candidate that can move nothing is never chosen. Gateways in the affected country are preferred, and US territories count as domestic. A foreign gateway is chosen only if no domestic one can move anything. The best option on the other side is reported as the alternative.
 
 ### Zone and road share
 

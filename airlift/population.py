@@ -17,8 +17,10 @@ are binned by intensity.
 Limits: US residents only (a grid that reaches Canada or Mexico misses those
 people); 2023 population even for a 1989 replay; places are discs, not real
 boundaries. backtests/verify_shaking.py compares this reconstruction with
-PAGER on the events that have both. Expect agreement within about 15 percent
-where hundreds of thousands of people are involved, and much worse for small
+PAGER on the events that have both: within 15 percent at MMI VIII and above on
+the two scenarios with PAGER, and from 0.47 to 0.99 of PAGER at MMI VII and
+above. It is far off where a municipality is much larger than its built-up
+area (the Census point for Anchorage is 33 km from the city), and for small
 counts.
 """
 

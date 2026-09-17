@@ -2,7 +2,7 @@
 
     uv run backtests/verify_shaking.py
 
-Writes backtests/VERIFICATION.md with three checks:
+Writes backtests/VERIFICATION.md with four checks:
 
 1. Grid vs PAGER cities. PAGER publishes the intensity it assigned to each
    city near a quake. We read our grid at the same coordinates and compare.
@@ -152,7 +152,7 @@ def main() -> int:
             real, mine = ev.exposure.at_least(level), ours.at_least(level)
             cells += [f"{real:,}", f"{mine:,}", f"{mine / real:.2f}" if real else "n/a"]
         md.append(f"| {meta['name']} | " + " | ".join(cells) + " |")
-        print(f"census vs pager {meta['id']:26} VIII+ {cells[3]} vs {cells[4]}")
+        print(f"pager vs census {meta['id']:26} VIII+ {cells[3]} vs {cells[4]}")
     md.append("")
 
     out = Path(__file__).resolve().parent / "VERIFICATION.md"

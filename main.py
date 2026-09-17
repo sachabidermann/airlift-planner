@@ -44,15 +44,19 @@ def main() -> int:
         else:
             quake_id = args.quake
         event = ensure_exposure(fetch_event(quake_id, refresh=args.refresh))
+        airports = load_airports()
+    except ValueError as err:
+        print(err, file=sys.stderr)
+        return 1
     except requests.HTTPError as err:
         code = err.response.status_code if err.response is not None else "?"
         print(f"USGS returned HTTP {code}. Check the event id (see --list, or https://earthquake.usgs.gov/earthquakes/map/).", file=sys.stderr)
         return 1
     except requests.RequestException as err:
-        print(f"network error talking to USGS: {err}", file=sys.stderr)
+        print(f"network error: {err}", file=sys.stderr)
         return 1
 
-    plan = build_plan(event, load_airports(), Assumptions(shuttle_fleet=args.fleet, forward_max_km=args.forward_km))
+    plan = build_plan(event, airports, Assumptions(shuttle_fleet=args.fleet, forward_max_km=args.forward_km))
     print(render_text(plan))
     return 0
 

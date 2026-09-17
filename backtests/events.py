@@ -93,7 +93,7 @@ EVENTS = [
         "hub_used": ["VNKT"], "hub_text": "Kathmandu",
         "happened": (
             "Kathmandu (VNKT) was the only international airport and saturated. Heavy jets damaged the runway and aircraft "
-            "over 196 tonnes were banned. Indian Air Force helicopters flew from Pokhara (VNPK). Pokhara International "
+            "over 196 metric tons were banned. Indian Air Force helicopters flew from Pokhara (VNPK). Pokhara International "
             "(listed as NP-0003) opened in 2023 and did not exist at the time."
         ),
         "sources": [
@@ -136,7 +136,7 @@ EVENTS = [
     {
         "id": "us7000pn9s", "name": "Myanmar 2025, M7.7", "group": "intl-real",
         "watch": ["VYMD", "VYNT", "VYYY", "VYHH"],
-        "closed": "Nay Pyi Taw (tower collapsed) and Mandalay (runway, terminal and radar damage), both for a week",
+        "closed": "Nay Pyi Taw (tower collapsed) and Mandalay (runway, terminal and radar damage), both closed to commercial flights for a week",
         "hub_used": ["VYYY"], "hub_text": "Yangon",
         "happened": (
             "Nay Pyi Taw (VYNT) lost its control tower; Mandalay (VYMD) had runway, terminal and radar damage. Both closed to "

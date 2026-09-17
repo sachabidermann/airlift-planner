@@ -10,8 +10,8 @@ from datetime import datetime, timezone
 import pytest
 
 from airlift.aircraft import C17, SHUTTLE, SHUTTLE_BLOCK_KMH, B747F
-from airlift.airbridge import (Assumptions, allocate_shuttles, build_plan, damage_center, direct_credit,
-                               evaluate_fields, gateway_candidates, strip_credit)
+from airlift.airbridge import (Assumptions, Field, Gateway, Option, allocate_shuttles, build_plan, damage_center,
+                               direct_credit, evaluate_fields, gateway_candidates, pick, strip_credit)
 from airlift.airports import Airport
 from airlift.geo import distance_km
 from airlift.usgs import Event, Exposure, Quake, ShakeGrid
@@ -146,3 +146,24 @@ def test_no_exposure_means_no_coverage_figure():
 def test_no_airports_in_range():
     plan = build_plan(event(), [airport("FAR", 40.0, 40.0, "large_airport", 12000)])
     assert plan.gateway is None and plan.delivered_tpd == 0 and plan.traps == []
+
+
+def option(ident, dist_km, delivered):
+    f = Field(airport=airport(ident, 0, 0, "large_airport", 10000), dist_km=dist_km, mmi=5.0, usability=1.0, best_aircraft=B747F, in_zone=False)
+    return Option(gateway=Gateway(field=f, aircraft=B747F, inflow_tpd=delivered), forwards=[], delivered_tpd=delivered)
+
+
+def test_near_ties_go_to_the_nearer_gateway():
+    a = Assumptions()
+    far_best, near_close, near_weak = option("FARB", 200, 1000), option("NEAR", 40, 950), option("WEAK", 10, 800)
+    assert pick([far_best, near_close, near_weak], a).gateway.field.airport.ident == "NEAR"   # within 10% of the best, and nearer
+    assert pick([far_best, near_weak], a).gateway.field.airport.ident == "FARB"               # 20% worse is not a tie
+    assert pick([option("ZERO", 5, 0.0)], a) is None and pick([], a) is None                  # moving nothing is not an option
+
+
+def test_candidates_that_reach_nothing_are_reported_not_chosen():
+    # A good airport 400 km away and no usable strip in the zone: it qualifies, but nothing reaches the zone.
+    lonely = [airport("AWAY", 3.6, 0.0, "large_airport", 12000)]
+    plan = build_plan(event(), lonely)
+    assert plan.gateway is None and plan.delivered_tpd == 0
+    assert plan.gateway_candidates == 1 and plan.alternatives == []

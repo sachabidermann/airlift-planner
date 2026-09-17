@@ -47,10 +47,11 @@ class Assumptions:
     road_reach_km: float = 50      # cargo landing this close to the damage center counts in full;
                                    # the share falls in a straight line to zero at forward_max_km
     min_sorties: float = 0.5       # a strip that gets less than this per day is not used
+    near_tie: float = 0.10         # gateways within this share of the best are treated as equal; the nearer wins
     domestic_only: bool = True     # forward strips must be in the affected country
     # Assumed working parking spots by OurAirports size class. Port-au-Prince in
     # 2010 had six unloading spots (Veatch and Goentzel 2018).
-    mog_gateway: dict = field(default_factory=lambda: {"large_airport": 6, "medium_airport": 3, "small_airport": 1})
+    mog_gateway: dict = field(default_factory=lambda: {"large_airport": 6, "medium_airport": 3})   # small airports are never gateways
     mog_forward: dict = field(default_factory=lambda: {"large_airport": 3, "medium_airport": 2, "small_airport": 1})
 
 
@@ -107,6 +108,7 @@ class Plan:
     naive_pick: Field | None        # what a nearest-airfield rule would choose
     assumptions: Assumptions
     fields: list[Field]
+    gateway_candidates: int = 0     # airports that passed the gateway filters, whether or not any could reach the zone
 
     @property
     def gateway(self) -> Gateway | None:
@@ -154,7 +156,7 @@ def damage_center(event: Event, airports: list[Airport] | None = None) -> tuple[
                 w_sum, lat_sum, lon_sum = w_sum + w, lat_sum + w * lat, lon_sum + w * lon
     if w_sum == 0:
         return (q.lat, q.lon), "epicenter"
-    return (lat_sum / w_sum, lon_sum / w_sum), basis
+    return (lat_sum / w_sum, (lon_sum / w_sum + 180) % 360 - 180), basis
 
 
 def evaluate_fields(event: Event, airports: list[Airport], center, a: Assumptions) -> list[Field]:
@@ -262,12 +264,18 @@ def work_out(gw: Gateway, strips: list[Field], a: Assumptions) -> Option:
     return Option(gateway=gw, forwards=forwards, delivered_tpd=min(gw.inflow_tpd, by_road + forwarded))
 
 
-def _better(x: Option, y: Option | None) -> bool:
-    if y is None:
-        return True
-    if abs(x.delivered_tpd - y.delivered_tpd) > 1e-9:
-        return x.delivered_tpd > y.delivered_tpd
-    return x.gateway.field.dist_km < y.gateway.field.dist_km
+def pick(options: list[Option], a: Assumptions) -> Option | None:
+    """The nearest of the options whose capacity is within `near_tie` of the best.
+
+    A few percent of capacity is inside the model's precision, so it should not
+    outrank being closer to the damage. Options that move nothing are ignored.
+    """
+    options = [o for o in options if o.delivered_tpd > 0]
+    if not options:
+        return None
+    best = max(o.delivered_tpd for o in options)
+    close = [o for o in options if o.delivered_tpd >= best * (1 - a.near_tie)]
+    return min(close, key=lambda o: (o.gateway.field.dist_km, -o.delivered_tpd))
 
 
 # --------------------------------------------------------------------------- main entry
@@ -288,21 +296,14 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
     # Every candidate is worked out in full; pre-ranking on inflow would drop a
     # slightly shaken airport near the damage in favor of distant ones.
     cands = gateway_candidates(fields, a)
-    best_domestic = best_foreign = None
-    for gw in cands:
-        opt = work_out(gw, strips, a)
-        if same_country(gw.field.airport.country, country):
-            if _better(opt, best_domestic):
-                best_domestic = opt
-        elif _better(opt, best_foreign):
-            best_foreign = opt
+    options = [work_out(gw, strips, a) for gw in cands]
+    best_domestic = pick([o for o in options if same_country(o.gateway.field.airport.country, country)], a)
+    best_foreign = pick([o for o in options if not same_country(o.gateway.field.airport.country, country)], a)
 
     # Domestic first; a cross-border gateway needs clearance. Foreign only if
-    # nothing domestic works.
-    if best_domestic and best_domestic.delivered_tpd > 0:
-        chosen, alternatives = best_domestic, [o for o in [best_foreign] if o]
-    else:
-        chosen, alternatives = best_foreign, [o for o in [best_domestic] if o]
+    # nothing domestic can move anything into the zone.
+    chosen = best_domestic or best_foreign
+    alternatives = [best_foreign] if best_domestic and best_foreign else []
 
     delivered = chosen.delivered_tpd if chosen else 0.0
     people = delivered * 1000 / demand_model.KG_PER_PERSON_DAY
@@ -319,5 +320,5 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
     return Plan(
         event=event, center=center, center_basis=basis, country=country, demand=dem,
         chosen=chosen, alternatives=alternatives, people_sustained=people, coverage=coverage,
-        traps=traps, naive_pick=naive, assumptions=a, fields=fields,
+        traps=traps, naive_pick=naive, assumptions=a, fields=fields, gateway_candidates=len(cands),
     )
