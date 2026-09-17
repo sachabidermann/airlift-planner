@@ -1,18 +1,24 @@
-"""Design a two-tier airbridge for an earthquake.
+"""Plan a two-tier airbridge for an earthquake.
 
-Real relief airlifts are hub-and-spoke: heavy jets fly into a large,
-undamaged "gateway" airport, and smaller aircraft shuttle cargo the last
-100-200 km into strips inside the damage zone. The binding constraints are
-ramp space (how many aircraft can be on the ground at once) and turnaround
-time, not runway length.
+Heavy jets fly into a gateway airport. C-130s shuttle cargo from there into
+airfields inside the damage zone. Steps:
 
-This module:
-  1. finds the centre of the damage (shaking-weighted, not the epicentre)
-  2. scores every airfield nearby for shaking damage and aircraft fit
-  3. picks the gateway that maximises cargo actually delivered into the zone,
-     preferring one inside the affected country
-  4. allocates a shuttle fleet across forward strips
-  5. compares delivered tonnes per day with estimated demand
+  1. find the center of the damage, weighted by shaking and by where people are
+  2. score every airfield in range: shaking, usability, which aircraft fit
+  3. work out every candidate gateway in full and keep the one that moves the
+     most cargo into the zone, preferring gateways in the affected country
+  4. spread the shuttle fleet over forward strips
+  5. compare capacity with estimated need
+
+Throughput follows Air Force Pamphlet 10-1403, Air Mobility Planning Factors
+(2018), formula 9.0:
+
+    tons per day = parking spots x planning payload x operating hours / ground time x 0.85
+
+The 0.85 is the pamphlet's queuing efficiency. Parking spots ("maximum on
+ground", MOG) are assumed from airport size, because real ramp plans are not
+public. The result is a capacity, an upper bound on what an airlift could
+move, not a forecast of what one would deliver.
 """
 
 from __future__ import annotations
@@ -20,7 +26,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from . import demand as demand_model
-from .aircraft import C17, SHUTTLE, Aircraft, biggest_usable
+from .aircraft import C17, SHUTTLE, SHUTTLE_BLOCK_KMH, Aircraft, biggest_usable
 from .airports import Airport
 from .geo import distance_km, same_country
 from .survivability import runway_usability
@@ -29,28 +35,31 @@ from .usgs import Event
 
 @dataclass(frozen=True)
 class Assumptions:
-    ops_hours: float = 20          # flying hours per day (night ops, crew limits)
-    shuttle_fleet: int = 12        # C-130-class aircraft available for the forward leg
-    gateway_max_km: float = 1000   # how far a gateway may be from the damage centre
+    ops_hours: float = 20          # airfield operating hours per day (AFPAM tabulates 10, 16 and 24)
+    shuttle_fleet: int = 12        # C-130s available for the gateway-to-strip leg
+    queue_efficiency: float = 0.85  # AFPAM 10-1403 formula 9.0
+    gateway_max_km: float = 1000   # how far a gateway may be from the damage center
     gateway_min_runway_ft: int = 7000
-    forward_max_km: float = 150    # inside the zone if this close to the damage centre...
+    forward_max_km: float = 150    # inside the zone if this close to the damage center...
     zone_min_mmi: float = 6.5      # ...or if shaken this hard (handles long ruptures)
     forward_min_runway_ft: int = 3000
-    min_usability: float = 0.5     # below this an airfield is "likely knocked out"
-    road_reach_km: float = 50      # cargo landing this close to the damage centre counts in full;
-                                   # credit fades to zero at forward_max_km (trucks, first days)
+    min_usability: float = 0.5     # below this an airfield is flagged as likely knocked out
+    road_reach_km: float = 50      # cargo landing this close to the damage center counts in full;
+                                   # the share falls in a straight line to zero at forward_max_km
+    min_sorties: float = 0.5       # a strip that gets less than this per day is not used
     domestic_only: bool = True     # forward strips must be in the affected country
-    # Cargo parking spots by airport size ("maximum on ground").
+    # Assumed working parking spots by OurAirports size class. Port-au-Prince in
+    # 2010 had six unloading spots (Veatch and Goentzel 2018).
     mog_gateway: dict = field(default_factory=lambda: {"large_airport": 6, "medium_airport": 3, "small_airport": 1})
     mog_forward: dict = field(default_factory=lambda: {"large_airport": 3, "medium_airport": 2, "small_airport": 1})
 
 
 @dataclass(frozen=True)
 class Field:
-    """An airport evaluated for this particular earthquake."""
+    """An airport evaluated for one earthquake."""
 
     airport: Airport
-    dist_km: float          # to the damage centre
+    dist_km: float          # to the damage center
     mmi: float
     usability: float
     best_aircraft: Aircraft | None
@@ -61,7 +70,7 @@ class Field:
 class Gateway:
     field: Field
     aircraft: Aircraft
-    inflow_tpd: float       # expected tonnes/day arriving from outside
+    inflow_tpd: float       # metric tons per day the gateway can receive
 
 
 @dataclass(frozen=True)
@@ -70,12 +79,13 @@ class Forward:
     leg_km: float           # gateway to strip
     cycle_h: float          # round trip including both turnarounds
     sorties_per_day: float
-    tonnes_per_day: float
+    credit: float           # share of this strip's cargo that counts as inside the zone
+    tonnes_per_day: float   # after usability and credit
 
 
 @dataclass(frozen=True)
 class Option:
-    """One candidate gateway, fully worked out."""
+    """One candidate gateway, worked out in full."""
 
     gateway: Gateway
     forwards: list[Forward]
@@ -85,17 +95,18 @@ class Option:
 @dataclass
 class Plan:
     event: Event
-    centre: tuple[float, float]
+    center: tuple[float, float]
+    center_basis: str               # what the center was weighted by
     country: str | None             # ISO-2 code of the most affected country
     demand: demand_model.Demand | None
     chosen: Option | None
-    alternatives: list[Option]      # next-best options, domestic and foreign
+    alternatives: list[Option]      # the best option on the other side of the domestic/foreign split
     people_sustained: float
     coverage: float | None
-    traps: list[Field]              # in-zone airfields likely knocked out
-    naive_pick: Field | None        # what "nearest airfield" logic would choose
+    traps: list[Field]              # in-zone airfields flagged as likely knocked out
+    naive_pick: Field | None        # what a nearest-airfield rule would choose
     assumptions: Assumptions
-    fields: list[Field]             # everything evaluated, for the map
+    fields: list[Field]
 
     @property
     def gateway(self) -> Gateway | None:
@@ -113,28 +124,43 @@ class Plan:
 # --------------------------------------------------------------------------- steps
 
 
-def damage_centre(event: Event) -> tuple[float, float]:
-    """Shaking-weighted centre of the MMI >= VI area; epicentre if unavailable."""
+def damage_center(event: Event, airports: list[Airport] | None = None) -> tuple[tuple[float, float], str]:
+    """Center of the damage: mean position weighted by (MMI - 6) and by people.
+
+    People come from the event (PAGER's city list, or Census points). Without
+    them, airfields stand in as a land proxy so an offshore rupture is not
+    centered on open water. Without a ShakeMap it is the epicenter.
+    """
     q = event.quake
     if event.shake is None:
-        return q.lat, q.lon
+        return (q.lat, q.lon), "epicenter"
+    grid = event.shake
+    if event.people:
+        source, basis = event.people, "shaking and population"
+    elif airports:
+        source, basis = [(ap.lat, ap.lon, 1.0) for ap in airports if grid.covers(ap.lat, ap.lon)], "shaking and airfield locations"
+    else:
+        source, basis = [], ""
     w_sum = lat_sum = lon_sum = 0.0
-    for lat, lon, mmi in event.shake.cells():
-        w = mmi - 6.0
-        if w <= 0:
-            continue
-        w_sum += w
-        lat_sum += w * lat
-        lon_sum += w * lon
+    for lat, lon, n in source:
+        w = (grid.mmi_at(lat, lon) - 6.0) * n
+        if w > 0:
+            w_sum, lat_sum, lon_sum = w_sum + w, lat_sum + w * lat, lon_sum + w * grid._wrap(lon)
     if w_sum == 0:
-        return q.lat, q.lon
-    return lat_sum / w_sum, lon_sum / w_sum
+        basis = "shaking"
+        for lat, lon, mmi in grid.cells():
+            w = mmi - 6.0
+            if w > 0:
+                w_sum, lat_sum, lon_sum = w_sum + w, lat_sum + w * lat, lon_sum + w * lon
+    if w_sum == 0:
+        return (q.lat, q.lon), "epicenter"
+    return (lat_sum / w_sum, lon_sum / w_sum), basis
 
 
-def evaluate_fields(event: Event, airports: list[Airport], centre, a: Assumptions) -> list[Field]:
+def evaluate_fields(event: Event, airports: list[Airport], center, a: Assumptions) -> list[Field]:
     fields = []
     for ap in airports:
-        d = distance_km(centre[0], centre[1], ap.lat, ap.lon)
+        d = distance_km(center[0], center[1], ap.lat, ap.lon)
         if d > a.gateway_max_km:
             continue
         mmi = event.mmi_at(ap.lat, ap.lon)
@@ -163,12 +189,11 @@ def gateway_candidates(fields: list[Field], a: Assumptions) -> list[Gateway]:
         if f.usability < a.min_usability:
             continue
         ac = f.best_aircraft
-        # Regional (medium) airports rarely have the pavement strength or ramp
-        # for C-5 / 747 class aircraft; cap them at the C-17.
+        # Medium airports rarely have the pavement strength or ramp for a C-5 or 747.
         if ap.kind == "medium_airport" and ac.payload_tonnes > C17.payload_tonnes:
             ac = C17
-        sorties_per_spot = a.ops_hours / ac.ground_time_h
-        inflow = f.usability * a.mog_gateway[ap.kind] * sorties_per_spot * ac.payload_tonnes
+        turns = a.ops_hours / ac.ground_time_h
+        inflow = a.mog_gateway[ap.kind] * ac.payload_tonnes * turns * a.queue_efficiency * f.usability
         out.append(Gateway(field=f, aircraft=ac, inflow_tpd=inflow))
     out.sort(key=lambda g: g.inflow_tpd, reverse=True)
     return out
@@ -185,7 +210,7 @@ def forward_candidates(fields: list[Field], country: str | None, a: Assumptions)
 
 
 def direct_credit(dist_km: float, a: Assumptions) -> float:
-    """Share of cargo landing at a gateway that reaches the damage zone by road in the first days."""
+    """Share of cargo landing this far from the damage center that reaches it by road in the first days."""
     if dist_km <= a.road_reach_km:
         return 1.0
     if dist_km >= a.forward_max_km:
@@ -193,47 +218,48 @@ def direct_credit(dist_km: float, a: Assumptions) -> float:
     return 1.0 - (dist_km - a.road_reach_km) / (a.forward_max_km - a.road_reach_km)
 
 
+def strip_credit(f: Field, a: Assumptions) -> float:
+    """Same rule for forward strips: full credit inside the shaken area, road credit otherwise."""
+    return 1.0 if f.mmi >= a.zone_min_mmi else direct_credit(f.dist_km, a)
+
+
 def allocate_shuttles(gw: Gateway, strips: list[Field], a: Assumptions) -> list[Forward]:
-    """Spread the shuttle fleet over forward strips, best tonnes-per-flight-hour first."""
+    """Spread the shuttle fleet over forward strips, best tons per flight hour first."""
     legs = []
     for s in strips:
         if s.airport.ident == gw.field.airport.ident:
             continue
+        credit = strip_credit(s, a)
+        if credit <= 0:
+            continue
         leg = distance_km(gw.field.airport.lat, gw.field.airport.lon, s.airport.lat, s.airport.lon)
-        cycle = 2 * leg / SHUTTLE.cruise_kmh + 2 * SHUTTLE.ground_time_h
-        max_sorties = a.ops_hours / cycle * a.mog_forward[s.airport.kind]   # ramp-limited
-        tpd_per_hour = SHUTTLE.payload_tonnes * s.usability / cycle
-        legs.append((tpd_per_hour, s, leg, cycle, max_sorties))
+        cycle = 2 * leg / SHUTTLE_BLOCK_KMH + 2 * SHUTTLE.ground_time_h
+        max_sorties = a.ops_hours / cycle * a.mog_forward[s.airport.kind] * a.queue_efficiency   # ramp limit
+        per_sortie = SHUTTLE.payload_tonnes * s.usability * credit
+        legs.append((per_sortie / cycle, s, leg, cycle, max_sorties, credit, per_sortie))
     legs.sort(key=lambda x: x[0], reverse=True)
 
     fleet_hours = a.shuttle_fleet * a.ops_hours
     out = []
-    for _, s, leg, cycle, max_sorties in legs:
-        if fleet_hours <= 0:
+    for _, s, leg, cycle, max_sorties, credit, per_sortie in legs:
+        if fleet_hours <= 1e-9:
             break
         sorties = min(max_sorties, fleet_hours / cycle)
+        if sorties < a.min_sorties:
+            continue
         fleet_hours -= sorties * cycle
-        out.append(
-            Forward(
-                field=s,
-                leg_km=leg,
-                cycle_h=cycle,
-                sorties_per_day=sorties,
-                tonnes_per_day=sorties * SHUTTLE.payload_tonnes * s.usability,
-            )
-        )
+        out.append(Forward(field=s, leg_km=leg, cycle_h=cycle, sorties_per_day=sorties,
+                           credit=credit, tonnes_per_day=sorties * per_sortie))
     return out
 
 
 def work_out(gw: Gateway, strips: list[Field], a: Assumptions) -> Option:
     forwards = allocate_shuttles(gw, strips, a)
     forwarded = sum(f.tonnes_per_day for f in forwards)
-    # Cargo at the gateway reaches the zone two ways: by road if the gateway is
-    # close enough, and by shuttle aircraft otherwise. Neither can exceed what
-    # actually lands at the gateway.
+    # Cargo reaches the zone by road from a close gateway and by shuttle. It
+    # can never exceed what lands at the gateway.
     by_road = gw.inflow_tpd * direct_credit(gw.field.dist_km, a)
-    delivered = min(gw.inflow_tpd, by_road + forwarded)
-    return Option(gateway=gw, forwards=forwards, delivered_tpd=delivered)
+    return Option(gateway=gw, forwards=forwards, delivered_tpd=min(gw.inflow_tpd, by_road + forwarded))
 
 
 def _better(x: Option, y: Option | None) -> bool:
@@ -249,8 +275,8 @@ def _better(x: Option, y: Option | None) -> bool:
 
 def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = None) -> Plan:
     a = a or Assumptions()
-    centre = damage_centre(event)
-    fields = evaluate_fields(event, airports, centre, a)
+    center, basis = damage_center(event, airports)
+    fields = evaluate_fields(event, airports, center, a)
     dem = demand_model.estimate(event.exposure)
 
     known = {ap.country for ap in airports}
@@ -259,23 +285,19 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
         country = fields[0].airport.country
     strips = forward_candidates(fields, country, a)
 
-    cands = gateway_candidates(fields, a)
     # Every candidate is worked out in full; pre-ranking on inflow would drop a
-    # slightly shaken airport near the damage in favour of distant ones.
-    domestic = [g for g in cands if same_country(g.field.airport.country, country)]
-    foreign = [g for g in cands if not same_country(g.field.airport.country, country)]
-
+    # slightly shaken airport near the damage in favor of distant ones.
+    cands = gateway_candidates(fields, a)
     best_domestic = best_foreign = None
-    for gw in domestic:
+    for gw in cands:
         opt = work_out(gw, strips, a)
-        if _better(opt, best_domestic):
-            best_domestic = opt
-    for gw in foreign:
-        opt = work_out(gw, strips, a)
-        if _better(opt, best_foreign):
+        if same_country(gw.field.airport.country, country):
+            if _better(opt, best_domestic):
+                best_domestic = opt
+        elif _better(opt, best_foreign):
             best_foreign = opt
 
-    # Domestic first; a cross-border hub needs clearance. Foreign only if
+    # Domestic first; a cross-border gateway needs clearance. Foreign only if
     # nothing domestic works.
     if best_domestic and best_domestic.delivered_tpd > 0:
         chosen, alternatives = best_domestic, [o for o in [best_foreign] if o]
@@ -292,21 +314,10 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
         and f.airport.longest_runway_ft >= a.forward_min_runway_ft
         and f.usability < a.min_usability
     ]
-    naive = next(
-        (f for f in fields if f.airport.longest_runway_ft >= a.forward_min_runway_ft), None
-    )
+    naive = next((f for f in fields if f.airport.longest_runway_ft >= a.forward_min_runway_ft), None)
 
     return Plan(
-        event=event,
-        centre=centre,
-        country=country,
-        demand=dem,
-        chosen=chosen,
-        alternatives=alternatives,
-        people_sustained=people,
-        coverage=coverage,
-        traps=traps,
-        naive_pick=naive,
-        assumptions=a,
-        fields=fields,
+        event=event, center=center, center_basis=basis, country=country, demand=dem,
+        chosen=chosen, alternatives=alternatives, people_sustained=people, coverage=coverage,
+        traps=traps, naive_pick=naive, assumptions=a, fields=fields,
     )

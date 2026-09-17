@@ -1,0 +1,3460 @@
+{
+ "cases": 9,
+ "events": {
+  "nc216859": [
+   {
+    "assumptions": {},
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [],
+    "forwards": [
+     "9CL2",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSFO",
+     "KSNS"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [],
+    "forwards": [
+     "KHAF",
+     "KLVK",
+     "KNUQ",
+     "KRHV"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KSJC",
+    "delivered": 3794.684,
+    "coverage": 14.060898,
+    "traps": [],
+    "forwards": [
+     "2CL9",
+     "8CA8",
+     "9CL2",
+     "K1O3",
+     "K1Q4",
+     "K3O1",
+     "KAPC",
+     "KC83",
+     "KCCR",
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KF72",
+     "KHAF",
+     "KHWD",
+     "KLSN",
+     "KLVK",
+     "KMER",
+     "KMOD",
+     "KMRY",
+     "KNUQ",
+     "KO20",
+     "KO27",
+     "KO69",
+     "KO88",
+     "KOAK",
+     "KOAR",
+     "KRHV",
+     "KSCK",
+     "KSFO",
+     "KSNS",
+     "KSUU",
+     "KTCY",
+     "KVCB",
+     "KWVI"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [],
+    "forwards": [
+     "9CL2",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSFO",
+     "KSNS"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [],
+    "forwards": [
+     "KC83",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSFO",
+     "KSNS",
+     "KTCY"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [],
+    "forwards": [
+     "9CL2",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSFO",
+     "KSNS"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [
+     "KCVH",
+     "KE16",
+     "KWVI"
+    ],
+    "forwards": [
+     "9CL2",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSFO",
+     "KSNS"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KSJC",
+    "delivered": 3162.237,
+    "coverage": 11.717415,
+    "traps": [],
+    "forwards": [
+     "9CL2",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSFO",
+     "KSNS"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KSJC",
+    "delivered": 1264.895,
+    "coverage": 4.686966,
+    "traps": [],
+    "forwards": [
+     "9CL2",
+     "K1Q4",
+     "KC83",
+     "KCCR",
+     "KCVH",
+     "KE16",
+     "KHAF",
+     "KHWD",
+     "KLVK",
+     "KMRY",
+     "KNUQ",
+     "KOAK",
+     "KOAR",
+     "KRHV",
+     "KSCK",
+     "KSFO",
+     "KSNS",
+     "KTCY",
+     "KWVI"
+    ]
+   }
+  ],
+  "ak20419010": [
+   {
+    "assumptions": {},
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAFR",
+     "PAMR",
+     "PAUO",
+     "PAWS",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "CSR",
+     "PABG",
+     "PABV",
+     "PAFR"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "PANC",
+    "delivered": 3681.96,
+    "coverage": 4471.157645,
+    "traps": [],
+    "forwards": [
+     "4AK6",
+     "58AK",
+     "5AK0",
+     "9AK3",
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAED",
+     "PAEN",
+     "PAFR",
+     "PAMR",
+     "PASW",
+     "PASX",
+     "PATK",
+     "PAUO",
+     "PAWD",
+     "PAWS",
+     "TYE",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "AK36",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAED",
+     "PAFR",
+     "PAMR",
+     "PAUO",
+     "PAWS",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAFR",
+     "PAMR",
+     "PAUO",
+     "PAWS",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAFR",
+     "PAMR",
+     "PAUO",
+     "PAWS",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAFR",
+     "PAMR",
+     "PAUO",
+     "PAWS",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "PANC",
+    "delivered": 3068.3,
+    "coverage": 3725.964704,
+    "traps": [],
+    "forwards": [
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAFR",
+     "PAMR",
+     "PAUO",
+     "PAWS",
+     "Z40"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "PANC",
+    "delivered": 1227.32,
+    "coverage": 1490.385882,
+    "traps": [],
+    "forwards": [
+     "4AK6",
+     "58AK",
+     "9AK3",
+     "AK36",
+     "AK53",
+     "CSR",
+     "PAAQ",
+     "PABG",
+     "PABV",
+     "PAED",
+     "PAEN",
+     "PAFR",
+     "PAMR",
+     "PASW",
+     "PASX",
+     "PATK",
+     "PAUO",
+     "PAWS",
+     "TYE",
+     "Z40"
+    ]
+   }
+  ],
+  "ci38457511": [
+   {
+    "assumptions": {},
+    "gateway": "KMHV",
+    "delivered": 1337.333,
+    "coverage": 5895.04618,
+    "traps": [],
+    "forwards": [
+     "00CA",
+     "0CL8",
+     "62CL",
+     "CN37",
+     "K9L2",
+     "KEDW",
+     "KIYK",
+     "KL05",
+     "KL71",
+     "KL72",
+     "KNID",
+     "KTSP"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KMHV",
+    "delivered": 1298.942,
+    "coverage": 5725.813132,
+    "traps": [],
+    "forwards": [
+     "0CL8",
+     "CN37",
+     "KL71",
+     "KL72"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KONT",
+    "delivered": 1883.784,
+    "coverage": 8303.833646,
+    "traps": [],
+    "forwards": [
+     "00CA",
+     "04CA",
+     "0CL1",
+     "0CL8",
+     "11CL",
+     "46CN",
+     "52CL",
+     "62CL",
+     "99CL",
+     "CA70",
+     "CL46",
+     "CN37",
+     "K9L2",
+     "KAPV",
+     "KBFL",
+     "KBYS",
+     "KDAG",
+     "KEDW",
+     "KIYK",
+     "KL00",
+     "KL05",
+     "KL06",
+     "KL09",
+     "KL45",
+     "KL70",
+     "KL71",
+     "KL72",
+     "KL73",
+     "KL94",
+     "KMHV",
+     "KNID",
+     "KO26",
+     "KPMD",
+     "KPTV",
+     "KTSP",
+     "KVCV",
+     "KWJF"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KNID",
+    "delivered": 858.415,
+    "coverage": 3783.946197,
+    "traps": [],
+    "forwards": [
+     "0CL8",
+     "KIYK",
+     "KL72"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KONT",
+    "delivered": 2576.473,
+    "coverage": 11357.24873,
+    "traps": [],
+    "forwards": [
+     "00CA",
+     "0CL8",
+     "62CL",
+     "CA70",
+     "CN37",
+     "K9L2",
+     "KEDW",
+     "KL00",
+     "KL05",
+     "KL71",
+     "KL72",
+     "KMHV"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KMHV",
+    "delivered": 1337.333,
+    "coverage": 5895.04618,
+    "traps": [],
+    "forwards": [
+     "00CA",
+     "0CL8",
+     "62CL",
+     "CN37",
+     "K9L2",
+     "KEDW",
+     "KIYK",
+     "KL05",
+     "KL71",
+     "KL72",
+     "KNID",
+     "KTSP"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KMHV",
+    "delivered": 1337.333,
+    "coverage": 5895.04618,
+    "traps": [
+     "KIYK",
+     "KNID"
+    ],
+    "forwards": [
+     "00CA",
+     "0CL8",
+     "62CL",
+     "CA70",
+     "CN37",
+     "K9L2",
+     "KEDW",
+     "KL00",
+     "KL05",
+     "KL71",
+     "KL72",
+     "KL94",
+     "KTSP"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KMHV",
+    "delivered": 1337.333,
+    "coverage": 5895.04618,
+    "traps": [],
+    "forwards": [
+     "00CA",
+     "0CL8",
+     "62CL",
+     "CN37",
+     "K9L2",
+     "KEDW",
+     "KIYK",
+     "KL05",
+     "KL71",
+     "KL72",
+     "KNID",
+     "KTSP"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KONT",
+    "delivered": 805.069,
+    "coverage": 3548.794191,
+    "traps": [],
+    "forwards": [
+     "00CA",
+     "04CA",
+     "0CL1",
+     "0CL8",
+     "11CL",
+     "62CL",
+     "99CL",
+     "CA70",
+     "CN37",
+     "K9L2",
+     "KBYS",
+     "KEDW",
+     "KIYK",
+     "KL00",
+     "KL05",
+     "KL71",
+     "KL72",
+     "KL94",
+     "KMHV",
+     "KNID",
+     "KTSP",
+     "KWJF"
+    ]
+   }
+  ],
+  "us70006vll": [
+   {
+    "assumptions": {},
+    "gateway": "TJSJ",
+    "delivered": 2974.226,
+    "coverage": 1550.628752,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "TJSJ",
+    "delivered": 2439.413,
+    "coverage": 1271.801307,
+    "traps": [],
+    "forwards": [
+     "PR27",
+     "TJAB",
+     "TJPS"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "TJSJ",
+    "delivered": 3633.633,
+    "coverage": 1894.414438,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "TJBQ",
+    "delivered": 432.237,
+    "coverage": 225.349321,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "TJAB",
+     "TJPS"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "TJSJ",
+    "delivered": 3400.0,
+    "coverage": 1772.60858,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "TJSJ",
+    "delivered": 2974.226,
+    "coverage": 1550.628752,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "TJSJ",
+    "delivered": 2974.226,
+    "coverage": 1550.628752,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "TJSJ",
+    "delivered": 2974.226,
+    "coverage": 1550.628752,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "TJSJ",
+    "delivered": 1360.0,
+    "coverage": 709.043432,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TIST",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   }
+  ],
+  "usp000h60h": [
+   {
+    "assumptions": {},
+    "gateway": "MTPP",
+    "delivered": 2047.315,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTCA",
+     "MTCH",
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "MTPP",
+    "delivered": 2047.315,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTCH",
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "MTPP",
+    "delivered": 2456.778,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTCA",
+     "MTCH",
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "MTPP",
+    "delivered": 2047.315,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "MTPP",
+    "delivered": 2047.315,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTCA",
+     "MTCH",
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "MTPP",
+    "delivered": 2047.315,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTCA",
+     "MTCH",
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "MTCH",
+    "delivered": 121.955,
+    "coverage": null,
+    "traps": [
+     "MTJA",
+     "MTPP"
+    ],
+    "forwards": [
+     "MTCA"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "MTPP",
+    "delivered": 2047.315,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MDBH",
+     "MDCR",
+     "MDDJ",
+     "MTCA",
+     "MTCH",
+     "MTJA"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "MTPP",
+    "delivered": 818.926,
+    "coverage": null,
+    "traps": [],
+    "forwards": [
+     "MTCA",
+     "MTCH",
+     "MTJA"
+    ]
+   }
+  ],
+  "us20002926": [
+   {
+    "assumptions": {},
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "VNKT",
+    "delivered": 3567.715,
+    "coverage": 1.085931,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNBW",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI",
+     "VNTR"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "VNKT",
+    "delivered": 2973.096,
+    "coverage": 0.904942,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "VNKT",
+    "delivered": 1189.238,
+    "coverage": 0.361977,
+    "traps": [],
+    "forwards": [
+     "NP-0003",
+     "VNBP",
+     "VNBW",
+     "VNJP",
+     "VNMG",
+     "VNPK",
+     "VNSI",
+     "VNTR"
+    ]
+   }
+  ],
+  "us6000jllz": [
+   {
+    "assumptions": {},
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAO",
+     "LTAT",
+     "LTCP"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAO",
+     "LTAT",
+     "LTCP"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "LTAJ",
+    "delivered": 3692.619,
+    "coverage": 1.217512,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAO",
+     "LTAT",
+     "LTCP"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAO",
+     "LTAT",
+     "LTCP"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAF",
+     "LTAG",
+     "LTAO",
+     "LTAT",
+     "LTCP",
+     "LTCS",
+     "LTDB"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [],
+    "forwards": [
+     "LTAO",
+     "LTAT",
+     "LTCN",
+     "LTCP",
+     "LTDA"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [
+     "LTAO",
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAT",
+     "LTCP"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "LTAJ",
+    "delivered": 3077.182,
+    "coverage": 1.014594,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAO",
+     "LTAT",
+     "LTCP",
+     "OS57",
+     "OS62",
+     "OS66",
+     "OS71",
+     "OSAP"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "LTAJ",
+    "delivered": 1230.873,
+    "coverage": 0.405837,
+    "traps": [
+     "LTCN",
+     "LTDA"
+    ],
+    "forwards": [
+     "LTAF",
+     "LTAG",
+     "LTAO",
+     "LTAT",
+     "LTCP",
+     "LTCS",
+     "LTDB"
+    ]
+   }
+  ],
+  "us7000kufc": [
+   {
+    "assumptions": {},
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": [
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": [
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "GMMX",
+    "delivered": 3882.867,
+    "coverage": 26.126577,
+    "traps": [],
+    "forwards": [
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": []
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": [
+     "GMAD",
+     "GMMD",
+     "GMMI",
+     "GMMN",
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": [
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": [
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "GMMX",
+    "delivered": 3235.723,
+    "coverage": 21.772148,
+    "traps": [],
+    "forwards": [
+     "GMMZ"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "GMMX",
+    "delivered": 1294.289,
+    "coverage": 8.708859,
+    "traps": [],
+    "forwards": [
+     "GMAD",
+     "GMMD",
+     "GMMI",
+     "GMMN",
+     "GMMZ"
+    ]
+   }
+  ],
+  "us7000pn9s": [
+   {
+    "assumptions": {},
+    "gateway": "VYHH",
+    "delivered": 1150.099,
+    "coverage": 0.102914,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VY02",
+     "VYAS",
+     "VYBG",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYPU"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "VYHH",
+    "delivered": 1128.495,
+    "coverage": 0.100981,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VYAS",
+     "VYBG",
+     "VYLY",
+     "VYMY",
+     "VYPU"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "VYHH",
+    "delivered": 1380.119,
+    "coverage": 0.123497,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VY02",
+     "VYAS",
+     "VYBG",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYPU"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "VYNS",
+    "delivered": 292.547,
+    "coverage": 0.026178,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VYAS",
+     "VYHH",
+     "VYMY",
+     "VYPU"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "VYHH",
+    "delivered": 1240.51,
+    "coverage": 0.111004,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VY02",
+     "VYAN",
+     "VYAS",
+     "VYBG",
+     "VYLK",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYNS",
+     "VYPU",
+     "VYPY",
+     "VYXG"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "VYHH",
+    "delivered": 1240.51,
+    "coverage": 0.111004,
+    "traps": [
+     "VYMD",
+     "VYNT"
+    ],
+    "forwards": [
+     "VY02",
+     "VYAS",
+     "VYBG",
+     "VYCZ",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYPU",
+     "VYST",
+     "VYTO"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "VYHH",
+    "delivered": 1097.4,
+    "coverage": 0.098198,
+    "traps": [
+     "VYAS",
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VY02",
+     "VYBG",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYPU"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "VYHH",
+    "delivered": 1150.099,
+    "coverage": 0.102914,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VY02",
+     "VYAS",
+     "VYBG",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYPU"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "VYHH",
+    "delivered": 496.204,
+    "coverage": 0.044402,
+    "traps": [
+     "VYCZ",
+     "VYMD",
+     "VYNT",
+     "VYST",
+     "VYTO"
+    ],
+    "forwards": [
+     "VY02",
+     "VYAS",
+     "VYBG",
+     "VYLK",
+     "VYLY",
+     "VYMW",
+     "VYMY",
+     "VYNS",
+     "VYPU"
+    ]
+   }
+  ],
+  "gllegacyhaywiredm7p05_se": [
+   {
+    "assumptions": {},
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "67CA",
+     "K2O3",
+     "KC83",
+     "KHAF",
+     "KMOD",
+     "KMRY",
+     "KO88",
+     "KSCK",
+     "KSUU",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "KHAF",
+     "KMRY",
+     "KSCK"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KSFO",
+    "delivered": 3791.69,
+    "coverage": 0.621307,
+    "traps": [
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "2CL9",
+     "49CL",
+     "67CA",
+     "8CA8",
+     "8CL2",
+     "9CL2",
+     "K1O3",
+     "K1Q4",
+     "K2O3",
+     "K3O1",
+     "KAPC",
+     "KC83",
+     "KCCR",
+     "KDWA",
+     "KEDU",
+     "KF34",
+     "KF72",
+     "KHAF",
+     "KLSN",
+     "KM90",
+     "KMHR",
+     "KMOD",
+     "KMRY",
+     "KNUQ",
+     "KO20",
+     "KO27",
+     "KO41",
+     "KO69",
+     "KO88",
+     "KOAR",
+     "KSAC",
+     "KSCK",
+     "KSNS",
+     "KSTS",
+     "KSUU",
+     "KTCY",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "67CA",
+     "K2O3",
+     "KC83",
+     "KHAF",
+     "KMOD",
+     "KMRY",
+     "KSCK",
+     "KSNS",
+     "KSUU",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "67CA",
+     "8CA8",
+     "K1O3",
+     "K2O3",
+     "KHAF",
+     "KMOD",
+     "KMRY",
+     "KO20",
+     "KO88",
+     "KSCK",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "KDVO",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC"
+    ],
+    "forwards": [
+     "05CL",
+     "67CA",
+     "K2O3",
+     "KC83",
+     "KHAF",
+     "KMOD",
+     "KMRY",
+     "KO88",
+     "KSCK",
+     "KSUU",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "9CL2",
+     "K1Q4",
+     "K3O1",
+     "KAPC",
+     "KC83",
+     "KCCR",
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KF34",
+     "KHWD",
+     "KLSN",
+     "KLVK",
+     "KM90",
+     "KNUQ",
+     "KO69",
+     "KOAK",
+     "KOAR",
+     "KRHV",
+     "KSJC",
+     "KSNS",
+     "KSTS",
+     "KSUU",
+     "KTCY",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "49CL",
+     "67CA",
+     "8CA8",
+     "K2O3",
+     "KHAF",
+     "KMOD",
+     "KMRY",
+     "KO20",
+     "KO88",
+     "KSCK",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KSFO",
+    "delivered": 3159.742,
+    "coverage": 0.517756,
+    "traps": [
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLVK",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "67CA",
+     "K2O3",
+     "KC83",
+     "KHAF",
+     "KMOD",
+     "KMRY",
+     "KO88",
+     "KSCK",
+     "KSUU",
+     "KVCB"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KSFO",
+    "delivered": 1263.897,
+    "coverage": 0.207102,
+    "traps": [
+     "9CL2",
+     "K1Q4",
+     "K3O1",
+     "KCCR",
+     "KCVH",
+     "KDVO",
+     "KE16",
+     "KHWD",
+     "KLSN",
+     "KLVK",
+     "KNUQ",
+     "KOAK",
+     "KRHV",
+     "KSJC",
+     "KWVI"
+    ],
+    "forwards": [
+     "05CL",
+     "2CL9",
+     "49CL",
+     "67CA",
+     "8CA8",
+     "K1O3",
+     "K2O3",
+     "KC83",
+     "KF72",
+     "KHAF",
+     "KM90",
+     "KMOD",
+     "KMRY",
+     "KO20",
+     "KO69",
+     "KO88",
+     "KOAR",
+     "KSCK",
+     "KSNS",
+     "KSTS",
+     "KSUU",
+     "KVCB"
+    ]
+   }
+  ],
+  "sclegacyshakeout2full_se": [
+   {
+    "assumptions": {},
+    "gateway": "KLAX",
+    "delivered": 3394.898,
+    "coverage": 0.350811,
+    "traps": [
+     "04CA",
+     "46CN",
+     "63CA",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "CA70",
+     "K9L2",
+     "KHHR",
+     "KL65",
+     "KLGB",
+     "KRAL",
+     "KSLI",
+     "KSMO",
+     "KTOA"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KLAX",
+    "delivered": 3221.99,
+    "coverage": 0.332944,
+    "traps": [
+     "04CA",
+     "46CN",
+     "63CA",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "KHHR",
+     "KLGB",
+     "KSMO"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KLAX",
+    "delivered": 4073.878,
+    "coverage": 0.420974,
+    "traps": [
+     "04CA",
+     "46CN",
+     "63CA",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "11CL",
+     "2CN8",
+     "4CL4",
+     "51CA",
+     "52CL",
+     "6CA5",
+     "7CA1",
+     "99CL",
+     "CA70",
+     "CL46",
+     "K9L2",
+     "KAJO",
+     "KAPV",
+     "KBUR",
+     "KCPM",
+     "KEDW",
+     "KF70",
+     "KHHR",
+     "KHMT",
+     "KL65",
+     "KL77",
+     "KL94",
+     "KLGB",
+     "KNFG",
+     "KRAL",
+     "KSAS",
+     "KSLI",
+     "KSMO",
+     "KSNA",
+     "KTOA",
+     "KTSP",
+     "KVCV",
+     "KVNY",
+     "KWHP"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KLGB",
+    "delivered": 3167.646,
+    "coverage": 0.327328,
+    "traps": [
+     "04CA",
+     "46CN",
+     "63CA",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "4CL4",
+     "51CA",
+     "CA70",
+     "K9L2",
+     "KEDW",
+     "KHHR",
+     "KHMT",
+     "KL65",
+     "KRAL",
+     "KSLI",
+     "KSMO"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KLAX",
+    "delivered": 3394.898,
+    "coverage": 0.350811,
+    "traps": [
+     "04CA",
+     "46CN",
+     "63CA",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "CA70",
+     "K9L2",
+     "KHHR",
+     "KL65",
+     "KLGB",
+     "KRAL",
+     "KSLI",
+     "KSMO",
+     "KTOA"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KLAX",
+    "delivered": 3394.898,
+    "coverage": 0.350811,
+    "traps": [
+     "46CN",
+     "63CA",
+     "KEMT",
+     "KPMD",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "CA70",
+     "K9L2",
+     "KHHR",
+     "KL65",
+     "KLGB",
+     "KRAL",
+     "KSLI",
+     "KSMO",
+     "KTOA"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KLAX",
+    "delivered": 3394.898,
+    "coverage": 0.350811,
+    "traps": [
+     "04CA",
+     "0CL1",
+     "11CL",
+     "2CN8",
+     "46CN",
+     "52CL",
+     "63CA",
+     "99CL",
+     "CL46",
+     "KAJO",
+     "KAPV",
+     "KBNG",
+     "KBUR",
+     "KCCB",
+     "KCNO",
+     "KCPM",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KL22",
+     "KL26",
+     "KL35",
+     "KL70",
+     "KMHV",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KRIR",
+     "KRIV",
+     "KSBD",
+     "KSNA",
+     "KTRM",
+     "KTSP",
+     "KUDD",
+     "KVCV",
+     "KVNY",
+     "KWHP",
+     "KWJF"
+    ],
+    "forwards": [
+     "CA70",
+     "K9L2",
+     "KHHR",
+     "KL65",
+     "KLGB",
+     "KRAL",
+     "KSLI",
+     "KSMO",
+     "KTOA"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KLAX",
+    "delivered": 3394.898,
+    "coverage": 0.350811,
+    "traps": [
+     "04CA",
+     "46CN",
+     "63CA",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "CA70",
+     "K9L2",
+     "KHHR",
+     "KL65",
+     "KLGB",
+     "KRAL",
+     "KSLI",
+     "KSMO",
+     "KTOA"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KLAX",
+    "delivered": 1357.959,
+    "coverage": 0.140325,
+    "traps": [
+     "04CA",
+     "0CL1",
+     "46CN",
+     "63CA",
+     "KAJO",
+     "KBNG",
+     "KCCB",
+     "KCNO",
+     "KEMT",
+     "KFUL",
+     "KL00",
+     "KL22",
+     "KL26",
+     "KL35",
+     "KL70",
+     "KONT",
+     "KPMD",
+     "KPOC",
+     "KPSP",
+     "KREI",
+     "KRIR",
+     "KRIV",
+     "KSBD",
+     "KTRM",
+     "KUDD",
+     "KWJF"
+    ],
+    "forwards": [
+     "4CL4",
+     "51CA",
+     "7CA1",
+     "CA70",
+     "K9L2",
+     "KCPM",
+     "KEDW",
+     "KF70",
+     "KHHR",
+     "KHMT",
+     "KL65",
+     "KL77",
+     "KL94",
+     "KLGB",
+     "KRAL",
+     "KSAS",
+     "KSLI",
+     "KSMO",
+     "KTOA",
+     "KTSP",
+     "KWHP"
+    ]
+   }
+  ],
+  "gllegacycasc9p0expanded_se": [
+   {
+    "assumptions": {},
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "3WA9",
+     "K4S9",
+     "K7S5",
+     "KHIO",
+     "KKLS",
+     "KMMV",
+     "KSPB",
+     "KTTD",
+     "KVUO",
+     "WA01"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "KHIO",
+     "KMMV",
+     "KVUO"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KPDX",
+    "delivered": 3683.418,
+    "coverage": 23.840379,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "1WA6",
+     "2OR4",
+     "33OR",
+     "3WA9",
+     "49WA",
+     "K4S9",
+     "K61S",
+     "K77S",
+     "K7S5",
+     "KBFI",
+     "KCLM",
+     "KCVO",
+     "KHIO",
+     "KHQM",
+     "KKLS",
+     "KMMV",
+     "KNUW",
+     "KOLM",
+     "KONP",
+     "KPWT",
+     "KRNT",
+     "KS45",
+     "KS50",
+     "KSHN",
+     "KSPB",
+     "KTDO",
+     "KTTD",
+     "KUAO",
+     "KVUO",
+     "OG29",
+     "S16",
+     "WA01",
+     "WN49"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "3WA9",
+     "K4S9",
+     "K7S5",
+     "KCVO",
+     "KHIO",
+     "KKLS",
+     "KMMV",
+     "KSPB",
+     "KVUO",
+     "WA01"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "K4S9",
+     "K7S5",
+     "KHIO",
+     "KMMV",
+     "KS48",
+     "KSPB",
+     "KTTD",
+     "KUAO",
+     "KVUO",
+     "OG29"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "3WA9",
+     "K4S9",
+     "K7S5",
+     "KHIO",
+     "KKLS",
+     "KMMV",
+     "KSPB",
+     "KTTD",
+     "KVUO",
+     "WA01"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [
+     "5WA8",
+     "CYAZ",
+     "K2S9",
+     "K4S1",
+     "K5S6",
+     "KACV",
+     "KAST",
+     "KCLS",
+     "KFOT",
+     "KS05",
+     "KTMK",
+     "KW28"
+    ],
+    "forwards": [
+     "1OR3",
+     "3WA9",
+     "K4S9",
+     "K7S5",
+     "KHIO",
+     "KKLS",
+     "KMMV",
+     "KSPB",
+     "KTTD",
+     "KVUO",
+     "WA01"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KPDX",
+    "delivered": 3069.515,
+    "coverage": 19.866983,
+    "traps": [],
+    "forwards": [
+     "1OR3",
+     "3WA9",
+     "K4S9",
+     "K7S5",
+     "KHIO",
+     "KKLS",
+     "KMMV",
+     "KSPB",
+     "KTTD",
+     "KVUO",
+     "WA01"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KPDX",
+    "delivered": 1227.806,
+    "coverage": 7.946793,
+    "traps": [
+     "KAST"
+    ],
+    "forwards": [
+     "1OR3",
+     "33OR",
+     "3WA9",
+     "49WA",
+     "K4S9",
+     "K7S5",
+     "KCVO",
+     "KHIO",
+     "KKLS",
+     "KMMV",
+     "KOLM",
+     "KPWT",
+     "KRNT",
+     "KSPB",
+     "KTDO",
+     "KTTD",
+     "KUAO",
+     "KVUO",
+     "OG29",
+     "WA01"
+    ]
+   }
+  ],
+  "wa22sfz01_se": [
+   {
+    "assumptions": {},
+    "gateway": "KNUW",
+    "delivered": 1315.493,
+    "coverage": 0.486155,
+    "traps": [
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "K0S9",
+     "KAWO",
+     "KGRF",
+     "KPAE",
+     "KPLU",
+     "KSHN",
+     "KTCM",
+     "KTIW",
+     "KZ10",
+     "WN53"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KTCM",
+    "delivered": 1256.482,
+    "coverage": 0.464346,
+    "traps": [
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "KGRF",
+     "KPLU",
+     "KTIW"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KPDX",
+    "delivered": 1948.939,
+    "coverage": 0.720251,
+    "traps": [
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "1WA6",
+     "3WA9",
+     "49WA",
+     "K0S9",
+     "K2S9",
+     "K74S",
+     "KAWO",
+     "KBLI",
+     "KBVS",
+     "KCLM",
+     "KCLS",
+     "KELN",
+     "KFHR",
+     "KGRF",
+     "KHQM",
+     "KNOW",
+     "KNRA",
+     "KNUW",
+     "KOKH",
+     "KOLM",
+     "KPAE",
+     "KPLU",
+     "KS36",
+     "KS50",
+     "KSHN",
+     "KTCM",
+     "KTDO",
+     "KTIW",
+     "KW28",
+     "KZ10",
+     "S16",
+     "WA09",
+     "WN49",
+     "WN53"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KTCM",
+    "delivered": 1256.482,
+    "coverage": 0.464346,
+    "traps": [
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "1WA6",
+     "KPAE",
+     "KPLU",
+     "KS36",
+     "KS50",
+     "KSHN",
+     "KTIW"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KPDX",
+    "delivered": 1972.109,
+    "coverage": 0.728814,
+    "traps": [
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "3WA9",
+     "49WA",
+     "KGRF",
+     "KOLM",
+     "KPAE",
+     "KPLU",
+     "KSHN",
+     "KTCM",
+     "KTIW",
+     "KZ10"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KSEA",
+    "delivered": 1578.723,
+    "coverage": 0.583434,
+    "traps": [],
+    "forwards": [
+     "K0S9",
+     "KAWO",
+     "KGRF",
+     "KPAE",
+     "KPLU",
+     "KS36",
+     "KSHN",
+     "KTCM",
+     "KTIW",
+     "KZ10",
+     "WN53"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KNUW",
+    "delivered": 1315.493,
+    "coverage": 0.486155,
+    "traps": [
+     "1WA6",
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KS36",
+     "KS50",
+     "KSEA"
+    ],
+    "forwards": [
+     "K0S9",
+     "KAWO",
+     "KGRF",
+     "KPAE",
+     "KPLU",
+     "KSHN",
+     "KTCM",
+     "KTIW",
+     "KZ10",
+     "WN53"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KNUW",
+    "delivered": 1315.493,
+    "coverage": 0.486155,
+    "traps": [
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "K0S9",
+     "KAWO",
+     "KGRF",
+     "KPAE",
+     "KPLU",
+     "KSHN",
+     "KTCM",
+     "KTIW",
+     "KZ10",
+     "WN53"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KPDX",
+    "delivered": 593.757,
+    "coverage": 0.219429,
+    "traps": [
+     "1WA6",
+     "KBFI",
+     "KPWT",
+     "KRNT",
+     "KSEA"
+    ],
+    "forwards": [
+     "3WA9",
+     "49WA",
+     "K0S9",
+     "KAWO",
+     "KCLS",
+     "KGRF",
+     "KNRA",
+     "KNUW",
+     "KOKH",
+     "KOLM",
+     "KPAE",
+     "KPLU",
+     "KS36",
+     "KS50",
+     "KSHN",
+     "KTCM",
+     "KTIW",
+     "KW28",
+     "KZ10",
+     "WN49",
+     "WN53"
+    ]
+   }
+  ],
+  "nm19fema_m7p7_mt_se": [
+   {
+    "assumptions": {},
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "54M",
+     "7TN4",
+     "H75",
+     "K2M8",
+     "KFYE",
+     "KM01",
+     "KM08",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KUTA",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "54M",
+     "7TN4",
+     "H75",
+     "KOLV",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "KMEM",
+    "delivered": 3765.002,
+    "coverage": 10.838083,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "1MS6",
+     "21MS",
+     "4AR2",
+     "54M",
+     "5AR1",
+     "5M1",
+     "7TN4",
+     "9AR9",
+     "AR79",
+     "AS91",
+     "BUTL",
+     "H75",
+     "K0M0",
+     "K2M8",
+     "K4M9",
+     "K7M1",
+     "KCKM",
+     "KFYE",
+     "KHEE",
+     "KHZD",
+     "KIDL",
+     "KLRF",
+     "KM01",
+     "KM08",
+     "KM37",
+     "KM53",
+     "KM70",
+     "KM73",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KRNV",
+     "KSRC",
+     "KTGC",
+     "KUTA",
+     "MS03",
+     "MS09",
+     "MS37",
+     "TN01",
+     "TN43",
+     "US-12693",
+     "US-6438",
+     "US-6540"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "54M",
+     "7TN4",
+     "H75",
+     "K2M8",
+     "KFYE",
+     "KM01",
+     "KM08",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KUTA",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "1MS6",
+     "54M",
+     "7TN4",
+     "H75",
+     "K2M8",
+     "KFYE",
+     "KM01",
+     "KM08",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "KBYH",
+     "KM05",
+     "US-8864"
+    ],
+    "forwards": [
+     "54M",
+     "7TN4",
+     "H75",
+     "K2M8",
+     "KFYE",
+     "KM01",
+     "KM08",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KUTA",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "1AR0",
+     "36AR",
+     "4AR5",
+     "6M8",
+     "7AR8",
+     "K0M2",
+     "K34M",
+     "K6M7",
+     "K7M4",
+     "KAWM",
+     "KBYH",
+     "KDYR",
+     "KEIW",
+     "KFCY",
+     "KHKA",
+     "KJBR",
+     "KM05",
+     "KM12",
+     "KM19",
+     "KM31",
+     "KM36",
+     "KM60",
+     "KM85",
+     "KMAW",
+     "KMXA",
+     "KTKX",
+     "M28",
+     "MU04",
+     "US-8864"
+    ],
+    "forwards": [
+     "54M",
+     "7TN4",
+     "H75",
+     "K2M8",
+     "KFYE",
+     "KM01",
+     "KM08",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KUTA",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "KMEM",
+    "delivered": 3137.502,
+    "coverage": 9.031736,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "54M",
+     "7TN4",
+     "H75",
+     "K2M8",
+     "KFYE",
+     "KM01",
+     "KM08",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KUTA",
+     "TN43"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "KMEM",
+    "delivered": 1255.001,
+    "coverage": 3.612694,
+    "traps": [
+     "4AR5",
+     "6M8",
+     "K0M2",
+     "K7M4",
+     "KBYH",
+     "KHKA",
+     "KM05",
+     "KM12",
+     "KMXA",
+     "M28",
+     "US-8864"
+    ],
+    "forwards": [
+     "1MS6",
+     "21MS",
+     "54M",
+     "7TN4",
+     "AS91",
+     "BUTL",
+     "H75",
+     "K2M8",
+     "KCKM",
+     "KFYE",
+     "KHEE",
+     "KM01",
+     "KM08",
+     "KM37",
+     "KM53",
+     "KMKL",
+     "KMMS",
+     "KNQA",
+     "KOLV",
+     "KRNV",
+     "KTGC",
+     "KUTA",
+     "MS03",
+     "MS09",
+     "TN43",
+     "US-12693"
+    ]
+   }
+  ],
+  "caribe25puertorico_2_se": [
+   {
+    "assumptions": {},
+    "gateway": "TJSJ",
+    "delivered": 2109.564,
+    "coverage": 0.883679,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TISX",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 4
+    },
+    "gateway": "TJSJ",
+    "delivered": 2109.564,
+    "coverage": 0.883679,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "TISX",
+     "TJPS"
+    ]
+   },
+   {
+    "assumptions": {
+     "shuttle_fleet": 40,
+     "ops_hours": 24
+    },
+    "gateway": "TJSJ",
+    "delivered": 2531.477,
+    "coverage": 1.060415,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TIST",
+     "TISX",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 50
+    },
+    "gateway": "TJSJ",
+    "delivered": 2109.564,
+    "coverage": 0.883679,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TISX",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "forward_max_km": 300
+    },
+    "gateway": "TJSJ",
+    "delivered": 2109.564,
+    "coverage": 0.883679,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TISX",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.3
+    },
+    "gateway": "TJSJ",
+    "delivered": 2109.564,
+    "coverage": 0.883679,
+    "traps": [],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TISX",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "min_usability": 0.8
+    },
+    "gateway": "TISX",
+    "delivered": 225.761,
+    "coverage": 0.094569,
+    "traps": [
+     "PR36",
+     "TIST",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJRV",
+     "TJSJ",
+     "TJVQ",
+     "TUPJ",
+     "TUPW"
+    ],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "TJPS"
+    ]
+   },
+   {
+    "assumptions": {
+     "domestic_only": false
+    },
+    "gateway": "TJSJ",
+    "delivered": 2109.564,
+    "coverage": 0.883679,
+    "traps": [],
+    "forwards": [
+     "MDPC",
+     "PR10",
+     "PR27",
+     "TISX",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   },
+   {
+    "assumptions": {
+     "ops_hours": 8,
+     "shuttle_fleet": 24,
+     "forward_max_km": 200,
+     "min_usability": 0.6
+    },
+    "gateway": "TJSJ",
+    "delivered": 843.826,
+    "coverage": 0.353472,
+    "traps": [
+     "TUPJ",
+     "TUPW"
+    ],
+    "forwards": [
+     "PR10",
+     "PR27",
+     "PR36",
+     "TIST",
+     "TISX",
+     "TJAB",
+     "TJBQ",
+     "TJIG",
+     "TJMZ",
+     "TJPS",
+     "TJRV",
+     "TJVQ"
+    ]
+   }
+  ]
+ }
+}

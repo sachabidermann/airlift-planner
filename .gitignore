@@ -12,3 +12,7 @@ data/
 .idea/
 out/
 *.log
+
+# Local tooling
+.claude/
+.pytest_cache/

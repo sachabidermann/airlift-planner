@@ -1,11 +1,15 @@
 """Load the OurAirports airport and runway tables.
 
 Data: https://ourairports.com/data/  (public domain, updated nightly)
-The two CSVs are downloaded once into data/ and reused after that.
+The two CSVs are downloaded once into data/ and reused after that. Because
+the source changes nightly, provenance() reports the download date and hash
+of the copies in use, and the backtests record them with their results.
 """
 
 import csv
+import hashlib
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -18,10 +22,13 @@ RUNWAYS_URL = "https://davidmegginson.github.io/ourairports-data/runways.csv"
 # bases and closed fields are skipped.
 USABLE_TYPES = {"large_airport", "medium_airport", "small_airport"}
 
+# Surfaces that are not something a cargo aircraft can land on.
+NOT_A_RUNWAY = ("WATER", "WTR", "ICE", "SNO")
+
 
 @dataclass(frozen=True)
 class Airport:
-    ident: str          # ICAO-style code, e.g. WIEE
+    ident: str          # ICAO code where one exists, e.g. KSFO
     name: str
     country: str        # ISO-2 code
     kind: str           # large_airport / medium_airport / small_airport
@@ -47,16 +54,33 @@ def _download(url: str, dest: Path) -> Path:
     return dest
 
 
+def provenance() -> list[dict]:
+    """Download date and SHA-256 of the airport tables currently cached."""
+    out = []
+    for name in ("airports.csv", "runways.csv"):
+        path = DATA_DIR / name
+        if not path.exists():
+            continue
+        out.append({
+            "file": name,
+            "downloaded": datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).strftime("%Y-%m-%d"),
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        })
+    return out
+
+
 def load_airports() -> list[Airport]:
     airports_csv = _download(AIRPORTS_URL, DATA_DIR / "airports.csv")
     runways_csv = _download(RUNWAYS_URL, DATA_DIR / "runways.csv")
 
-    # Step 1: for each airport, find its longest open runway.
+    # Step 1: for each airport, find its longest open runway on land.
     longest: dict[str, tuple[int, str]] = {}
     with runways_csv.open(newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
             if row.get("closed") == "1":
                 continue
+            if (row.get("surface") or "").strip().upper().startswith(NOT_A_RUNWAY):
+                continue            # seaplane lanes and ice or snow strips
             try:
                 length_ft = int(float(row["length_ft"]))
             except (ValueError, KeyError):

@@ -1,22 +1,34 @@
-"""Did the airfield survive the shaking?
+"""Probability that an airfield can take relief flights after shaking.
 
-Turns shaking intensity (MMI) at an airfield into a probability that it can
-accept relief flights in the first days. Judgement figures anchored on
-history, not a fitted model:
+Maps shaking intensity (MMI) at the airfield to a usability probability for
+the first days. The curve is a judgment call. It was set by hand while looking
+at the international earthquakes below, so for those the backtests check
+consistency, not out-of-sample skill. The US events (Oakland, Anchorage) were
+added later and the curve was left unchanged.
 
-  Kathmandu 2015        MMI about VII    stayed open, but heavy jets damaged the runway
-  Port-au-Prince 2010   MMI about VIII   runway intact, tower and ATC lost, chaos for days
-  Anchorage 2018        MMI about VII    inspected and reopened the same day
-  Gaziantep 2023        MMI about VII    stayed open, took relief flights
-  Kahramanmaras 2023    MMI about VIII   stayed open (the curve's one false alarm)
-  Hatay 2023            MMI about IX     runway fractured, closed for days
-  Mandalay 2025         MMI about IX     control tower collapsed, closed
-  Marrakech 2023        MMI about VI     fully operational, became the hub
-  Oakland 1989          MMI about VI     main runway cracked by liquefaction: a miss.
-                                         Intensity alone does not see soft fill.
+  Marrakech 2023       MMI VI     no major damage, became the hub
+  Oakland 1989         MMI VII    lost 3,000 ft of runway to liquefaction (a miss: see below)
+  Kathmandu 2015       MMI VII    stayed open; runway later damaged by heavy jets
+  Anchorage 2018       MMI VII    tower evacuated, reopened the same day
+  Gaziantep 2023       MMI VII    closed to passengers, took relief flights
+  Kahramanmaras 2023   MMI VIII   closed to passengers, took relief flights (the curve flags it: a false alarm)
+  Port-au-Prince 2010  MMI VIII   runway intact, tower unusable, field saturated
+  Hatay 2023           MMI IX     runway fractured, closed six days
+  Nay Pyi Taw 2025     MMI IX     control tower collapsed, closed a week
+  Mandalay 2025        MMI IX-X   runway, terminal and radar damage, closed a week
 
-The backtests print the MMI the model sees at each of these airports.
+Published alternatives exist and are the first planned replacement. FEMA's
+Hazus earthquake model (Technical Manual, section 7.7) has fragility curves
+for control towers, terminals and fuel facilities, and treats runway damage
+as a ground-failure problem: "Little damage is attributed to ground shaking."
+That is exactly the Oakland miss: intensity does not see soft fill. Roark,
+Truman and Gould (2000) published an airport functionality curve against peak
+ground acceleration for the New Madrid region. A rough conversion of the Hazus
+tower curve gives 100, 98, 89, 67, 37 and 18 percent for MMI V to X, close to
+the values below.
 """
+
+import math
 
 # (mmi, probability the airfield is usable)
 USABILITY = [
@@ -30,7 +42,7 @@ USABILITY = [
 
 
 def runway_usability(mmi: float) -> float:
-    """Probability (0-1) that an airfield at this MMI can take relief flights."""
+    """Probability (0-1) that an airfield at this MMI can take relief flights. Linear between points."""
     if mmi <= USABILITY[0][0]:
         return USABILITY[0][1]
     if mmi >= USABILITY[-1][0]:
@@ -42,6 +54,6 @@ def runway_usability(mmi: float) -> float:
 
 
 def roman(mmi: float) -> str:
-    """MMI is traditionally written in Roman numerals."""
+    """MMI as a Roman numeral, halves rounded up (6.5 is VII), as the dashboard does."""
     numerals = ["-", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
-    return numerals[max(0, min(10, round(mmi)))]
+    return numerals[max(0, min(10, math.floor(mmi + 0.5)))]

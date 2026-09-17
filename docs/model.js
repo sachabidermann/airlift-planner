@@ -1,6 +1,9 @@
-/* Airlift Planner airbridge model, browser port of airlift/airbridge.py.
-   Pure functions, no DOM. Numbers must match the Python output for the
-   default assumptions; dashboard/test_model.js checks that. */
+/* Airlift Planner airbridge model: browser port of airlift/airbridge.py,
+   demand.py and survivability.py. Pure functions, no DOM.
+
+   `node dashboard/test_model.js` checks this file against the Python planner
+   for every backtest and scenario under nine assumption sets. Change the
+   Python first, rebuild with `uv run dashboard/build.py`, then make this match. */
 (function (root) {
   "use strict";
 
@@ -13,6 +16,7 @@
     return 2 * R_EARTH * Math.asin(Math.sqrt(a));
   }
 
+  // survivability.runway_usability
   function usability(curve, mmi) {
     if (mmi <= curve[0][0]) return curve[0][1];
     if (mmi >= curve[curve.length - 1][0]) return curve[curve.length - 1][1];
@@ -23,23 +27,32 @@
     return curve[curve.length - 1][1];
   }
 
+  // survivability.roman: halves round up
   function roman(mmi) {
     const n = ["-", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-    return n[Math.max(0, Math.min(10, Math.round(mmi)))];
+    return n[Math.max(0, Math.min(10, Math.floor(mmi + 0.5)))];
   }
 
+  // airbridge.direct_credit
   function directCredit(dist, a) {
     if (dist <= a.road_reach_km) return 1;
     if (dist >= a.forward_max_km) return 0;
     return 1 - (dist - a.road_reach_km) / (a.forward_max_km - a.road_reach_km);
   }
 
+  // airbridge.strip_credit
+  function stripCredit(f, a) {
+    return f.mmi >= a.zone_min_mmi ? 1 : directCredit(f.dist, a);
+  }
+
+  // geo.same_country
   function sameCountry(a, b, aliases) {
     if (!a || !b) return false;
     const al = aliases || {};
     return (al[a] || a) === (al[b] || b);
   }
 
+  // demand.estimate
   function demand(exposure, d) {
     if (!exposure) return null;
     let affected = 0, priority = 0;
@@ -51,12 +64,15 @@
     return { affected, priority, tonnes_per_day: (priority * d.kg_per_person_day) / 1000 };
   }
 
+  // airbridge.build_plan. The damage center and each airfield's MMI and
+  // distance are computed in Python and arrive in `event`.
   function build(event, data, a) {
     const byName = Object.fromEntries(data.aircraft.map((x) => [x.name, x]));
-    const C17 = byName["C-17"], SHUTTLE = byName["C-130J"];
+    const CAP = byName[data.medium_airport_cap], SHUTTLE = byName[data.shuttle.name];
     const curve = data.usability_curve;
+    const AL = data.country_aliases || {};
+    const country = event.country;
 
-    // 1. evaluate airfields under the current assumptions
     const fields = event.fields
       .filter((f) => f.dist <= a.gateway_max_km)
       .map((f) => ({
@@ -67,24 +83,23 @@
       }))
       .sort((x, y) => x.dist - y.dist);
 
-    const country = event.country;
-    const AL = data.country_aliases || {};
     const dem = demand(event.exposure, data.demand);
 
-    // 2. gateway candidates
+    // gateway_candidates
     const gateways = [];
     for (const f of fields) {
       if (f.kind !== "large_airport" && f.kind !== "medium_airport") continue;
       if (f.runway < a.gateway_min_runway_ft || !f.best) continue;
       if (f.use < a.min_usability) continue;
       let ac = byName[f.best];
-      if (f.kind === "medium_airport" && ac.payload > C17.payload) ac = C17;
-      const inflow = f.use * a.mog_gateway[f.kind] * (a.ops_hours / ac.ground) * ac.payload;
+      if (f.kind === "medium_airport" && ac.payload > CAP.payload) ac = CAP;
+      const turns = a.ops_hours / ac.ground;
+      const inflow = a.mog_gateway[f.kind] * ac.payload * turns * a.queue_efficiency * f.use;
       gateways.push({ field: f, aircraft: ac, inflow });
     }
     gateways.sort((x, y) => y.inflow - x.inflow);
 
-    // 3. forward strips
+    // forward_candidates
     const strips = fields.filter(
       (f) =>
         f.in_zone &&
@@ -93,27 +108,33 @@
         (!a.domestic_only || !country || sameCountry(f.country, country, AL))
     );
 
+    // allocate_shuttles
     function allocate(gw) {
       const legs = [];
       for (const s of strips) {
         if (s.ident === gw.field.ident) continue;
+        const credit = stripCredit(s, a);
+        if (credit <= 0) continue;
         const leg = haversine(gw.field.lat, gw.field.lon, s.lat, s.lon);
-        const cycle = (2 * leg) / SHUTTLE.cruise + 2 * SHUTTLE.ground;
-        const maxSorties = (a.ops_hours / cycle) * a.mog_forward[s.kind];
-        legs.push({ rate: (SHUTTLE.payload * s.use) / cycle, s, leg, cycle, maxSorties });
+        const cycle = (2 * leg) / data.shuttle.block_kmh + 2 * SHUTTLE.ground;
+        const maxSorties = (a.ops_hours / cycle) * a.mog_forward[s.kind] * a.queue_efficiency;
+        const perSortie = SHUTTLE.payload * s.use * credit;
+        legs.push({ rate: perSortie / cycle, s, leg, cycle, maxSorties, credit, perSortie });
       }
       legs.sort((x, y) => y.rate - x.rate);
       let fleetHours = a.shuttle_fleet * a.ops_hours;
       const out = [];
       for (const l of legs) {
-        if (fleetHours <= 0) break;
+        if (fleetHours <= 1e-9) break;
         const sorties = Math.min(l.maxSorties, fleetHours / l.cycle);
+        if (sorties < a.min_sorties) continue;
         fleetHours -= sorties * l.cycle;
-        out.push({ field: l.s, leg: l.leg, cycle: l.cycle, sorties, tpd: sorties * SHUTTLE.payload * l.s.use });
+        out.push({ field: l.s, leg: l.leg, cycle: l.cycle, sorties, credit: l.credit, tpd: sorties * l.perSortie });
       }
       return out;
     }
 
+    // work_out
     function workOut(gw) {
       const forwards = allocate(gw);
       const forwarded = forwards.reduce((s, f) => s + f.tpd, 0);
@@ -127,11 +148,12 @@
       return x.gateway.field.dist < y.gateway.field.dist;
     };
 
-    const domestic = gateways.filter((g) => sameCountry(g.field.country, country, AL));
-    const foreign = gateways.filter((g) => !sameCountry(g.field.country, country, AL));
     let bestD = null, bestF = null;
-    for (const g of domestic) { const o = workOut(g); if (better(o, bestD)) bestD = o; }
-    for (const g of foreign) { const o = workOut(g); if (better(o, bestF)) bestF = o; }
+    for (const g of gateways) {
+      const o = workOut(g);
+      if (sameCountry(g.field.country, country, AL)) { if (better(o, bestD)) bestD = o; }
+      else if (better(o, bestF)) bestF = o;
+    }
 
     let chosen, alternatives;
     if (bestD && bestD.delivered > 0) { chosen = bestD; alternatives = bestF ? [bestF] : []; }
@@ -144,10 +166,10 @@
     const traps = fields.filter((f) => f.in_zone && f.runway >= a.forward_min_runway_ft && f.use < a.min_usability);
     const naive = fields.find((f) => f.runway >= a.forward_min_runway_ft) || null;
 
-    // roles for the ledger and the map
+    // roles, for the table and the map
     for (const t of traps) t.role = "knocked-out";
     if (chosen) {
-      for (const f of chosen.forwards) if (f.sorties >= 0.5) f.field.role = "forward";
+      for (const f of chosen.forwards) f.field.role = "forward";
       chosen.gateway.field.role = "gateway";
     }
     for (const alt of alternatives) if (alt.gateway.field.role === "candidate") alt.gateway.field.role = "alternative";
@@ -155,7 +177,7 @@
     return { event, country, demand: dem, chosen, alternatives, delivered, people, coverage, traps, naive, fields, assumptions: a };
   }
 
-  const api = { build, usability, roman, haversine, directCredit, demand, sameCountry };
+  const api = { build, usability, roman, haversine, directCredit, stripCredit, demand, sameCountry };
   root.AirliftModel = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof self !== "undefined" ? self : globalThis);

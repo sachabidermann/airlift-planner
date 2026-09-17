@@ -4,8 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Airlift Planner</title>
-<meta name="description" content="Earthquake airbridge decision support: which airfields survived, how much relief is needed, and how much an airlift can deliver.">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<meta name="description" content="After an earthquake: which airfields can still take relief flights, how much cargo is needed, and how much an airlift could move. A planning model on public USGS, Census and OurAirports data.">
+<meta property="og:title" content="Airlift Planner">
+<meta property="og:description" content="Which airfields survive an earthquake, and what an airlift through them could move. Public data, planning model.">
+<meta property="og:image" content="https://sachabidermann.github.io/airlift-planner/haywired.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%232a78d6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,15 +17,15 @@
 <header class="topbar">
   <div class="brand">
     <span class="wordmark">Airlift Planner</span>
-    <span class="tagline">Earthquake airbridge decision support</span>
+    <span class="tagline">Earthquake airbridge planning model</span>
   </div>
   <div class="topbar-controls">
     <label class="select-wrap">
       <span class="select-label">Event</span>
-      <select id="event-select" aria-label="Select earthquake"></select>
+      <select id="event-select"></select>
     </label>
     <span class="built" id="built"></span>
-    <a class="toplink" href="https://github.com/sachabidermann/airlift-planner">Source</a>
+    <a class="toplink" href="https://github.com/sachabidermann/airlift-planner">Source and method</a>
   </div>
 </header>
 
@@ -29,12 +33,12 @@
 
   <section class="event-strip">
     <div>
-      <h1 id="event-title"></h1>
+      <h1 id="event-title">Loading…</h1>
       <div class="meta" id="event-meta"></div>
     </div>
     <div class="event-nav">
-      <button class="btn" id="prev-event" aria-label="Previous event">Previous</button>
-      <button class="btn" id="next-event" aria-label="Next event">Next</button>
+      <button class="btn" id="prev-event">Previous</button>
+      <button class="btn" id="next-event">Next</button>
     </div>
   </section>
 
@@ -46,17 +50,17 @@
         <h2>Airbridge map</h2>
         <span class="card-sub" id="map-sub"></span>
       </div>
-      <div id="map" role="img" aria-label="Map of airfields, shaking contours and the proposed airbridge"></div>
+      <div id="map" role="region" aria-label="Airbridge map. Every airfield on it is listed in the table below."></div>
       <div class="legend" id="legend">
         <span><i class="glyph g-gateway"></i>Gateway</span>
-        <span><i class="glyph g-alt"></i>Alternative</span>
+        <span><i class="glyph g-alt"></i>Alternative gateway</span>
         <span><i class="glyph g-forward"></i>Forward strip</span>
         <span><i class="glyph g-trap"></i>Likely knocked out</span>
         <span><i class="glyph g-cand"></i>Other airfield</span>
-        <span><i class="glyph g-quake"></i>Epicentre</span>
-        <span><i class="glyph g-centre"></i>Damage centre</span>
+        <span><i class="glyph g-quake"></i>Epicenter</span>
+        <span><i class="glyph g-center"></i>Damage center</span>
         <span><i class="glyph g-leg"></i>Shuttle leg (straight line)</span>
-        <span><i class="glyph g-contour"></i>Shaking intensity, USGS ShakeMap (yellow VI to red X)</span>
+        <span><i class="glyph g-shake"></i>Shaking intensity, USGS ShakeMap (yellow VI to red X)</span>
       </div>
     </div>
 
@@ -70,21 +74,21 @@
           <label class="ctl">
             <span class="ctl-label">Shuttle fleet <em id="v-fleet"></em></span>
             <input type="range" id="c-fleet" min="2" max="40" step="1">
-            <span class="ctl-hint">C-130J class aircraft for the forward leg</span>
+            <span class="ctl-hint">C-130s flying from the gateway to forward strips</span>
           </label>
           <label class="ctl">
-            <span class="ctl-label">Flying hours per day <em id="v-ops"></em></span>
+            <span class="ctl-label">Airfield operating hours per day <em id="v-ops"></em></span>
             <input type="range" id="c-ops" min="8" max="24" step="1">
           </label>
           <label class="ctl">
             <span class="ctl-label">Forward radius <em id="v-fwd"></em></span>
             <input type="range" id="c-fwd" min="50" max="300" step="10">
-            <span class="ctl-hint">Strips within this distance of the damage centre, or shaken at MMI VI.5+</span>
+            <span class="ctl-hint">Airfields this close to the damage center, or shaken at MMI 6.5 or higher, count as inside the zone</span>
           </label>
           <label class="ctl">
             <span class="ctl-label">Minimum usability <em id="v-use"></em></span>
             <input type="range" id="c-use" min="0.2" max="0.9" step="0.05">
-            <span class="ctl-hint">Airfields below this are treated as knocked out</span>
+            <span class="ctl-hint">Airfields below this are flagged as likely knocked out</span>
           </label>
           <label class="ctl ctl-check">
             <input type="checkbox" id="c-dom">
@@ -100,74 +104,75 @@
 
   <section class="two-col">
     <div class="card">
-      <div class="card-head"><h2>Forward strip throughput</h2><span class="card-sub">tonnes per day, shuttle allocation</span></div>
+      <div class="card-head"><h2>Forward strip capacity</h2><span class="card-sub">metric tons per day, after usability</span></div>
       <div class="chart" id="bars-chart"></div>
     </div>
     <div class="card">
-      <div class="card-head"><h2>Airfield survivability</h2><span class="card-sub">usability curve, this event's airfields plotted</span></div>
+      <div class="card-head"><h2>Airfield usability</h2><span class="card-sub">the curve, with this event's airfields on it</span></div>
       <div class="chart" id="curve-chart"></div>
     </div>
   </section>
 
   <section class="card">
     <div class="card-head">
-      <h2>Airfield ledger</h2>
+      <h2>All airfields</h2>
       <div class="ledger-tools">
         <span class="card-sub" id="ledger-count"></span>
-        <input type="search" id="ledger-filter" placeholder="Filter by name, code, country, role" aria-label="Filter airfields">
+        <label class="sr-only" for="ledger-filter">Filter airfields</label>
+        <input type="search" id="ledger-filter" placeholder="Filter by name, code, country, role">
       </div>
     </div>
     <div class="table-wrap">
       <table class="ledger" id="ledger">
-        <thead><tr id="ledger-head"></tr></thead>
+        <thead id="ledger-head"></thead>
         <tbody id="ledger-body"></tbody>
       </table>
     </div>
   </section>
 
   <section class="card">
-    <div class="card-head"><h2>Backtest scorecard</h2><span class="card-sub">real earthquakes replayed against what relief operations did</span></div>
+    <div class="card-head"><h2>Backtest results</h2><span class="card-sub">real earthquakes, compared with what happened</span></div>
     <div class="table-wrap">
       <table class="scorecard" id="scorecard">
         <thead><tr>
-          <th>Event</th><th>Model flags as knocked out</th><th>Actually closed</th><th>Model gateway</th><th>Gateway actually used</th><th>Match</th>
+          <th>Event</th><th>Model flags as likely knocked out</th><th>What happened to airports</th><th>Model gateway</th><th>Relief gateway used</th><th>Match</th>
         </tr></thead>
         <tbody id="scorecard-body"></tbody>
       </table>
     </div>
     <p class="note" id="scorecard-note"></p>
+    <div class="note" id="event-note"></div>
   </section>
 
   <section class="card">
-    <div class="card-head"><h2>Method</h2></div>
+    <div class="card-head"><h2>Method</h2><a class="card-sub" href="https://github.com/sachabidermann/airlift-planner/blob/main/METHOD.md">Full method and sources</a></div>
     <div class="method">
       <div>
-        <h3>1. Airfield survivability</h3>
-        <p>USGS ShakeMap gives shaking intensity (MMI) on a grid. The intensity at each airport is mapped to a probability it can accept relief flights in the first days. The curve is a judgement anchored on nine real events; each backtest prints what the model saw at the airports that mattered.</p>
+        <h3>1. Airfield usability</h3>
+        <p>USGS ShakeMap gives shaking intensity (MMI, a I to X scale) on a grid. The intensity at each airport is mapped to a probability that it can take relief flights in the first days. The curve is a judgment call, set by hand while looking at the international backtests.</p>
         <p class="formula" id="curve-text"></p>
       </div>
       <div>
-        <h3>2. Demand</h3>
-        <p>USGS PAGER counts people at each intensity. For scenarios without PAGER, exposure is rebuilt from Census county and city populations. People at MMI VIII and above are the priority. Each needs a daily minimum of food, medicine and a share of a shelter kit over the first week. Water is excluded; it is not flown at scale.</p>
+        <h3>2. Need</h3>
+        <p>USGS PAGER counts people at each intensity. Where PAGER was not run, exposure is rebuilt from US Census files. People at MMI VIII and above are the priority. Water is excluded; it is rarely flown at scale.</p>
         <p class="formula" id="demand-text"></p>
       </div>
       <div>
         <h3>3. Airbridge</h3>
-        <p>Heavy jets into a gateway; C-130s shuttle into strips inside the damage zone. Capacity is ramp spots, turnarounds per day and payload, discounted by usability. Gateways in the affected country are preferred. Cargo landing near the damage centre counts as delivered by road, fading to zero at the forward radius. Regional airports are capped at C-17 class.</p>
-        <p class="formula">delivered = min(inflow, road share + shuttle tonnes)</p>
+        <p>Heavy jets fly into a gateway airport. C-130s shuttle cargo on to airfields inside the damage zone. Throughput follows Air Force Pamphlet 10-1403. Cargo landing within 50 km of the damage center counts in full; the share falls to zero at the forward radius.</p>
+        <p class="formula" id="throughput-text"></p>
       </div>
     </div>
     <h3>Limitations</h3>
     <ul class="limits">
-      <li>Not an operational tool. The usability curve is judgement; aircraft figures are public planning approximations.</li>
-      <li>Straight-line distances. No fuel, customs, handling, weather, airspace or road network.</li>
-      <li>No liquefaction or tsunami.</li>
-      <li>The airport table is current; older replays can include airports that did not exist at the time.</li>
-      <li>ShakeMap is revised for days after a quake; the version used is shown above.</li>
-      <li>Small quakes without a ShakeMap use a distance formula (Allen, Wald and Worden 2012), labelled as such.</li>
+      <li>A planning model, not an operational tool. Capacity is an upper bound: parking spots are assumed from airport size, not taken from real ramp plans.</li>
+      <li>The usability curve is judgment, and the international backtests use the same earthquakes it was set on.</li>
+      <li>Straight-line distances. No liquefaction, tsunami, fuel, customs, handling, weather, airspace or roads.</li>
+      <li>The airport table and Census population are current, including for replays of older events.</li>
+      <li>ShakeMap is revised repeatedly, sometimes years later. The version used is shown above.</li>
     </ul>
     <h3>Data</h3>
-    <p class="note">USGS: event feed, scenario catalog, ShakeMap, PAGER. US Census: population estimates and Gazetteer. OurAirports: airports and runways. Map tiles: OpenStreetMap contributors.</p>
+    <p class="note">Earthquakes, ShakeMap and PAGER: U.S. Geological Survey. Population: U.S. Census Bureau, vintage 2023 estimates and 2023 Gazetteer. Airports: OurAirports. Base map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Not affiliated with or endorsed by any of them.</p>
   </section>
 
 </main>
@@ -179,7 +184,7 @@
 
 <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin=""></script>
 <script src="model.js"></script>
 <script src="app.js"></script>
 </body>

@@ -1,8 +1,23 @@
 [project]
 name = "airlift-planner"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Estimates which airfields can take relief flights after an earthquake and what an airlift through them could move, from public USGS, Census and OurAirports data."
+readme = "README.md"
+authors = [{ name = "Sacha Bidermann" }]
 requires-python = ">=3.12"
 dependencies = [
-    "requests>=2.34.2",
+    "requests>=2.31",
 ]
+
+[project.urls]
+Dashboard = "https://sachabidermann.github.io/airlift-planner/"
+Source = "https://github.com/sachabidermann/airlift-planner"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
