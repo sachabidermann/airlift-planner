@@ -4,7 +4,7 @@
 
 ![HayWired scenario, San Francisco Bay Area](docs/haywired.png)
 
-*USGS HayWired scenario: a M7.0 on the Hayward Fault under Oakland. Red rings are airports the model expects to be knocked out (Oakland, San Jose, Hayward, Livermore). The blue square is the recommended gateway, SFO. Colour is USGS shaking intensity.*
+*USGS HayWired scenario: a M7.0 on the Hayward Fault under Oakland. Red rings are airports the model expects to be knocked out (Oakland, San Jose, Hayward, Livermore). The blue square is the recommended gateway, SFO. Colour is USGS shaking intensity, drawn from the ShakeMap grid and checked against USGS's own city values (see Verification).*
 
 ## What it does
 
@@ -20,19 +20,25 @@ uv run main.py --quake gllegacyhaywiredm7p05_se
 ```
 
 ```
-M 7.1  Haywired M7.05 Scenario  (USGS scenario, simulated)
-people at MMI VIII+     4.8M   (airbridge priority)
-cargo needed           5,250 t/day
+M 7.0  Haywired M7.05 Scenario  (USGS scenario, simulated)
+shaking data: USGS ShakeMap
 
 likely knocked out:
-    KOAK Oakland San Francisco Bay Airport      49 km   MMI X    usable 17%
-    KSJC Mineta San Jose International Airpo    24 km   MMI IX   usable 21%
-    KHWD Hayward Executive Airport              38 km   MMI IX   usable 25%
+    KLVK Livermore Municipal Airport            21 km   MMI X    usable 20%
+    KSJC Mineta San Jose International Airpo    24 km   MMI IX   usable 24%
+    KHWD Hayward Executive Airport              38 km   MMI IX   usable 38%
+    KOAK Oakland San Francisco Bay Airport      48 km   MMI IX   usable 27%
     ...
 
-GATEWAY   KSFO San Francisco International Airport        58 km   MMI VI   usable 94%
-DELIVERED INTO ZONE    4,866 t/day
-coverage of need         93%
+GATEWAY   KSFO San Francisco International Airport        58 km   MMI VII  usable 93%
+          747-8F x 6 spots, 11,870 ft   inflow 4,833 t/day
+FORWARD   shuttle fleet 12 x C-130J, 20 h/day
+          KHAF Half Moon Bay Airport                 16km      7.8     140   VI
+          KSAC Sacramento Executive Airport         126km     13.8     260   V
+          ...
+
+DELIVERED INTO ZONE    4,833 t/day
+people sustained        4.4M/day
 ```
 
 ## Dashboard
@@ -53,12 +59,12 @@ The JavaScript port of the planner is checked against the Python output on every
 
 | event | model flags as knocked out | what actually closed | model gateway | gateway actually used | match |
 |---|---|---|---|---|---|
-| Loma Prieta 1989, M6.9 | none (Oakland 94%) | Oakland main runway, liquefaction | San Francisco | San Francisco | yes |
+| Loma Prieta 1989, M6.9 | none (Oakland 93%) | Oakland main runway, liquefaction | San Jose | San Francisco and San Jose both open | yes |
 | Anchorage 2018, M7.1 | none | none; Anchorage reopened same day | Anchorage | Anchorage | yes |
 | Ridgecrest 2019, M7.1 | none | China Lake facilities | Mojave | none needed | n/a |
 | Puerto Rico 2020, M6.4 | none | none | San Juan | none needed | n/a |
-| Haiti 2010, M7.0 | none (Port-au-Prince 63%) | none; tower lost, field saturated | Port-au-Prince | Port-au-Prince | yes |
-| Nepal 2015, M7.8 | none (Kathmandu 81%) | none; runway damaged by heavy jets | Kathmandu | Kathmandu | yes |
+| Haiti 2010, M7.0 | none (Port-au-Prince 60%) | none; tower lost, field saturated | Port-au-Prince | Port-au-Prince | yes |
+| Nepal 2015, M7.8 | none (Kathmandu 87%) | none; runway damaged by heavy jets | Kathmandu | Kathmandu | yes |
 | Turkey 2023, M7.8 | Hatay, Kahramanmaras | Hatay | Gaziantep | Adana and Incirlik | no |
 | Morocco 2023, M6.8 | none | none | Marrakech | Marrakech | yes |
 | Myanmar 2025, M7.7 | Mandalay, Nay Pyi Taw, 3 small fields | Mandalay, Nay Pyi Taw | Heho | Yangon | no |
@@ -73,18 +79,22 @@ The USGS publishes official simulated earthquakes for places that have not had t
 
 | scenario | people at MMI VIII+ | model gateway | flagged as knocked out | delivered |
 |---|---:|---|---|---|
-| HayWired M7.0, Hayward Fault, Bay Area | 4.8M | San Francisco | Oakland, San Jose, Hayward, Livermore, Moffett, 6 more | 4,866 t/day, 93% of need |
-| ShakeOut M7.8, southern San Andreas, Los Angeles | 8.3M | Long Beach | San Bernardino, Chino, Palmdale, Palm Springs, 14 more | 5,008 t/day, 55% of need |
-| Seattle Fault M7.5 | 2.4M | Whidbey Island NAS | Sea-Tac, Boeing Field, Renton, Bremerton | 2,029 t/day, 78% of need |
-| New Madrid M7.7, Memphis | 306k | Memphis | 10 small fields in Arkansas and Missouri | 4,716 t/day, exceeds need |
-| Cascadia M9.0, Pacific Northwest | 111k | McChord AFB | none (tsunami not modelled) | 1,554 t/day, exceeds need |
-| Puerto Rico Trench M8.5 | 1.6M | San Juan, at 63% | none | 3,276 t/day, exceeds need |
+| HayWired M7.0, Hayward Fault, Bay Area | 4.8M | San Francisco | Oakland, San Jose, Hayward, Livermore, 6 more | 4,833 t/day, 93% of need |
+| ShakeOut M7.8, southern San Andreas, Los Angeles | 7.8M | Long Beach | San Bernardino, Ontario, Chino, Redlands and more | 4,810 t/day, 57% of need |
+| Seattle Fault M7.5 | 2.4M | Whidbey Island NAS | Sea-Tac, Boeing Field, Renton, Bremerton | 2,020 t/day, 78% of need |
+| New Madrid M7.7, Memphis | 306k | Memphis | 10 small fields in Arkansas and Missouri | 4,777 t/day, exceeds need |
+| Cascadia M9.0, Pacific Northwest | 115k | McChord AFB | none (tsunami not modelled) | 1,545 t/day, exceeds need |
+| Puerto Rico Trench M8.5 | 1.4M | San Juan, at 62% | none | 3,226 t/day, exceeds need |
 
-For HayWired, the two scenarios with PAGER (Seattle, New Madrid) use USGS's own population exposure; the others use a Census reconstruction (county and city populations sampled against the shaking grid), which is coarser and says so in the dashboard.
+Seattle and New Madrid use USGS's own PAGER population exposure. The other four use a Census reconstruction (county and city populations sampled against the shaking grid), which is coarser and is labelled as such in the dashboard.
 
 ## Prior art, including Palantir
 
 Palantir has worked in disaster response for over a decade: with [Direct Relief during Hurricane Sandy](https://www.directrelief.org/2013/02/palantir-expands-commitment-to-help-improve-disaster-response/), with [Team Rubicon](https://www.prnewswire.com/news-releases/palantir-technologies-creates-clinton-global-initiative-commitment-to-action-partners-with-team-rubicon-and-direct-relief-to-revolutionize-disaster-response-efforts-193074341.html) on the ground after Typhoon Haiyan, and more recently through [AIP for Infrastructure Resiliency and Disaster Response](https://www.palantir.com/partnerships/jacobs/IRDR/) with Jacobs. That work is data integration and operations: fusing an organisation's own inventory, field reports and partner data into one operating picture. It does not, as far as anything public shows, include an airfield-survivability or airbridge-capacity model built from ShakeMap. This project is the kind of domain model that would sit on top of a platform like that, not a substitute for one. The US Air Force and FEMA do airfield assessment by sending teams; the point here is a first estimate in the minutes before any team lands.
+
+## Verification
+
+The shaking layer is the foundation, so it is checked against USGS's own numbers rather than trusted. `uv run backtests/verify_shaking.py` reads our grid at every city USGS PAGER lists for nine events (about 4,000 cities) and compares with the intensity PAGER assigned. Results in [backtests/VERIFICATION.md](backtests/VERIFICATION.md): mean difference within 0.1 to 0.2 intensity units for eight of nine events, the exception being Anchorage, where USGS revised the ShakeMap sixteen months after PAGER ran and the older city values no longer match the current grid. The legacy grid parser that reads the HayWired, ShakeOut, Cascadia and Loma Prieta files agrees with the modern grid format to 0.003 on average. Airports are read from the medium-resolution grid with bilinear interpolation; the dashboard draws the layer in Web Mercator so it registers exactly with the base map.
 
 ## How it works
 
@@ -93,7 +103,7 @@ Palantir has worked in disaster response for over a decade: with [Direct Relief 
 | Fetch the quake, its shaking grid, and its population exposure; real events and scenarios | `airlift/usgs.py` | USGS event feed, scenario catalog, ShakeMap, PAGER |
 | Rebuild exposure for US scenarios without PAGER | `airlift/population.py` | Census population estimates and Gazetteer centroids |
 | Load every airport and runway on Earth | `airlift/airports.py` | OurAirports (public domain) |
-| Shaking intensity to runway usability | `airlift/survivability.py` | judgement curve anchored on the events above |
+| Shaking intensity to runway usability | `airlift/survivability.py` | judgement curve anchored on nine real events |
 | Population exposure to tonnes per day | `airlift/demand.py` | WFP and Sphere planning figures |
 | Gateway choice, shuttle allocation, coverage | `airlift/airbridge.py` | ramp spots, turnaround times, aircraft payloads |
 | Terminal report and standalone HTML map | `airlift/report.py` | Leaflet, OpenStreetMap |

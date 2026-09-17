@@ -110,17 +110,19 @@
   function renderKpis() {
     const p = plan, d = p.demand, g = p.chosen ? p.chosen.gateway : null;
     let coverage, coverageSub;
-    if (p.coverage == null) { coverage = "n/a"; coverageSub = "no PAGER exposure for this event"; }
+    if (p.coverage == null) { coverage = "n/a"; coverageSub = d ? "no one exposed at MMI VIII+" : "no population exposure for this event"; }
     else if (p.coverage >= 1) { coverage = "100<small>%</small>"; coverageSub = `capacity is ${fmt1.format(p.coverage)}× need; distribution is the constraint`; }
     else { coverage = `${Math.round(p.coverage * 100)}<small>%</small>`; coverageSub = "rest must come by road, sea or local supply"; }
+    const quiet = !p.fields.some((f) => f.mmi >= 6);
     $("kpis").innerHTML = [
-      kpi("Delivered into zone", `${fmtInt.format(p.delivered)}<small>t/day</small>`, g ? `via ${esc(g.field.ident)}` : "no viable gateway"),
+      kpi("Delivered into zone", `${fmtInt.format(p.delivered)}<small>t/day</small>`,
+        !g ? "no viable gateway" : p.delivered === 0 ? `${esc(g.field.ident)} reachable, but no usable strip inside the zone` : `via ${esc(g.field.ident)}`),
       kpi("People sustained", `${people(p.people)}<small>/day</small>`, `at ${fmt1.format(DATA.demand.kg_per_person_day)} kg per person per day`),
       kpi("Coverage of need", coverage, coverageSub),
       kpi("Priority population", d ? people(d.priority) : "n/a", d ? `MMI VIII+; ${people(d.affected)} at MMI VII+` : "no PAGER exposure"),
       kpi("Daily cargo needed", d ? `${fmtInt.format(d.tonnes_per_day)}<small>t/day</small>` : "n/a", "food, medical, shelter share"),
       kpi("Airfields knocked out", String(p.traps.length), p.traps.length ? esc(p.traps.slice(0, 3).map((t) => t.ident).join(", ")) + (p.traps.length > 3 ? ", …" : "") : "none flagged in the zone"),
-    ].join("");
+    ].join("") + (quiet ? `<div class="kpi kpi-note"><div class="kpi-label">Note</div><div class="kpi-sub">No airfield was shaken above MMI V. Little or no airlift need is expected; the plan is hypothetical.</div></div>` : "");
   }
 
   // ------------------------------------------------------------------ map
@@ -137,18 +139,38 @@
     const a = MMI_COLORS[i], b = MMI_COLORS[Math.min(10, i + 1)];
     return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
   }
+  // Draw the grid in Web Mercator so it registers exactly with the map, with
+  // bilinear interpolation between cells and 3x upsampling so it is not blocky.
+  function gridSample(g, fx, fy) {
+    const ix = Math.min(Math.max(Math.floor(fx), 0), g.nx - 2), iy = Math.min(Math.max(Math.floor(fy), 0), g.ny - 2);
+    const tx = Math.min(Math.max(fx - ix, 0), 1), ty = Math.min(Math.max(fy - iy, 0), 1);
+    const v = g.v;
+    const r0 = v[iy * g.nx + ix] * (1 - tx) + v[iy * g.nx + ix + 1] * tx;
+    const r1 = v[(iy + 1) * g.nx + ix] * (1 - tx) + v[(iy + 1) * g.nx + ix + 1] * tx;
+    return (r0 * (1 - ty) + r1 * ty) / 10;
+  }
   function gridImage(g) {
+    const UP = 3, W = g.nx * UP, H = g.ny * UP;
     const c = document.createElement("canvas");
-    c.width = g.nx; c.height = g.ny;
-    const ctx = c.getContext("2d"), img = ctx.createImageData(g.nx, g.ny);
-    for (let iy = 0; iy < g.ny; iy++) {
-      for (let ix = 0; ix < g.nx; ix++) {
-        const m = g.v[iy * g.nx + ix] / 10;
-        const row = g.ny - 1 - iy;                       // grid is south-to-north, canvas is top-down
-        const o = (row * g.nx + ix) * 4;
-        const [r, gg, b] = mmiColor(m);
+    c.width = W; c.height = H;
+    const ctx = c.getContext("2d"), img = ctx.createImageData(W, H);
+    const merc = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
+    const m0 = merc(g.y0), m1 = merc(g.y1);
+    for (let row = 0; row < H; row++) {
+      // canvas rows are evenly spaced in Mercator; find the latitude of this row
+      const m = m1 - ((m1 - m0) * (row + 0.5)) / H;
+      const lat = ((2 * Math.atan(Math.exp(m)) - Math.PI / 2) * 180) / Math.PI;
+      const fy = ((lat - g.y0) / (g.y1 - g.y0)) * (g.ny - 1);
+      for (let col = 0; col < W; col++) {
+        const fx = ((col + 0.5) / W) * (g.nx - 1);
+        const mm = gridSample(g, fx, fy);
+        const o = (row * W + col) * 4;
+        const [r, gg, b] = mmiColor(mm);
         img.data[o] = r; img.data[o + 1] = gg; img.data[o + 2] = b;
-        img.data[o + 3] = m < 4.5 ? 0 : Math.round(255 * Math.min(1, (m - 4.5) / 1.5));
+        // fade out over the last few cells so the grid's edge is not a hard rectangle
+        const edge = Math.min(fx, g.nx - 1 - fx, fy, g.ny - 1 - fy) / 5;
+        const alpha = mm < 4.5 ? 0 : Math.min(1, (mm - 4.5) / 1.5) * Math.min(1, Math.max(0, edge));
+        img.data[o + 3] = Math.round(255 * alpha);
       }
     }
     ctx.putImageData(img, 0, 0);
@@ -411,9 +433,10 @@
       const flags = p.traps.length ? p.traps.map((t) => `${t.ident}`).join(", ") : "none";
       const gw = p.chosen ? `${p.chosen.gateway.field.ident} ${p.chosen.gateway.field.name}` : "none";
       let matchCell;
-      if (!e.actual_ident) { matchCell = `<td class="note">n/a</td>`; }
+      const accepted = e.actual_idents && e.actual_idents.length ? e.actual_idents : (e.actual_ident ? [e.actual_ident] : []);
+      if (!accepted.length) { matchCell = `<td class="note">n/a</td>`; }
       else {
-        const match = p.chosen && p.chosen.gateway.field.ident === e.actual_ident;
+        const match = p.chosen && accepted.includes(p.chosen.gateway.field.ident);
         total++; if (match) hits++;
         matchCell = `<td class="${match ? "match-yes" : "match-no"}">${match ? "Yes" : "No"}</td>`;
       }

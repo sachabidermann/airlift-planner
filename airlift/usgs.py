@@ -122,7 +122,7 @@ class ShakeGrid:
         return grid if grid.y1 > grid.y0 else grid._flipped()
 
     @classmethod
-    def from_grid_xml(cls, raw: bytes, max_n: int = 160) -> "ShakeGrid":
+    def from_grid_xml(cls, raw: bytes, max_n: int = 300) -> "ShakeGrid":
         """Older ShakeMaps (and legacy scenarios) only ship grid.xml. Downsampled."""
         root = ET.fromstring(raw)
         spec = mmi_index = None
@@ -183,9 +183,20 @@ class ShakeGrid:
         return self._index(lat, lon) is not None
 
     def mmi_at(self, lat: float, lon: float) -> float:
-        """MMI at a point; outside the grid counts as I (not felt)."""
-        i = self._index(lat, lon)
-        return max(1.0, self.values[i]) if i is not None else 1.0
+        """MMI at a point, bilinear between the four surrounding cells.
+
+        Outside the grid counts as I (not felt).
+        """
+        fx = (lon - self.x0) / (self.x1 - self.x0) * (self.nx - 1)
+        fy = (lat - self.y0) / (self.y1 - self.y0) * (self.ny - 1)
+        if not (0 <= fx <= self.nx - 1 and 0 <= fy <= self.ny - 1):
+            return 1.0
+        ix, iy = min(int(fx), self.nx - 2), min(int(fy), self.ny - 2)
+        tx, ty = fx - ix, fy - iy
+        v = self.values
+        row0 = v[iy * self.nx + ix] * (1 - tx) + v[iy * self.nx + ix + 1] * tx
+        row1 = v[(iy + 1) * self.nx + ix] * (1 - tx) + v[(iy + 1) * self.nx + ix + 1] * tx
+        return max(1.0, row0 * (1 - ty) + row1 * ty)
 
     def cells(self) -> Iterator[tuple[float, float, float]]:
         """Yield (lat, lon, mmi) for every grid cell."""
@@ -334,8 +345,13 @@ def fetch_event(quake_id: str) -> Event:
     sm = _product(products, "shakemap", "shakemap-scenario")
     if sm:
         contents = sm.get("contents", {})
-        url = contents.get("download/coverage_mmi_low_res.covjson", {}).get("url")
+        # Medium resolution (about 5 km cells) for airport lookups; the dashboard
+        # downsamples for drawing. Low resolution is the fallback.
+        url = contents.get("download/coverage_mmi_medium_res.covjson", {}).get("url")
         if url:
+            shake = ShakeGrid.from_covjson(json.loads(_cached_get(url, folder / "mmi_medium_res.covjson")))
+        elif contents.get("download/coverage_mmi_low_res.covjson", {}).get("url"):
+            url = contents["download/coverage_mmi_low_res.covjson"]["url"]
             shake = ShakeGrid.from_covjson(json.loads(_cached_get(url, folder / "mmi_low_res.covjson")))
         else:
             url = (contents.get("download/grid.xml") or contents.get("grid.xml") or {}).get("url")

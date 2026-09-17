@@ -136,6 +136,7 @@ select {
 .kpi-value small { font-size: 13px; font-weight: 400; color: var(--ink-2); margin-left: 4px; }
 .kpi-sub { font-size: 12px; color: var(--ink-2); }
 .kpi-value.kpi-text { font-size: 17px; line-height: 1.3; }
+.kpi-note { grid-column: 1 / -1; }
 
 /* ---------- main grid */
 .main-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 14px; align-items: stretch; }

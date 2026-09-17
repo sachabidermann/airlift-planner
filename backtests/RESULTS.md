@@ -12,17 +12,17 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KOAK Oakland San Francisco Bay Airport | 68 | VI | 94% |
-| KSFO San Francisco International Airport | 65 | VI | 94% |
-| KSJC Mineta San Jose International Airport | 23 | VI | 94% |
-| KWVI Watsonville Municipal Airport | 27 | VIII | 72% |
+| KOAK Oakland San Francisco Bay Airport | 67 | VII | 92% |
+| KSFO San Francisco International Airport | 64 | VII | 91% |
+| KSJC Mineta San Jose International Airport | 22 | VII | 93% |
+| KWVI Watsonville Municipal Airport | 29 | VIII | 69% |
 
 **Plan**
 
-- Gateway: **KSFO San Francisco International Airport**, 65 km, MMI VI, inflow 4,898 t/day
-- Forward strips: KHAF Half Moon Bay Airport (145 t/day), KCCR Buchanan Field (280 t/day), KOAK Oakland San Francisco Bay Airport (417 t/day), KC83 Byron Airport (138 t/day), KO69 Petaluma Municipal Airport (138 t/day)
-- Alternative gateway: MMTJ General Abelardo L. Rodriguez International Airport, 1,039 t/day
-- Delivered into zone: **4,898 t/day**, sustaining about 4,488,063 people/day, 100% of estimated need
+- Gateway: **KSJC Mineta San Jose International Airport**, 22 km, MMI VII, inflow 4,836 t/day
+- Forward strips: KNUQ Moffett Federal Airfield (280 t/day), KRHV Reid-Hillview Airport of Santa Clara County (140 t/day), KC83 Byron Airport (140 t/day), KTCY Tracy Municipal Airport (139 t/day), KLVK Livermore Municipal Airport (138 t/day)
+- Alternative gateway: MMTJ General Abelardo L. Rodriguez International Airport, 1,035 t/day
+- Delivered into zone: **4,836 t/day**, sustaining about 4,431,222 people/day, 100% of estimated need
 
 **What happened**
 
@@ -38,16 +38,16 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: orange.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| PANC Ted Stevens Anchorage International Airport | 22 | VII | 90% |
-| PAED Elmendorf Air Force Base | 23 | VII | 84% |
-| PAMR Merrill Field | 24 | VII | 84% |
+| PANC Ted Stevens Anchorage International Airport | 26 | VII | 90% |
+| PAED Elmendorf Air Force Base | 25 | VII | 81% |
+| PAMR Merrill Field | 27 | VII | 84% |
 
 **Plan**
 
-- Gateway: **PANC Ted Stevens Anchorage International Airport**, 22 km, MMI VII, inflow 4,680 t/day
-- Forward strips: PAFR Bryant Army Airfield (135 t/day), PABV Birchwood Airport (266 t/day), PASX Soldotna Airport (266 t/day), AK53 Maud Road Strip Airport (133 t/day), PAEN Kenai Municipal Airport (264 t/day)
-- Alternative gateway: CYXY Whitehorse / Erik Nielsen International Airport, 873 t/day
-- Delivered into zone: **4,680 t/day**, sustaining about 4,287,958 people/day, 100% of estimated need
+- Gateway: **PANC Ted Stevens Anchorage International Airport**, 26 km, MMI VII, inflow 4,693 t/day
+- Forward strips: PAFR Bryant Army Airfield (135 t/day), PABV Birchwood Airport (267 t/day), PASX Soldotna Airport (267 t/day), AK53 Maud Road Strip Airport (133 t/day), 9AK3 Nikolai Creek Airport (133 t/day)
+- Alternative gateway: CYXY Whitehorse / Erik Nielsen International Airport, 874 t/day
+- Delivered into zone: **4,693 t/day**, sustaining about 4,299,589 people/day, 100% of estimated need
 
 **What happened**
 
@@ -63,9 +63,9 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: yellow.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KNID China Lake Naws (Armitage Field) Airport | 12 | VIII | 57% |
-| KIYK Inyokern Airport | 25 | VII | 84% |
-| KEDW Edwards Air Force Base | 91 | IV | 100% |
+| KNID China Lake Naws (Armitage Field) Airport | 12 | VIII | 64% |
+| KIYK Inyokern Airport | 25 | VII | 80% |
+| KEDW Edwards Air Force Base | 92 | IV | 100% |
 
 **Plan**
 
@@ -88,16 +88,16 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: orange.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| TJPS Mercedita International Airport | 24 | VI | 96% |
-| TJSJ Luis Munoz Marin International Airport | 99 | IV | 100% |
-| TJBQ Rafael Hernández International Airport | 71 | IV | 100% |
+| TJPS Mercedita International Airport | 24 | VI | 94% |
+| TJSJ Luis Munoz Marin International Airport | 98 | IV | 100% |
+| TJBQ Rafael Hernández International Airport | 70 | IV | 100% |
 
 **Plan**
 
-- Gateway: **TJSJ Luis Munoz Marin International Airport**, 99 km, MMI IV, inflow 5,200 t/day
+- Gateway: **TJSJ Luis Munoz Marin International Airport**, 98 km, MMI IV, inflow 5,200 t/day
 - Forward strips: TJIG Fernando Luis Ribas Dominicci Airport (300 t/day), PR36 Cocal Airport (148 t/day), TJRV José Aponte de la Torre Airport (288 t/day), TJVQ Antonio Rivera Rodriguez Airport (282 t/day), TJAB Antonio Nery Juarbe Pol Airport (279 t/day)
-- Alternative gateway: MDPC Punta Cana International Airport, 1,484 t/day
-- Delivered into zone: **4,342 t/day**, sustaining about 3,978,660 people/day, 100% of estimated need
+- Alternative gateway: MDPC Punta Cana International Airport, 1,483 t/day
+- Delivered into zone: **4,399 t/day**, sustaining about 4,030,211 people/day, 100% of estimated need
 
 **What happened**
 
@@ -113,15 +113,15 @@ Shaking data: USGS ShakeMap. Exposure: none.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| MTPP Toussaint Louverture International Airport | 38 | VIII | 63% |
+| MTPP Toussaint Louverture International Airport | 37 | VIII | 60% |
 | MDSD Las Américas International Airport | 314 | IV | 100% |
 
 **Plan**
 
-- Gateway: **MTPP Toussaint Louverture International Airport**, 38 km, MMI VIII, inflow 3,276 t/day
-- Forward strips: MTCH Cap Haitien International Airport (393 t/day), MTCA Antoine-Simon International Airport (248 t/day), MTJA Jacmel Airport (225 t/day)
-- Alternative gateway: MDBH Maria Montez International Airport, 1,033 t/day
-- Delivered into zone: **3,276 t/day**, sustaining about 3,001,571 people/day
+- Gateway: **MTPP Toussaint Louverture International Airport**, 37 km, MMI VIII, inflow 3,131 t/day
+- Forward strips: MTCH Cap Haitien International Airport (393 t/day), MTCA Antoine-Simon International Airport (246 t/day), MTJA Jacmel Airport (213 t/day)
+- Alternative gateway: MDBH Maria Montez International Airport, 1,009 t/day
+- Delivered into zone: **3,131 t/day**, sustaining about 2,868,889 people/day
 
 **What happened**
 
@@ -137,15 +137,15 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| VNKT Tribhuvan International Airport | 23 | VII | 81% |
-| VNPK Pokhara Domestic Airport | 134 | VII | 91% |
+| VNKT Tribhuvan International Airport | 26 | VII | 87% |
+| VNPK Pokhara Domestic Airport | 133 | VII | 91% |
 
 **Plan**
 
-- Gateway: **VNKT Tribhuvan International Airport**, 23 km, MMI VII, inflow 4,212 t/day
-- Forward strips: VNJP Janakpur Airport (243 t/day), VNMG Meghauli Airport (120 t/day), NP-0003 Pokhara International Airport (354 t/day), VNPK Pokhara Domestic Airport (235 t/day), VNSI Simara Airport (117 t/day)
-- Alternative gateway: VEKI Kushinagar International Airport, 1,351 t/day
-- Delivered into zone: **4,212 t/day**, sustaining about 3,859,162 people/day, 100% of estimated need
+- Gateway: **VNKT Tribhuvan International Airport**, 26 km, MMI VII, inflow 4,547 t/day
+- Forward strips: VNSI Simara Airport (124 t/day), VNJP Janakpur Airport (245 t/day), VNMG Meghauli Airport (120 t/day), VNBP Bharatpur Airport (117 t/day), VNPK Pokhara Domestic Airport (233 t/day)
+- Alternative gateway: VEKI Kushinagar International Airport, 1,372 t/day
+- Delivered into zone: **4,547 t/day**, sustaining about 4,166,180 people/day, 100% of estimated need
 
 **What happened**
 
@@ -161,7 +161,7 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| LTDA Hatay Airport | 124 | IX | 36% |
+| LTDA Hatay Airport | 124 | IX | 34% |
 | LTAF Adana Şakirpaşa Airport | 170 | VI | 98% |
 | LTAG İncirlik Air Base | 157 | VI | 97% |
 | LTAJ Gaziantep Oğuzeli International Airport | 41 | VII | 91% |
@@ -169,11 +169,11 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **Plan**
 
-- Gateway: **LTAJ Gaziantep Oğuzeli International Airport**, 41 km, MMI VII, inflow 4,716 t/day
-- Forward strips: LTCP Adıyaman Airport (237 t/day), LTAT Malatya Erhaç Airport (210 t/day), LTAO Malatya Tulga Airport (79 t/day)
+- Gateway: **LTAJ Gaziantep Oğuzeli International Airport**, 41 km, MMI VII, inflow 4,706 t/day
+- Forward strips: LTCP Adıyaman Airport (237 t/day), LTAT Malatya Erhaç Airport (207 t/day), LTAO Malatya Tulga Airport (80 t/day)
 - Flagged as likely knocked out: LTCN Kahramanmaraş Airport (MMI VIII), LTDA Hatay Airport (MMI IX)
-- Alternative gateway: OSAP Aleppo International Airport, 2,548 t/day
-- Delivered into zone: **4,716 t/day**, sustaining about 4,321,309 people/day, 100% of estimated need
+- Alternative gateway: OSAP Aleppo International Airport, 2,533 t/day
+- Delivered into zone: **4,706 t/day**, sustaining about 4,312,035 people/day, 100% of estimated need
 
 **What happened**
 
@@ -189,14 +189,14 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| GMMX Marrakesh Menara Airport | 59 | VI | 96% |
+| GMMX Marrakesh Menara Airport | 56 | VI | 95% |
 
 **Plan**
 
-- Gateway: **GMMX Marrakesh Menara Airport**, 59 km, MMI VI, inflow 5,008 t/day
-- Forward strips: GMMZ Ouarzazate International Airport (387 t/day), GMMI Essaouira-Mogador Airport (253 t/day), GMAA Inezgane Airport (121 t/day), GMAD Al Massira Airport (363 t/day)
-- Alternative gateway: DAOF Tindouf Airport, 1,216 t/day
-- Delivered into zone: **5,008 t/day**, sustaining about 4,588,115 people/day, 100% of estimated need
+- Gateway: **GMMX Marrakesh Menara Airport**, 56 km, MMI VI, inflow 4,949 t/day
+- Forward strips: GMMZ Ouarzazate International Airport (383 t/day), GMMI Essaouira-Mogador Airport (253 t/day), GMAA Inezgane Airport (120 t/day), GMAD Al Massira Airport (359 t/day)
+- Alternative gateway: DAOF Tindouf Airport, 1,206 t/day
+- Delivered into zone: **4,949 t/day**, sustaining about 4,534,197 people/day, 100% of estimated need
 
 **What happened**
 
@@ -212,17 +212,17 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| VYMD Mandalay International Airport | 133 | IX | 22% |
-| VYNT Nay Pyi Taw International Airport | 101 | IX | 26% |
+| VYMD Mandalay International Airport | 133 | X | 20% |
+| VYNT Nay Pyi Taw International Airport | 100 | IX | 23% |
 | VYYY Yangon International Airport | 401 | VI | 98% |
 
 **Plan**
 
 - Gateway: **VYHH Heho Airport**, 86 km, MMI VII, inflow 1,905 t/day
 - Forward strips: VYBG Bagan Airport (118 t/day), VYLY Lanywa Airport (118 t/day), VY02 New Magway Airport (116 t/day), VYMW Magway Airport (116 t/day), VYPU Pakhokku Airport (114 t/day)
-- Flagged as likely knocked out: VYST Shante Air Base (MMI IX), VYNT Nay Pyi Taw International Airport (MMI IX), VYMD Mandalay International Airport (MMI IX), VYCZ Chanmyathazi Airport (MMI IX), VYTO Taungoo Airport (MMI IX)
-- Alternative gateway: VGEG Shah Amanat International Airport, 828 t/day
-- Delivered into zone: **1,905 t/day**, sustaining about 1,745,871 people/day, 18% of estimated need
+- Flagged as likely knocked out: VYST Shante Air Base (MMI IX), VYNT Nay Pyi Taw International Airport (MMI IX), VYMD Mandalay International Airport (MMI X), VYCZ Chanmyathazi Airport (MMI IX), VYTO Taungoo Airport (MMI IX)
+- Alternative gateway: VGEG Shah Amanat International Airport, 835 t/day
+- Delivered into zone: **1,905 t/day**, sustaining about 1,745,118 people/day, 18% of estimated need
 
 **What happened**
 
@@ -240,19 +240,19 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KOAK Oakland San Francisco Bay Airport | 49 | X | 17% |
-| KSFO San Francisco International Airport | 58 | VI | 94% |
-| KSJC Mineta San Jose International Airport | 24 | IX | 21% |
-| KSMF Sacramento International Airport | 132 | V | 99% |
-| KSUU Travis Air Force Base | 85 | VII | 78% |
+| KOAK Oakland San Francisco Bay Airport | 48 | IX | 27% |
+| KSFO San Francisco International Airport | 58 | VII | 93% |
+| KSJC Mineta San Jose International Airport | 24 | IX | 24% |
+| KSMF Sacramento International Airport | 131 | VI | 98% |
+| KSUU Travis Air Force Base | 84 | VII | 77% |
 
 **Plan**
 
-- Gateway: **KSFO San Francisco International Airport**, 58 km, MMI VI, inflow 4,866 t/day
-- Forward strips: KHAF Half Moon Bay Airport (141 t/day), KO88 Rio Vista Municipal Airport (135 t/day), K1O3 Lodi Airport (133 t/day), KF72 Franklin Field (132 t/day), 2CL9 Mustang Airport (132 t/day)
-- Flagged as likely knocked out: KLVK Livermore Municipal Airport (MMI X), KRHV Reid-Hillview Airport of Santa Clara County (MMI IX), KSJC Mineta San Jose International Airport (MMI IX), KNUQ Moffett Federal Airfield (MMI VIII), KHWD Hayward Executive Airport (MMI IX), KOAK Oakland San Francisco Bay Airport (MMI X), KE16 San Martin Airport (MMI IX), KCCR Buchanan Field (MMI VIII), 1C9 Frazier Lake Airpark (MMI IX), KCVH Hollister Municipal Airport (MMI IX), KDVO Marin County Airport - Gnoss Field (MMI IX)
+- Gateway: **KSFO San Francisco International Airport**, 58 km, MMI VII, inflow 4,833 t/day
+- Forward strips: KHAF Half Moon Bay Airport (140 t/day), KO88 Rio Vista Municipal Airport (134 t/day), KF72 Franklin Field (132 t/day), K1O3 Lodi Airport (132 t/day), 2CL9 Mustang Airport (132 t/day)
+- Flagged as likely knocked out: KLVK Livermore Municipal Airport (MMI X), KRHV Reid-Hillview Airport of Santa Clara County (MMI IX), KSJC Mineta San Jose International Airport (MMI IX), KHWD Hayward Executive Airport (MMI IX), KOAK Oakland San Francisco Bay Airport (MMI IX), KE16 San Martin Airport (MMI IX), KWVI Watsonville Municipal Airport (MMI VIII), 1C9 Frazier Lake Airpark (MMI IX), KCVH Hollister Municipal Airport (MMI VIII), KDVO Marin County Airport - Gnoss Field (MMI IX)
 - Alternative gateway: MMTJ General Abelardo L. Rodriguez International Airport, 996 t/day
-- Delivered into zone: **4,866 t/day**, sustaining about 4,458,047 people/day, 93% of estimated need
+- Delivered into zone: **4,833 t/day**, sustaining about 4,427,726 people/day, 93% of estimated need
 
 **About this scenario**
 
@@ -268,19 +268,19 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KLAX Los Angeles International Airport | 97 | VI | 98% |
-| KONT Ontario International Airport | 27 | VIII | 51% |
-| KPSP Palm Springs International Airport | 96 | VIII | 45% |
-| KSBD San Bernardino International Airport | 24 | X | 10% |
-| KEDW Edwards Air Force Base | 85 | V | 99% |
+| KLAX Los Angeles International Airport | 97 | VI | 97% |
+| KONT Ontario International Airport | 27 | IX | 42% |
+| KPSP Palm Springs International Airport | 96 | X | 16% |
+| KSBD San Bernardino International Airport | 24 | X | 19% |
+| KEDW Edwards Air Force Base | 86 | VII | 89% |
 
 **Plan**
 
-- Gateway: **KLGB Long Beach International Airport**, 82 km, MMI VI, inflow 5,008 t/day
-- Forward strips: KTOA Zamperini Field (147 t/day), KLAX Los Angeles International Airport (433 t/day), KAVX Catalina Airport (143 t/day), KSMO Santa Monica Municipal Airport (274 t/day), KNFG Camp Pendleton MCAS (Munn Field) Airport (272 t/day)
-- Flagged as likely knocked out: KSBD San Bernardino International Airport (MMI X), KCCB Upland-Cable Airport (MMI IX), KREI Redlands Municipal Airport (MMI IX), KCNO Chino Airport (MMI IX), KPOC Brackett Field (MMI IX), 04CA Gray Butte Field (MMI VIII), 46CN Crystal Airport (MMI X), KEMT San Gabriel Valley Airport (MMI X), KBNG Banning Municipal Airport (MMI IX), KPMD Palmdale Regional Airport / USAF Plant 42 Airport (MMI X), KL70 Agua Dulce Airpark (MMI VIII), KWHP Whiteman Airport (MMI IX), KWJF General William J Fox Airfield (MMI IX), KPSP Palm Springs International Airport (MMI VIII), KL00 Rosamond Skypark Airport (MMI IX), KUDD Bermuda Dunes Airport (MMI X), KTRM Jacqueline Cochran Regional Airport (MMI X), 63CA Desert Air Sky Ranch Airport (MMI X)
-- Alternative gateway: MMTJ General Abelardo L. Rodriguez International Airport, 1,600 t/day
-- Delivered into zone: **5,008 t/day**, sustaining about 4,588,115 people/day, 55% of estimated need
+- Gateway: **KLGB Long Beach International Airport**, 82 km, MMI VII, inflow 4,810 t/day
+- Forward strips: KTOA Zamperini Field (149 t/day), KSMO Santa Monica Municipal Airport (287 t/day), KLAX Los Angeles International Airport (429 t/day), KAVX Catalina Airport (143 t/day), KHHR Jack Northrop Field Hawthorne Municipal Airport (275 t/day)
+- Flagged as likely knocked out: KSBD San Bernardino International Airport (MMI X), KONT Ontario International Airport (MMI IX), KCCB Upland-Cable Airport (MMI IX), KREI Redlands Municipal Airport (MMI IX), KCNO Chino Airport (MMI IX), KPOC Brackett Field (MMI IX), 04CA Gray Butte Field (MMI IX), 46CN Crystal Airport (MMI X), KEMT San Gabriel Valley Airport (MMI X), KBNG Banning Municipal Airport (MMI IX), KFUL Fullerton Municipal Airport (MMI IX), KPMD Palmdale Regional Airport / USAF Plant 42 Airport (MMI X), KL70 Agua Dulce Airpark (MMI VIII), KWHP Whiteman Airport (MMI VIII), KWJF General William J Fox Airfield (MMI X), KPSP Palm Springs International Airport (MMI X), KL00 Rosamond Skypark Airport (MMI IX), KUDD Bermuda Dunes Airport (MMI X), KTRM Jacqueline Cochran Regional Airport (MMI X), 63CA Desert Air Sky Ranch Airport (MMI X)
+- Alternative gateway: MMTJ General Abelardo L. Rodriguez International Airport, 1,599 t/day
+- Delivered into zone: **4,810 t/day**, sustaining about 4,406,654 people/day, 57% of estimated need
 
 **About this scenario**
 
@@ -296,18 +296,18 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KSEA Seattle–Tacoma International Airport | 313 | VI | 96% |
-| KPDX Portland International Airport | 225 | VI | 95% |
+| KSEA Seattle–Tacoma International Airport | 313 | VI | 95% |
+| KPDX Portland International Airport | 224 | VI | 97% |
 | KGEG Spokane International Airport | 644 | I | 100% |
 | KEUG Eugene Airport | 248 | VI | 94% |
-| KOTH Southwest Oregon Regional Airport | 269 | VIII | 54% |
+| KOTH Southwest Oregon Regional Airport | 269 | VIII | 75% |
 
 **Plan**
 
-- Gateway: **KTCM McChord Air Force Base**, 283 km, MMI VI, inflow 1,949 t/day
-- Forward strips: 6WA2 Gower Field (137 t/day), 3WA9 Flying Carpet Airport (135 t/day), KPWT Bremerton National Airport (268 t/day), KOLM Olympia Regional Airport (266 t/day), KCLS Chehalis Centralia Airport (131 t/day)
-- Alternative gateway: CYYJ Victoria International Airport, 1,439 t/day
-- Delivered into zone: **1,554 t/day**, sustaining about 1,423,774 people/day, 100% of estimated need
+- Gateway: **KTCM McChord Air Force Base**, 282 km, MMI VI, inflow 1,952 t/day
+- Forward strips: 3WA9 Flying Carpet Airport (136 t/day), KRNT Renton Municipal Airport (134 t/day), KPWT Bremerton National Airport (268 t/day), KOLM Olympia Regional Airport (266 t/day), KS50 Auburn Municipal Airport (130 t/day)
+- Alternative gateway: CYYJ Victoria International Airport, 1,424 t/day
+- Delivered into zone: **1,545 t/day**, sustaining about 1,415,905 people/day, 100% of estimated need
 
 **About this scenario**
 
@@ -323,19 +323,19 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KSEA Seattle–Tacoma International Airport | 8 | IX | 39% |
-| KBFI King County International Airport - Boeing Field | 9 | IX | 39% |
-| KPAE Seattle Paine Field International Airport | 48 | VI | 96% |
-| KTCM McChord Air Force Base | 39 | VII | 93% |
-| KPDX Portland International Airport | 211 | IV | 100% |
+| KSEA Seattle–Tacoma International Airport | 10 | VIII | 46% |
+| KBFI King County International Airport - Boeing Field | 7 | IX | 37% |
+| KPAE Seattle Paine Field International Airport | 44 | VI | 94% |
+| KTCM McChord Air Force Base | 43 | VI | 94% |
+| KPDX Portland International Airport | 215 | V | 100% |
 
 **Plan**
 
-- Gateway: **KNUW Whidbey Island Naval Air Station (Ault Field)**, 98 km, MMI V, inflow 2,029 t/day
+- Gateway: **KNUW Whidbey Island Naval Air Station (Ault Field)**, 94 km, MMI VI, inflow 2,020 t/day
 - Forward strips: K74S Anacortes Airport (149 t/day), KOKH AJ Eisenberg Airport (147 t/day), KFHR Friday Harbor Airport (292 t/day), KNRA Coupeville Nolf Airport (146 t/day), KBVS Skagit Regional Airport (145 t/day)
-- Flagged as likely knocked out: KSEA Seattle–Tacoma International Airport (MMI IX), KBFI King County International Airport - Boeing Field (MMI IX), KRNT Renton Municipal Airport (MMI IX), KPWT Bremerton National Airport (MMI VIII)
-- Alternative gateway: CYYJ Victoria International Airport, 1,697 t/day
-- Delivered into zone: **2,029 t/day**, sustaining about 1,858,750 people/day, 78% of estimated need
+- Flagged as likely knocked out: KBFI King County International Airport - Boeing Field (MMI IX), KSEA Seattle–Tacoma International Airport (MMI VIII), KRNT Renton Municipal Airport (MMI IX), KPWT Bremerton National Airport (MMI VIII)
+- Alternative gateway: CYYJ Victoria International Airport, 1,846 t/day
+- Delivered into zone: **2,020 t/day**, sustaining about 1,850,602 people/day, 78% of estimated need
 
 **About this scenario**
 
@@ -351,19 +351,19 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| KMEM Frederick W. Smith International Airport | 58 | VII | 91% |
-| KJBR Jonesboro Municipal Airport | 48 | VIII | 69% |
-| KLIT Bill & Hillary Clinton National Airport/Adams Field | 194 | VI | 94% |
-| KBNA Nashville International Airport | 335 | VI | 98% |
-| KSTL St. Louis Lambert International Airport | 362 | V | 99% |
+| KMEM Frederick W. Smith International Airport | 58 | VII | 92% |
+| KJBR Jonesboro Municipal Airport | 49 | VIII | 73% |
+| KLIT Bill & Hillary Clinton National Airport/Adams Field | 193 | VII | 93% |
+| KBNA Nashville International Airport | 335 | V | 99% |
+| KSTL St. Louis Lambert International Airport | 363 | V | 99% |
 
 **Plan**
 
-- Gateway: **KMEM Frederick W. Smith International Airport**, 58 km, MMI VII, inflow 4,716 t/day
-- Forward strips: TN43 Isle-A-Port STOLport (139 t/day), 3MS1 Thomas Field (139 t/day), 08MS Midsouth Airpark (138 t/day), H75 Hernando Village Airpark (137 t/day), 1MS6 Eagles Ridge Airport (137 t/day)
-- Flagged as likely knocked out: 6M8 Marked Tree Municipal Airport (MMI IX), K7M4 Osceola Municipal Airport (MMI VIII), 4AR5 Lawrence Field (MMI VIII), KMXA Manila Municipal Airport (MMI IX), KBYH Arkansas International Airport (MMI X), KHKA Blytheville Municipal Airport (MMI IX), KM12 Steele Municipal Airport (MMI IX), KM05 Caruthersville Memorial Airport (MMI X), M28 Mid Continent Airport (MMI IX), US-8864 Ridgely Airport (MMI IX)
-- Alternative gateway: CYQG Windsor International Airport, 836 t/day
-- Delivered into zone: **4,716 t/day**, sustaining about 4,321,309 people/day, 100% of estimated need
+- Gateway: **KMEM Frederick W. Smith International Airport**, 58 km, MMI VII, inflow 4,777 t/day
+- Forward strips: KOLV Olive Branch Airport (136 t/day), 4MS3 Jeter Field (136 t/day), H75 Hernando Village Airpark (136 t/day), KM41 Holly Springs Marshall County Airport (136 t/day), 54M Wolf River Airport (136 t/day)
+- Flagged as likely knocked out: 6M8 Marked Tree Municipal Airport (MMI IX), K7M4 Osceola Municipal Airport (MMI IX), 4AR5 Lawrence Field (MMI IX), KMXA Manila Municipal Airport (MMI IX), KBYH Arkansas International Airport (MMI IX), KHKA Blytheville Municipal Airport (MMI IX), KM12 Steele Municipal Airport (MMI IX), KM05 Caruthersville Memorial Airport (MMI IX), M28 Mid Continent Airport (MMI IX), US-8864 Ridgely Airport (MMI IX)
+- Alternative gateway: CYQG Windsor International Airport, 817 t/day
+- Delivered into zone: **4,777 t/day**, sustaining about 4,376,930 people/day, 100% of estimated need
 
 **About this scenario**
 
@@ -379,17 +379,17 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 | airport | km to damage centre | MMI | usability |
 |---|---:|:-:|---:|
-| TJSJ Luis Munoz Marin International Airport | 59 | VIII | 63% |
-| TJBQ Rafael Hernández International Airport | 164 | VIII | 69% |
-| TJPS Mercedita International Airport | 135 | VII | 87% |
-| TJMZ Eugenio Maria De Hostos Airport | 174 | VII | 78% |
+| TJSJ Luis Munoz Marin International Airport | 62 | VIII | 62% |
+| TJBQ Rafael Hernández International Airport | 164 | VIII | 70% |
+| TJPS Mercedita International Airport | 138 | VII | 86% |
+| TJMZ Eugenio Maria De Hostos Airport | 175 | VII | 76% |
 
 **Plan**
 
-- Gateway: **TJSJ Luis Munoz Marin International Airport**, 59 km, MMI VIII, inflow 3,276 t/day
-- Forward strips: PR27 Santa Isabel Airport (122 t/day), TJPS Mercedita International Airport (241 t/day), PR10 Boqueron Airport (118 t/day), TISX Henry E. Rohlsen Airport (222 t/day), TJMZ Eugenio Maria De Hostos Airport (206 t/day)
-- Alternative gateway: MDPC Punta Cana International Airport, 1,165 t/day
-- Delivered into zone: **3,276 t/day**, sustaining about 3,001,571 people/day, 100% of estimated need
+- Gateway: **TJSJ Luis Munoz Marin International Airport**, 62 km, MMI VIII, inflow 3,226 t/day
+- Forward strips: TJPS Mercedita International Airport (239 t/day), PR27 Santa Isabel Airport (118 t/day), PR10 Boqueron Airport (118 t/day), TISX Henry E. Rohlsen Airport (219 t/day), TJVQ Antonio Rivera Rodriguez Airport (203 t/day)
+- Alternative gateway: MDPC Punta Cana International Airport, 1,139 t/day
+- Delivered into zone: **3,226 t/day**, sustaining about 2,956,118 people/day, 100% of estimated need
 
 **About this scenario**
 

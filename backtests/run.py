@@ -27,7 +27,7 @@ EVENTS = [
         "id": "nc216859", "name": "Loma Prieta 1989, M6.9 (San Francisco Bay Area)", "group": "us-real",
         "watch": ["KOAK", "KSFO", "KSJC", "KWVI"],
         "closed": "Oakland main runway (liquefaction cracking)",
-        "actual": "San Francisco (KSFO); relief mostly by road", "actual_ident": "KSFO",
+        "actual": "San Francisco and San Jose both open; relief mostly by road", "actual_ident": "KSFO", "actual_idents": ["KSFO", "KSJC"],
         "happened": (
             "Oakland International (KOAK) lost its main runway to liquefaction cracking and it stayed closed for "
             "repairs. San Francisco (KSFO) was inspected and reopened within hours; San Jose (KSJC) stayed open. "

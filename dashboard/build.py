@@ -51,7 +51,7 @@ def export_event(event, airports, meta=None, group="week"):
             "ident": ap.ident, "name": ap.name, "country": ap.country, "kind": ap.kind,
             "lat": round(ap.lat, 4), "lon": round(ap.lon, 4),
             "runway": ap.longest_runway_ft, "surface": ap.surface, "paved": is_paved(ap.surface),
-            "mmi": round(f.mmi, 2), "dist": round(f.dist_km, 1),
+            "mmi": round(f.mmi, 4), "dist": round(f.dist_km, 2),
             "best": f.best_aircraft.name if f.best_aircraft else None,
         })
     grid = None
@@ -88,6 +88,7 @@ def export_event(event, airports, meta=None, group="week"):
         "closed": meta.get("closed"),
         "actual": meta.get("actual"),
         "actual_ident": meta.get("actual_ident"),
+        "actual_idents": meta.get("actual_idents") or ([meta["actual_ident"]] if meta.get("actual_ident") else []),
     }
 
 
