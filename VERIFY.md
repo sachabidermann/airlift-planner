@@ -15,8 +15,8 @@ uv sync
 ## One command
 
 ```
-scripts/check.sh            # all five steps
-scripts/check.sh --offline  # steps 1 and 2 only
+scripts/check.sh            # all six steps
+scripts/check.sh --offline  # the tests and the browser-model check only
 ```
 
 Steps 3 to 5 download about 100 MB into `data/` on the first run, from `earthquake.usgs.gov`, `www2.census.gov` and `davidmegginson.github.io` (OurAirports). GitHub runs the offline steps on every push: see the Actions tab.
@@ -25,13 +25,14 @@ Steps 3 to 5 download about 100 MB into `data/` on the first run, from `earthqua
 
 ### 1. Unit tests: `uv run pytest -q`
 
-Expected: every test passes (70 at the time of writing). No network; every test builds its own small inputs, except `tests/test_docs.py`, which reads the committed reports.
+Expected: every test passes (70 at the time of writing). No network; every test builds its own small inputs, except `tests/test_docs.py`, which reads the committed reports. The full run holds that one back until step 6.
 
 | file | what it proves |
 |---|---|
 | `tests/test_usgs.py` | Bilinear lookup is exact on a known plane. A grid listed north to south is flipped correctly. Points outside the grid and empty cells read as not felt. Grids across the 180th meridian work. The legacy `grid.xml` parser handles USGS row order and downsampling. The fallback intensity formula matches all 21 rows of OpenQuake's reference table to 1e-6. PAGER exposure parsing, including PAGER's internal US region codes. An event id cannot escape the cache folder. |
 | `tests/test_airbridge.py` | On a small hand-made world: gateway inflow equals the AFPAM formula computed by hand; medium airports are capped at the C-17; shuttle sorties respect fleet hours and ramp limits; capacity never exceeds gateway inflow; a flagged airfield is never used; domestic gateways are preferred; the nearest airfield is the one flagged; the damage center follows people, not open water. |
-| `tests/test_small_modules.py` | Usability curve points and interpolation; demand arithmetic; which aircraft fit which runway; water and closed runways are dropped; SFO to LAX is 543 km; Census sampling conserves population. |
+| `tests/test_small_modules.py` | Usability curve points and interpolation; demand arithmetic; which aircraft fit which runway by length, surface and width; water runways, closed runways and ultralight fields are dropped; SFO to LAX is 543 km; Census sampling conserves population. |
+| `tests/test_docs.py` | The README's scorecard sentence, match column, scenario numbers and headline verification figures equal the generated reports. |
 
 ### 2. Browser model: `node dashboard/test_model.js`
 
@@ -60,6 +61,10 @@ Writes `backtests/VERIFICATION.md` and exits non-zero if any event's mean differ
 
 Rebuilds `docs/data.json` and `dashboard/expected.json` from fresh downloads and re-runs the browser-model test against them.
 
+### 6. README against the regenerated reports: `uv run pytest -q tests/test_docs.py`
+
+Runs last, because steps 3 and 4 rewrite the reports it compares with.
+
 ## If results differ from the committed files
 
 After step 5, `git status` should show `docs/data.json` changed (it carries a build timestamp and the past week's earthquakes). Expect the two airport-table lines in the Inputs section of `RESULTS.md` to differ on any later day, because OurAirports publishes a new file nightly. Any other difference in `RESULTS.md` means a result changed, which means an input changed upstream: OurAirports is updated nightly, and USGS revises ShakeMaps, sometimes years later. Compare the Inputs section of `RESULTS.md` with the committed one to see which.
@@ -76,6 +81,11 @@ uv run main.py --quake us6000jllz --fleet 24 --forward-km 200
 The output lists every airfield flagged, the gateway with its inflow, each forward strip with leg, sorties and tons, and the totals. The formulas are in [METHOD.md](METHOD.md), so any line can be recomputed with a calculator. Example, SFO in the HayWired scenario:
 
     6 spots x 100 t x (20 h / 3.0 h) x 0.85 x 0.9293 usability = 3,160 t/day
+
+And one forward strip, Half Moon Bay, 16 km from SFO with one parking spot:
+
+    round trip = 2 x 16 km / 530 km/h + 2 x 1.75 h = 3.56 h
+    sorties    = 20 h / 3.56 h x 1 spot x 0.85    = 4.8 per day
 
 ## The dashboard
 

@@ -9,7 +9,7 @@
     "coverage": 11.717415,
     "traps": [],
     "forwards": [
-     "9CL2",
+     "KC83",
      "KHAF",
      "KHWD",
      "KLVK",
@@ -45,10 +45,6 @@
     "coverage": 14.060898,
     "traps": [],
     "forwards": [
-     "2CL9",
-     "8CA8",
-     "9CL2",
-     "K1O3",
      "K1Q4",
      "K3O1",
      "KAPC",
@@ -57,11 +53,13 @@
      "KCVH",
      "KDVO",
      "KE16",
+     "KEDU",
      "KF72",
      "KHAF",
      "KHWD",
      "KLSN",
      "KLVK",
+     "KMCE",
      "KMER",
      "KMOD",
      "KMRY",
@@ -73,6 +71,7 @@
      "KOAK",
      "KOAR",
      "KRHV",
+     "KSAC",
      "KSCK",
      "KSFO",
      "KSNS",
@@ -91,7 +90,7 @@
     "coverage": 11.717415,
     "traps": [],
     "forwards": [
-     "9CL2",
+     "KE16",
      "KHAF",
      "KHWD",
      "KLVK",
@@ -132,7 +131,7 @@
     "coverage": 11.717415,
     "traps": [],
     "forwards": [
-     "9CL2",
+     "KC83",
      "KHAF",
      "KHWD",
      "KLVK",
@@ -156,7 +155,7 @@
      "KWVI"
     ],
     "forwards": [
-     "9CL2",
+     "KC83",
      "KHAF",
      "KHWD",
      "KLVK",
@@ -176,7 +175,7 @@
     "coverage": 11.717415,
     "traps": [],
     "forwards": [
-     "9CL2",
+     "KC83",
      "KHAF",
      "KHWD",
      "KLVK",
@@ -199,7 +198,6 @@
     "coverage": 4.686966,
     "traps": [],
     "forwards": [
-     "9CL2",
      "K1Q4",
      "KC83",
      "KCCR",
@@ -210,6 +208,7 @@
      "KLVK",
      "KMRY",
      "KNUQ",
+     "KO88",
      "KOAK",
      "KOAR",
      "KRHV",
@@ -267,7 +266,6 @@
     "coverage": 4471.157645,
     "traps": [],
     "forwards": [
-     "4AK6",
      "58AK",
      "5AK0",
      "9AK3",
@@ -413,8 +411,8 @@
     "coverage": 1490.385882,
     "traps": [],
     "forwards": [
-     "4AK6",
      "58AK",
+     "5AK0",
      "9AK3",
      "AK36",
      "AK53",
@@ -445,13 +443,12 @@
     "traps": [],
     "forwards": [
      "00CA",
-     "0CL8",
-     "62CL",
+     "CA70",
      "CN37",
      "K9L2",
+     "KBYS",
      "KEDW",
      "KIYK",
-     "KL05",
      "KL71",
      "KL72",
      "KNID",
@@ -463,12 +460,12 @@
      "shuttle_fleet": 4
     },
     "gateway": "KMHV",
-    "delivered": 1298.942,
-    "coverage": 5725.813132,
+    "delivered": 1295.865,
+    "coverage": 5712.249074,
     "traps": [],
     "forwards": [
-     "0CL8",
      "CN37",
+     "K9L2",
      "KL71",
      "KL72"
     ]
@@ -478,41 +475,37 @@
      "shuttle_fleet": 40,
      "ops_hours": 24
     },
-    "gateway": "KSBD",
-    "delivered": 1873.663,
-    "coverage": 8259.221716,
+    "gateway": "KMHV",
+    "delivered": 1604.8,
+    "coverage": 7074.055416,
     "traps": [],
     "forwards": [
      "00CA",
      "04CA",
      "0CL1",
-     "0CL8",
      "11CL",
      "46CN",
+     "4CL4",
      "52CL",
-     "62CL",
      "99CL",
      "CA70",
-     "CL46",
      "CN37",
+     "K2O7",
      "K9L2",
      "KAPV",
      "KBFL",
      "KBYS",
      "KDAG",
+     "KDLO",
      "KEDW",
      "KIYK",
-     "KL00",
-     "KL05",
      "KL06",
      "KL09",
      "KL45",
-     "KL70",
      "KL71",
      "KL72",
      "KL73",
-     "KL94",
-     "KMHV",
+     "KMIT",
      "KNID",
      "KO26",
      "KPMD",
@@ -531,7 +524,6 @@
     "coverage": 3783.946197,
     "traps": [],
     "forwards": [
-     "0CL8",
      "KIYK",
      "KL72"
     ]
@@ -541,22 +533,22 @@
      "forward_max_km": 300
     },
     "gateway": "KSBD",
-    "delivered": 2571.915,
-    "coverage": 11337.156069,
+    "delivered": 2563.656,
+    "coverage": 11300.750478,
     "traps": [],
     "forwards": [
      "00CA",
-     "0CL8",
-     "62CL",
+     "0CL1",
+     "11CL",
+     "99CL",
      "CA70",
      "CN37",
      "K9L2",
      "KEDW",
-     "KL00",
-     "KL05",
      "KL71",
      "KL72",
-     "KMHV"
+     "KMHV",
+     "KTSP"
     ]
    },
    {
@@ -569,13 +561,12 @@
     "traps": [],
     "forwards": [
      "00CA",
-     "0CL8",
-     "62CL",
+     "CA70",
      "CN37",
      "K9L2",
+     "KBYS",
      "KEDW",
      "KIYK",
-     "KL05",
      "KL71",
      "KL72",
      "KNID",
@@ -595,18 +586,16 @@
     ],
     "forwards": [
      "00CA",
-     "0CL8",
-     "62CL",
+     "11CL",
      "CA70",
      "CN37",
      "K9L2",
+     "KBYS",
      "KEDW",
-     "KL00",
-     "KL05",
      "KL71",
      "KL72",
-     "KL94",
-     "KTSP"
+     "KTSP",
+     "KWJF"
     ]
    },
    {
@@ -619,13 +608,12 @@
     "traps": [],
     "forwards": [
      "00CA",
-     "0CL8",
-     "62CL",
+     "CA70",
      "CN37",
      "K9L2",
+     "KBYS",
      "KEDW",
      "KIYK",
-     "KL05",
      "KL71",
      "KL72",
      "KNID",
@@ -640,29 +628,27 @@
      "min_usability": 0.6
     },
     "gateway": "KSBD",
-    "delivered": 802.248,
-    "coverage": 3536.356424,
+    "delivered": 775.177,
+    "coverage": 3417.027103,
     "traps": [],
     "forwards": [
      "00CA",
+     "04CA",
      "0CL1",
-     "0CL8",
      "11CL",
-     "62CL",
      "99CL",
      "CA70",
      "CN37",
      "K9L2",
      "KBYS",
+     "KDAG",
      "KEDW",
      "KIYK",
-     "KL00",
-     "KL05",
      "KL71",
      "KL72",
-     "KL94",
      "KMHV",
      "KNID",
+     "KPMD",
      "KTSP",
      "KVCV",
      "KWJF"
@@ -849,7 +835,7 @@
    {
     "assumptions": {},
     "gateway": "MTPP",
-    "delivered": 2047.315,
+    "delivered": 1610.554,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -863,7 +849,7 @@
      "shuttle_fleet": 4
     },
     "gateway": "MTPP",
-    "delivered": 2047.315,
+    "delivered": 1610.554,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -877,7 +863,7 @@
      "ops_hours": 24
     },
     "gateway": "MTPP",
-    "delivered": 2456.778,
+    "delivered": 1932.665,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -891,7 +877,7 @@
      "forward_max_km": 50
     },
     "gateway": "MTPP",
-    "delivered": 2047.315,
+    "delivered": 1610.554,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -902,14 +888,14 @@
     "assumptions": {
      "forward_max_km": 300
     },
-    "gateway": "MTPP",
-    "delivered": 2047.315,
+    "gateway": "MTCH",
+    "delivered": 1825.596,
     "coverage": null,
     "traps": [],
     "forwards": [
      "MTCA",
-     "MTCH",
-     "MTJA"
+     "MTJA",
+     "MTPP"
     ]
    },
    {
@@ -917,7 +903,7 @@
      "min_usability": 0.3
     },
     "gateway": "MTPP",
-    "delivered": 2047.315,
+    "delivered": 1610.554,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -946,7 +932,7 @@
      "domestic_only": false
     },
     "gateway": "MTPP",
-    "delivered": 2047.315,
+    "delivered": 1610.554,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -966,7 +952,7 @@
      "min_usability": 0.6
     },
     "gateway": "MTPP",
-    "delivered": 818.926,
+    "delivered": 644.222,
     "coverage": null,
     "traps": [],
     "forwards": [
@@ -1663,14 +1649,13 @@
     ],
     "forwards": [
      "05CL",
-     "67CA",
-     "K2O3",
      "KC83",
      "KHAF",
      "KMOD",
      "KMRY",
      "KO88",
      "KSCK",
+     "KSNS",
      "KSUU",
      "KVCB"
     ]
@@ -1720,15 +1705,8 @@
     ],
     "forwards": [
      "05CL",
-     "2CL9",
-     "49CL",
-     "67CA",
-     "8CA8",
-     "8CL2",
-     "9CL2",
-     "K1O3",
+     "CA20",
      "K1Q4",
-     "K2O3",
      "K3O1",
      "KAPC",
      "KC83",
@@ -1739,7 +1717,8 @@
      "KF72",
      "KHAF",
      "KLSN",
-     "KM90",
+     "KMCC",
+     "KMER",
      "KMHR",
      "KMOD",
      "KMRY",
@@ -1750,8 +1729,10 @@
      "KO69",
      "KO88",
      "KOAR",
+     "KRIU",
      "KSAC",
      "KSCK",
+     "KSMF",
      "KSNS",
      "KSTS",
      "KSUU",
@@ -1779,14 +1760,13 @@
     ],
     "forwards": [
      "05CL",
-     "67CA",
-     "K2O3",
      "KC83",
      "KHAF",
      "KMOD",
      "KMRY",
      "KSCK",
      "KSNS",
+     "KSTS",
      "KSUU",
      "KVCB"
     ]
@@ -1811,16 +1791,15 @@
     ],
     "forwards": [
      "05CL",
-     "67CA",
-     "8CA8",
-     "K1O3",
-     "K2O3",
+     "KC83",
+     "KF72",
      "KHAF",
      "KMOD",
      "KMRY",
      "KO20",
      "KO88",
      "KSCK",
+     "KSUU",
      "KVCB"
     ]
    },
@@ -1840,14 +1819,13 @@
     ],
     "forwards": [
      "05CL",
-     "67CA",
-     "K2O3",
      "KC83",
      "KHAF",
      "KMOD",
      "KMRY",
      "KO88",
      "KSCK",
+     "KSNS",
      "KSUU",
      "KVCB"
     ]
@@ -1860,7 +1838,6 @@
     "delivered": 3159.742,
     "coverage": 0.517756,
     "traps": [
-     "9CL2",
      "K1Q4",
      "K3O1",
      "KAPC",
@@ -1873,7 +1850,6 @@
      "KHWD",
      "KLSN",
      "KLVK",
-     "KM90",
      "KNUQ",
      "KO69",
      "KOAK",
@@ -1888,15 +1864,15 @@
     ],
     "forwards": [
      "05CL",
-     "49CL",
-     "67CA",
-     "8CA8",
-     "K2O3",
+     "KEDU",
+     "KF72",
      "KHAF",
      "KMOD",
      "KMRY",
      "KO20",
+     "KO27",
      "KO88",
+     "KSAC",
      "KSCK",
      "KVCB"
     ]
@@ -1921,14 +1897,13 @@
     ],
     "forwards": [
      "05CL",
-     "67CA",
-     "K2O3",
      "KC83",
      "KHAF",
      "KMOD",
      "KMRY",
      "KO88",
      "KSCK",
+     "KSNS",
      "KSUU",
      "KVCB"
     ]
@@ -1944,7 +1919,6 @@
     "delivered": 1263.897,
     "coverage": 0.207102,
     "traps": [
-     "9CL2",
      "K1Q4",
      "K3O1",
      "KCCR",
@@ -1962,26 +1936,26 @@
     ],
     "forwards": [
      "05CL",
-     "2CL9",
-     "49CL",
-     "67CA",
-     "8CA8",
-     "K1O3",
-     "K2O3",
+     "KAPC",
      "KC83",
+     "KDWA",
+     "KEDU",
+     "KF34",
      "KF72",
      "KHAF",
-     "KM90",
      "KMOD",
      "KMRY",
      "KO20",
+     "KO27",
      "KO69",
      "KO88",
      "KOAR",
+     "KSAC",
      "KSCK",
      "KSNS",
      "KSTS",
      "KSUU",
+     "KTCY",
      "KVCB"
     ]
    }
@@ -2000,7 +1974,6 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KONT",
      "KPMD",
      "KPOC",
@@ -2014,8 +1987,8 @@
     "forwards": [
      "4CL4",
      "CA70",
+     "K9L2",
      "KHHR",
-     "KL65",
      "KLAX",
      "KRAL",
      "KSLI",
@@ -2038,7 +2011,6 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KONT",
      "KPMD",
      "KPOC",
@@ -2071,7 +2043,6 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KONT",
      "KPMD",
      "KPOC",
@@ -2095,19 +2066,18 @@
      "K9L2",
      "KAJO",
      "KAPV",
+     "KAVX",
      "KBUR",
      "KCPM",
      "KEDW",
      "KF70",
      "KHHR",
      "KHMT",
-     "KL65",
-     "KL77",
-     "KL94",
+     "KL22",
      "KLAX",
+     "KMHV",
      "KNFG",
      "KRAL",
-     "KRIR",
      "KSAS",
      "KSLI",
      "KSMO",
@@ -2134,7 +2104,6 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KONT",
      "KPMD",
      "KPOC",
@@ -2153,7 +2122,6 @@
      "KEDW",
      "KHHR",
      "KHMT",
-     "KL65",
      "KRAL",
      "KSLI",
      "KSMO"
@@ -2174,7 +2142,6 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KONT",
      "KPMD",
      "KPOC",
@@ -2186,10 +2153,10 @@
      "KWJF"
     ],
     "forwards": [
+     "4CL4",
      "CA70",
      "KF70",
      "KHHR",
-     "KL65",
      "KLAX",
      "KRAL",
      "KSLI",
@@ -2219,8 +2186,8 @@
     "forwards": [
      "4CL4",
      "CA70",
+     "K9L2",
      "KHHR",
-     "KL65",
      "KLAX",
      "KRAL",
      "KSLI",
@@ -2244,7 +2211,6 @@
      "52CL",
      "63CA",
      "99CL",
-     "CL46",
      "KAJO",
      "KAPV",
      "KBNG",
@@ -2254,18 +2220,14 @@
      "KCPM",
      "KEMT",
      "KFUL",
-     "KL00",
      "KL22",
-     "KL26",
      "KL35",
-     "KL70",
      "KMHV",
      "KONT",
      "KPMD",
      "KPOC",
      "KPSP",
      "KREI",
-     "KRIR",
      "KRIV",
      "KSBD",
      "KSNA",
@@ -2280,8 +2242,8 @@
     "forwards": [
      "4CL4",
      "CA70",
+     "K9L2",
      "KHHR",
-     "KL65",
      "KLAX",
      "KRAL",
      "KSLI",
@@ -2304,7 +2266,6 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KONT",
      "KPMD",
      "KPOC",
@@ -2318,8 +2279,8 @@
     "forwards": [
      "4CL4",
      "CA70",
+     "K9L2",
      "KHHR",
-     "KL65",
      "KLAX",
      "KRAL",
      "KSLI",
@@ -2348,17 +2309,13 @@
      "KCNO",
      "KEMT",
      "KFUL",
-     "KL00",
      "KL22",
-     "KL26",
      "KL35",
-     "KL70",
      "KONT",
      "KPMD",
      "KPOC",
      "KPSP",
      "KREI",
-     "KRIR",
      "KRIV",
      "KSBD",
      "KTRM",
@@ -2378,15 +2335,14 @@
      "KF70",
      "KHHR",
      "KHMT",
-     "KL65",
-     "KL77",
-     "KL94",
      "KLAX",
+     "KNFG",
      "KRAL",
      "KSAS",
      "KSLI",
      "KSMO",
-     "KTOA"
+     "KTOA",
+     "KWHP"
     ]
    }
   ],
@@ -2406,9 +2362,9 @@
      "KKLS",
      "KMMV",
      "KSPB",
+     "KTDO",
      "KTTD",
-     "KVUO",
-     "WA01"
+     "KVUO"
     ]
    },
    {
@@ -2437,17 +2393,17 @@
     "traps": [],
     "forwards": [
      "1OR3",
-     "1WA6",
      "2OR4",
-     "33OR",
      "3WA9",
-     "49WA",
+     "K3S4",
+     "K3S8",
      "K4S9",
      "K61S",
      "K77S",
      "K7S5",
      "KBFI",
      "KCLM",
+     "KCLS",
      "KCVO",
      "KHIO",
      "KHQM",
@@ -2456,6 +2412,7 @@
      "KNUW",
      "KOLM",
      "KONP",
+     "KOTH",
      "KPWT",
      "KRNT",
      "KS45",
@@ -2463,12 +2420,11 @@
      "KSHN",
      "KSPB",
      "KTDO",
+     "KTMK",
      "KTTD",
      "KUAO",
      "KVUO",
-     "OG29",
      "S16",
-     "WA01",
      "WN49"
     ]
    },
@@ -2485,13 +2441,13 @@
      "3WA9",
      "K4S9",
      "K7S5",
+     "KCLS",
      "KCVO",
      "KHIO",
      "KKLS",
      "KMMV",
      "KSPB",
-     "KVUO",
-     "WA01"
+     "KVUO"
     ]
    },
    {
@@ -2504,16 +2460,16 @@
     "traps": [],
     "forwards": [
      "1OR3",
+     "3WA9",
      "K4S9",
      "K7S5",
      "KHIO",
+     "KKLS",
      "KMMV",
-     "KS48",
      "KSPB",
      "KTTD",
      "KUAO",
-     "KVUO",
-     "OG29"
+     "KVUO"
     ]
    },
    {
@@ -2533,9 +2489,9 @@
      "KKLS",
      "KMMV",
      "KSPB",
+     "KTDO",
      "KTTD",
-     "KVUO",
-     "WA01"
+     "KVUO"
     ]
    },
    {
@@ -2546,9 +2502,7 @@
     "delivered": 3069.515,
     "coverage": 19.866983,
     "traps": [
-     "5WA8",
      "CYAZ",
-     "K2S9",
      "K4S1",
      "K5S6",
      "KACV",
@@ -2568,9 +2522,9 @@
      "KKLS",
      "KMMV",
      "KSPB",
+     "KTDO",
      "KTTD",
-     "KVUO",
-     "WA01"
+     "KVUO"
     ]
    },
    {
@@ -2590,9 +2544,9 @@
      "KKLS",
      "KMMV",
      "KSPB",
+     "KTDO",
      "KTTD",
-     "KVUO",
-     "WA01"
+     "KVUO"
     ]
    },
    {
@@ -2610,25 +2564,24 @@
     ],
     "forwards": [
      "1OR3",
-     "33OR",
      "3WA9",
-     "49WA",
      "K4S9",
      "K7S5",
      "KCVO",
      "KHIO",
+     "KHQM",
      "KKLS",
      "KMMV",
      "KOLM",
      "KPWT",
      "KRNT",
+     "KS45",
+     "KSHN",
      "KSPB",
      "KTDO",
      "KTTD",
      "KUAO",
-     "KVUO",
-     "OG29",
-     "WA01"
+     "KVUO"
     ]
    }
   ],
@@ -2645,17 +2598,17 @@
      "KSEA"
     ],
     "forwards": [
+     "3WA9",
      "K0S9",
      "KAWO",
      "KGRF",
      "KNRA",
      "KPLU",
-     "KS36",
+     "KS50",
      "KSHN",
      "KTCM",
      "KTIW",
-     "KZ10",
-     "WN53"
+     "KZ10"
     ]
    },
    {
@@ -2683,9 +2636,9 @@
      "shuttle_fleet": 40,
      "ops_hours": 24
     },
-    "gateway": "KPDX",
-    "delivered": 1948.939,
-    "coverage": 0.720251,
+    "gateway": "KNUW",
+    "delivered": 1578.592,
+    "coverage": 0.583386,
     "traps": [
      "KBFI",
      "KPWT",
@@ -2693,11 +2646,8 @@
      "KSEA"
     ],
     "forwards": [
-     "1WA6",
      "3WA9",
-     "49WA",
      "K0S9",
-     "K2S9",
      "K74S",
      "KAWO",
      "KBLI",
@@ -2710,12 +2660,10 @@
      "KHQM",
      "KNOW",
      "KNRA",
-     "KNUW",
      "KOKH",
      "KOLM",
      "KPAE",
      "KPLU",
-     "KS36",
      "KS50",
      "KSHN",
      "KTCM",
@@ -2724,9 +2672,7 @@
      "KW28",
      "KZ10",
      "S16",
-     "WA09",
-     "WN49",
-     "WN53"
+     "WN49"
     ]
    },
    {
@@ -2743,9 +2689,7 @@
      "KSEA"
     ],
     "forwards": [
-     "1WA6",
      "KPLU",
-     "KS36",
      "KS50",
      "KSHN",
      "KTCM",
@@ -2757,8 +2701,8 @@
      "forward_max_km": 300
     },
     "gateway": "KPDX",
-    "delivered": 1972.109,
-    "coverage": 0.728814,
+    "delivered": 1968.895,
+    "coverage": 0.727626,
     "traps": [
      "KBFI",
      "KPWT",
@@ -2767,7 +2711,7 @@
     ],
     "forwards": [
      "3WA9",
-     "49WA",
+     "KCLS",
      "KGRF",
      "KOLM",
      "KPAE",
@@ -2787,17 +2731,16 @@
     "coverage": 0.583434,
     "traps": [],
     "forwards": [
+     "3WA9",
      "K0S9",
      "KAWO",
      "KGRF",
      "KPAE",
      "KPLU",
-     "KS36",
      "KSHN",
      "KTCM",
      "KTIW",
-     "KZ10",
-     "WN53"
+     "KZ10"
     ]
    },
    {
@@ -2808,11 +2751,9 @@
     "delivered": 1252.105,
     "coverage": 0.462729,
     "traps": [
-     "1WA6",
      "KBFI",
      "KPWT",
      "KRNT",
-     "KS36",
      "KS50",
      "KSEA"
     ],
@@ -2822,12 +2763,12 @@
      "KAWO",
      "KGRF",
      "KNRA",
+     "KOKH",
      "KPLU",
      "KSHN",
      "KTCM",
      "KTIW",
-     "KZ10",
-     "WN53"
+     "KZ10"
     ]
    },
    {
@@ -2844,17 +2785,17 @@
      "KSEA"
     ],
     "forwards": [
+     "3WA9",
      "K0S9",
      "KAWO",
      "KGRF",
      "KNRA",
      "KPLU",
-     "KS36",
+     "KS50",
      "KSHN",
      "KTCM",
      "KTIW",
-     "KZ10",
-     "WN53"
+     "KZ10"
     ]
    },
    {
@@ -2864,11 +2805,10 @@
      "forward_max_km": 200,
      "min_usability": 0.6
     },
-    "gateway": "KEAT",
-    "delivered": 534.933,
-    "coverage": 0.19769,
+    "gateway": "KNUW",
+    "delivered": 526.197,
+    "coverage": 0.194462,
     "traps": [
-     "1WA6",
      "KBFI",
      "KPWT",
      "KRNT",
@@ -2876,26 +2816,26 @@
     ],
     "forwards": [
      "3WA9",
-     "49WA",
      "K0S9",
+     "K74S",
      "KAWO",
      "KBVS",
+     "KCLM",
+     "KFHR",
      "KGRF",
+     "KNOW",
      "KNRA",
-     "KNUW",
      "KOKH",
      "KOLM",
      "KPAE",
      "KPLU",
-     "KS36",
      "KS50",
      "KSHN",
      "KTCM",
      "KTIW",
      "KW28",
      "KZ10",
-     "WN49",
-     "WN53"
+     "WN49"
     ]
    }
   ],
@@ -2981,6 +2921,7 @@
      "US-8864"
     ],
     "forwards": [
+     "1AR9",
      "1MS6",
      "21MS",
      "4AR2",
@@ -3023,7 +2964,6 @@
      "TN01",
      "TN43",
      "US-12693",
-     "US-6438",
      "US-6540"
     ]
    },
@@ -3133,20 +3073,17 @@
     "delivered": 3137.502,
     "coverage": 9.031736,
     "traps": [
-     "1AR0",
      "36AR",
      "4AR5",
      "6M8",
      "7AR8",
      "K0M2",
-     "K34M",
      "K6M7",
      "K7M4",
      "KAWM",
      "KBYH",
      "KDYR",
      "KEIW",
-     "KFCY",
      "KHKA",
      "KJBR",
      "KM05",
@@ -3155,7 +3092,6 @@
      "KM31",
      "KM36",
      "KM60",
-     "KM85",
      "KMAW",
      "KMXA",
      "KTKX",

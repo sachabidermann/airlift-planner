@@ -13,11 +13,11 @@ How each number is produced, and where each constant comes from. Code references
 
 MMI at a point is bilinear interpolation between the four surrounding grid cells. A point outside the grid reads MMI I. Grids that cross the 180th meridian use longitudes beyond ±180, so lookups shift the longitude into the grid's range first.
 
-Only large, medium and small airports are used. Heliports, seaplane bases, closed airports, closed runways, and runways whose surface is water, ice or snow are dropped. Each airport keeps its longest remaining runway.
+Only large, medium and small airports are used. Heliports, seaplane bases, closed airports, closed runways, runways whose surface is water, ice or snow, and fields whose name says ultralight or glider are dropped. Each airport keeps its longest remaining runway, with its surface and width. OurAirports records a width for 94% of runways; an unknown width is not held against an airfield.
 
 ## 2. Airfield usability
 
-`survivability.py` maps MMI (the Modified Mercalli Intensity scale, I to XII; ShakeMap reports up to X) at the airfield to the probability that it can take relief flights in the first days. Linear between these points:
+`survivability.py` maps MMI (the Modified Mercalli Intensity scale, I to XII; ShakeMap reports up to X) at the airfield to the probability that it can take relief flights in the first three days. Linear between these points:
 
 | MMI | V | VI | VII | VIII | IX | X |
 |---|---|---|---|---|---|---|
@@ -25,7 +25,7 @@ Only large, medium and small airports are used. Heliports, seaplane bases, close
 
 An airfield below 50% (the "minimum usability" setting) is flagged as likely knocked out. It cannot be a gateway or a forward strip.
 
-This curve is a judgment call. It was set by hand while looking at the five international earthquakes in the backtests (Haiti, Nepal, Turkey, Morocco, Myanmar), so for those the backtests check consistency, not out-of-sample skill. The four US events were added later and the curve was left unchanged. They are an out-of-sample check, but a weak one: none of them closed an airport through shaking, and the one airport damaged by ground failure (Oakland 1989) was missed. The ten airport outcomes are listed in the module docstring.
+This curve is a judgment call. It was set by hand while looking at the five international earthquakes in the backtests (Haiti, Nepal, Turkey, Morocco, Myanmar), so for those the backtests check consistency, not out-of-sample skill. The four US events were added later and the curve was left unchanged. They are an out-of-sample check, but a weak one, and the two airfields they damaged were both missed: China Lake in 2019 by shaking (the curve gives 64%) and Oakland in 1989 by liquefaction (92%). The eleven airport outcomes are listed in the module docstring.
 
 Published work that should replace it:
 
@@ -34,7 +34,7 @@ Published work that should replace it:
 
 ## 3. Need
 
-`demand.py`. People at MMI VIII or above are the priority population.
+`demand.py`. People at MMI VIII or above are the priority population. Treating everyone at MMI VIII and above, and no one below, as needing the full ration is a planning convention, not an estimate of who is displaced.
 
     kg per person per day = 0.56 + 0.02 + 19.4 / 5 / 7 = 1.13
     metric tons per day   = priority population x 1.13 / 1000
@@ -44,7 +44,7 @@ Published work that should replace it:
 | Food | 0.56 kg per person per day | A 2,100 kcal general ration weighs 550 to 590 g. UNHCR, UNICEF, WFP, WHO, *Food and Nutrition Needs in Emergencies*, Table 2. https://www.who.int/publications/i/item/food-and-nutrition-needs-in-emergencies . 2,100 kcal is the Sphere minimum. |
 | Medical | 0.02 kg per person per day | Judgment allowance for trauma supplies. The Interagency Emergency Health Kit works out to about 0.0014 kg, so this is generous. https://www.unicef.org/supply/media/2321/file/Interagency-Emergency-Health-Kits-information-note.pdf |
 | Shelter | 19.4 kg per family of five, once, spread over 7 days | IFRC shelter tool kit (11 kg) plus two 4 x 6 m tarpaulins (4.2 kg each). https://itemscatalogue.redcross.int/ |
-| Water | excluded | At the Sphere minimum of 15 liters per person per day it is rarely flown at scale. https://spherestandards.org/wp-content/uploads/Sphere-Handbook-2018-EN.pdf |
+| Water | excluded | At the Sphere minimum of 15 liters per person per day water would weigh 13 times the rest of the ration, so it is treated or trucked locally. https://spherestandards.org/wp-content/uploads/Sphere-Handbook-2018-EN.pdf |
 
 When need is under 5 t/day the "share of need" figure is not shown.
 
@@ -52,7 +52,7 @@ When need is under 5 t/day the "share of need" figure is not shown.
 
 For US events without PAGER (`population.py`): every incorporated place is a point with its 2023 population, and what is left of each county after subtracting its places is spread over a disc the size of the county. Puerto Rico uses municipio populations. Each point is sampled against the ShakeMap grid and binned by rounded intensity, as PAGER does. A place's people are spread over its land area but never thinner than 1,000 per km². The national total of the points equals the Census county total, and the code checks that on load.
 
-`backtests/VERIFICATION.md`, section 4, runs this method on US events that do have PAGER. At MMI VIII and above it gives 0.87 of PAGER's count for the Seattle Fault scenario and 1.05 for New Madrid. At MMI VII and above the ratios run from 0.47 to 0.99. The low end is Anchorage: the Census point for that very large municipality sits 33 km from the city, where the shaking was weaker. Small counts are unreliable. It counts US residents only and uses 2023 population even for the 1989 replay.
+`backtests/VERIFICATION.md`, section 4, runs this method on US events that do have PAGER. At MMI VIII and above it gives 0.87 of PAGER's count for the Seattle Fault scenario and 1.05 for New Madrid. It does worse on smaller events. At MMI VII and above the ratio is 0.47 for Anchorage, where the Census point for a very large municipality sits 33 km from the city and the shaking was weaker, and 0.64 for Ridgecrest. At MMI VIII and above it put 29,161 people where PAGER has 1,691 for Puerto Rico 2020. Small counts are unreliable. It counts US residents only and uses 2023 population even for the 1989 replay.
 
 ## 4. Damage center
 
@@ -62,31 +62,33 @@ For US events without PAGER (`population.py`): every incorporated place is a poi
 
 ### Throughput
 
-Air Force Pamphlet 10-1403, *Air Mobility Planning Factors* (2018), formula 9.0:
+Air Force Pamphlet (AFPAM) 10-1403, *Air Mobility Planning Factors* (2018), formula 9.0:
 
     metric tons per day = parking spots x planning payload x (operating hours / ground time) x 0.85 x usability
 
 The 0.85 is the pamphlet's queuing efficiency. Usability is this model's addition. https://static.e-publishing.af.mil/production/1/af_a3/publication/afpam10-1403/afpam10-1403.pdf
 
-| aircraft | min runway | unpaved | planning payload | ground time | source |
+The inputs used here are more generous than the pamphlet's own examples, and anyone opening it will see the gap. The pamphlet's formula says average payload. Its worked example is Kathmandu with one wide-body spot: 45 short tons per C-17, a 3.25 hour ground time, 24-hour operations, 282.5 short tons (256 t) a day. Its Table 8 follows from the same inputs and gives 1,695 short tons (1,538 t) a day at six spots. This model uses the Table 3 planning payloads and Table 5 expedited ground times, and gives Kathmandu six spots, a 747-8F and 2,973 t/day. The difference is almost all parking spots and aircraft size, which are the assumptions to question first.
+
+| aircraft | min runway (length x width) | unpaved | planning payload | ground time | source |
 |---|---|---|---|---|---|
-| C-130J-30 | 3,000 ft | yes | 16.3 t | 1.75 h | AFPAM Tables 1, 3 (18 short tons), 5 (expedited) |
-| A400M | 3,000 ft | yes | 28 t | 2.0 h | Airbus: 37 t maximum. 75% of maximum, the ratio AFPAM implies for the C-17 and C-5M. Ground time is judgment. https://www.airbus.com/en/products-services/defence/military-aircraft/a400m |
-| C-17 | 3,500 ft | yes | 59.0 t | 2.25 h | AFPAM Tables 1, 3 (65 short tons), 5 (expedited). USAF fact sheet: runways "as short as 3,500 feet". https://www.af.mil/About-Us/Fact-Sheets/Display/Article/1529726/c-17-globemaster-iii/ |
-| C-5M | 6,000 ft | no | 90.7 t | 3.75 h | AFPAM Tables 1, 3 (100 short tons), 5 (expedited) |
-| 747-8F | 9,000 ft | no | 100 t | 3.0 h | Boeing airport planning document: 132.6 t maximum structural payload, about 8,500 ft wet landing. 75% of maximum. Ground time is judgment; Boeing's ideal turn is 91 minutes. https://www.boeing.com/content/dam/boeing/v2/airports/acaps/747-8_Rev_D.pdf |
+| C-130J-30 | 3,000 x 60 ft | yes | 16.3 t | 1.75 h | AFPAM Tables 1, 3 (18 short tons), 5 (expedited) |
+| A400M | 3,000 x 60 ft | yes | 28 t | 2.0 h | Airbus: 37 t maximum. 75% of maximum, the ratio AFPAM implies for the C-17 and C-5M. Width and ground time are judgment. https://www.airbus.com/en/products-services/defence/military-aircraft/a400m |
+| C-17 | 3,500 x 90 ft | yes | 59.0 t | 2.25 h | AFPAM Tables 1, 3 (65 short tons), 5 (expedited). USAF fact sheet: runways "as short as 3,500 feet". https://www.af.mil/About-Us/Fact-Sheets/Display/Article/1529726/c-17-globemaster-iii/ |
+| C-5M | 6,000 x 147 ft | no | 90.7 t | 3.75 h | AFPAM Tables 1, 3 (100 short tons), 5 (expedited) |
+| 747-8F | 9,000 x 147 ft | no | 100 t | 3.0 h | Boeing airport planning document: 132.6 t maximum structural payload, about 8,500 ft wet landing. 75% of maximum. Width is 45 m, the standard for this class. Ground time is judgment; Boeing's turn-time charts show 91 minutes through the nose door and 51 with both doors. https://www.boeing.com/content/dam/boeing/v2/airports/acaps/747-8_Rev_D.pdf |
 
 Shuttle legs use the C-130J's AFPAM block speed, 530 km/h.
 
 | assumption | value | basis |
 |---|---|---|
 | Airfield operating hours | 20 per day | AFPAM tabulates 10, 16 and 24. |
-| Gateway parking spots | 6 at a large airport, 3 at a medium one (small airports are never gateways) | Judgment. Real ramp plans are not public. Port-au-Prince in 2010 had six unloading spots, which were the bottleneck (Veatch and Goentzel 2018, https://www.emerald.com/jhlscm/article/8/4/430/223654/Feeding-the-bottleneck-airport-congestion-during ). |
+| Gateway parking spots | 6 at a large airport, 3 at a medium one (small airports are never gateways) | Judgment. Real ramp plans are not public. Port-au-Prince in 2010 could unload six aircraft at once at first and nine later, on a ramp of 11 parking spaces, and unloading was the bottleneck (Veatch and Goentzel 2018, https://www.emerald.com/jhlscm/article/8/4/430/223654/Feeding-the-bottleneck-airport-congestion-during ). |
 | Forward strip parking spots | 3 large, 2 medium, 1 small | Judgment. |
 | Shuttle fleet | 12 C-130s | Judgment; a dashboard slider. |
 | Medium airports capped at the C-17 | | Judgment: they rarely have the pavement strength or ramp for a C-5 or 747. |
 
-Because parking spots are assumed, capacity is an upper bound. It is not a forecast of what an airlift would deliver.
+Capacity is a ceiling for the assumed parking spots, not a forecast of what an airlift would deliver. Planning payloads, expedited ground times, a shuttle fleet that is always available, and no limits from fuel, handling, crews or airspace all push the number up. The spot counts are guesses and can be wrong in either direction: a cargo hub such as Memphis parks far more than six freighters.
 
 ### Gateway
 
@@ -102,7 +104,7 @@ Cargo landing within 50 km of the damage center counts in full, because trucks c
 
 ### Shuttles
 
-Forward strips are airfields inside the zone, in the affected country, with a runway of 3,000 ft or more and usability of at least the minimum.
+Forward strips are airfields inside the zone, in the affected country, with a runway of at least 3,000 x 60 ft (the C-130's minimum) and usability of at least the minimum. Pavement strength and ownership are not checked, so private and turf strips appear.
 
     round trip hours = 2 x leg km / 530 + 2 x 1.75
     ramp limit       = operating hours / round trip x parking spots x 0.85 sorties per day
@@ -117,7 +119,7 @@ When USGS has not published a ShakeMap, `estimate_mmi` uses Allen, Wald and Word
     MMI = 2.085 + 1.428 M − 1.402 ln(sqrt(R² + Rm²))   [+ 0.078 ln(R / 50) when R > 50 km]
     Rm  = −0.209 + 2.042 exp(M − 5)
 
-R is hypocentral distance in km. Fitted for M 5.0 to 7.9 within 300 km. `tests/test_usgs.py` checks the code against the 21-row test table of OpenQuake's independent implementation (https://github.com/gem/oq-engine/blob/master/openquake/hazardlib/gsim/allen_2012_ipe.py). It assumes a point source and no site effects. `backtests/VERIFICATION.md`, section 3, measures its error against ShakeMap: 0.70 intensity units on average across 1,532 airports in nine events. The output says when it is in use.
+R is hypocentral distance in km. Fitted for M 5.0 to 7.9 within 300 km. `tests/test_usgs.py` checks the code against the 21-row test table of OpenQuake's independent implementation (https://github.com/gem/oq-engine/blob/master/openquake/hazardlib/gsim/allen_2012_ipe.py). It assumes a point source and no site effects. `backtests/VERIFICATION.md`, section 3, measures its error against ShakeMap: 0.70 intensity units on average across 1,519 airports in nine events, and 0.49 where MMI is V or above. The output says when it is in use.
 
 ## 7. What is not modeled
 

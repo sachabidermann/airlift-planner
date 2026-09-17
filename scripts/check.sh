@@ -1,8 +1,8 @@
 #!/bin/sh
 # Run every check in the repo.
 #
-#   scripts/check.sh            all five steps (steps 3-5 download from USGS and the Census Bureau)
-#   scripts/check.sh --offline  steps 1 and 2 only, no network
+#   scripts/check.sh            all six steps (steps 3-5 download from USGS and the Census Bureau)
+#   scripts/check.sh --offline  the tests and the browser-model check only, no network
 #
 # Steps 3-5 regenerate backtests/RESULTS.md, backtests/VERIFICATION.md,
 # docs/data.json and dashboard/expected.json. The airport-table date and hash
@@ -13,27 +13,34 @@
 set -e
 cd "$(dirname "$0")/.."
 
-echo "== 1/5 unit tests (no network)"
-uv run pytest -q
-
-echo "== 2/5 browser model against the Python planner's saved answers (no network)"
-node dashboard/test_model.js
-
 if [ "$1" = "--offline" ]; then
+    echo "== unit tests, and README against the committed reports (no network)"
+    uv run pytest -q
+    echo "== browser model against the Python planner's saved answers (no network)"
+    node dashboard/test_model.js
     echo "offline checks passed"
     exit 0
 fi
 
-echo "== 3/5 backtests and scenarios"
+echo "== 1/6 unit tests (no network)"
+uv run pytest -q --ignore=tests/test_docs.py
+
+echo "== 2/6 browser model against the Python planner's saved answers (no network)"
+node dashboard/test_model.js
+
+echo "== 3/6 backtests and scenarios"
 uv run backtests/run.py > /dev/null
 echo "wrote backtests/RESULTS.md"
 
-echo "== 4/5 shaking and population verification"
+echo "== 4/6 shaking and population verification"
 uv run backtests/verify_shaking.py
 
-echo "== 5/5 rebuild dashboard data, then re-check the browser model against it"
+echo "== 5/6 rebuild dashboard data, then re-check the browser model against it"
 uv run dashboard/build.py
 node dashboard/test_model.js
+
+echo "== 6/6 README against the regenerated reports"
+uv run pytest -q tests/test_docs.py
 
 echo
 echo "All checks passed. Files changed by this run:"

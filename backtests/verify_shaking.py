@@ -92,7 +92,8 @@ def main() -> int:
     md += ["", f"Total cities compared: {total_cities:,}.", ""]
     if notes:
         md += ["For these events the ShakeMap was revised after PAGER ran, so PAGER's city values come from an older "
-               "map. This is a likely cause of part of the differences above, not a proven one.", ""] + [f"- {n}" for n in notes] + [""]
+               "map. This is a possible cause of part of the differences above. It cannot be the whole story: several events "
+               "revised long after PAGER still agree closely.", ""] + [f"- {n}" for n in notes] + [""]
 
     # ---- 2. legacy parser
     qid = "us7000pn9s"

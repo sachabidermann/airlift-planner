@@ -20,7 +20,7 @@ Our grid read at each city PAGER lists (cities at MMI IV or above, inside the gr
 
 Total cities compared: 4,155.
 
-For these events the ShakeMap was revised after PAGER ran, so PAGER's city values come from an older map. This is a likely cause of part of the differences above, not a proven one.
+For these events the ShakeMap was revised after PAGER ran, so PAGER's city values come from an older map. This is a possible cause of part of the differences above. It cannot be the whole story: several events revised long after PAGER still agree closely.
 
 - `ak20419010`: ShakeMap revised 489 days after PAGER ran.
 - `ci38457511`: ShakeMap revised 367 days after PAGER ran.
@@ -41,16 +41,16 @@ Events that use the legacy parser because USGS ships no CoverageJSON for them: H
 
 | event | airports | mean abs error | bias | mean abs error where MMI >= 5 |
 |---|---:|---:|---:|---:|
-| Loma Prieta 1989, M6.9 (San Francisco Bay Area) | 470 | 0.47 | +0.40 | 0.34 |
+| Loma Prieta 1989, M6.9 (San Francisco Bay Area) | 465 | 0.47 | +0.40 | 0.34 |
 | Anchorage 2018, M7.1 (Alaska) | 243 | 0.54 | -0.17 | 0.50 |
-| Ridgecrest 2019, M7.1 (California desert) | 552 | 1.05 | +1.05 | 0.40 |
+| Ridgecrest 2019, M7.1 (California desert) | 544 | 1.05 | +1.05 | 0.39 |
 | Puerto Rico 2020, M6.4 (Guánica) | 18 | 0.64 | +0.64 | 0.45 |
 | Haiti 2010, M7.0 | 43 | 0.38 | +0.20 | 0.36 |
 | Nepal 2015, M7.8 | 56 | 0.71 | +0.60 | 0.37 |
 | Turkey 2023, M7.8 | 22 | 0.58 | -0.13 | 0.55 |
 | Morocco 2023, M6.8 | 12 | 0.34 | -0.21 | 0.49 |
 | Myanmar 2025, M7.7 | 116 | 0.55 | -0.03 | 0.86 |
-| **all events pooled** | 1532 | 0.70 | +0.50 | 0.49 |
+| **all events pooled** | 1519 | 0.70 | +0.50 | 0.49 |
 
 ## 4. Census population reconstruction vs USGS PAGER
 

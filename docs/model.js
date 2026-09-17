@@ -109,6 +109,7 @@
       (f) =>
         f.in_zone &&
         f.runway >= a.forward_min_runway_ft &&
+        f.best &&                                  // long enough, and wide enough for a C-130
         f.use >= a.min_usability &&
         (!a.domestic_only || !country || sameCountry(f.country, country, AL))
     );
@@ -167,8 +168,8 @@
     const people = (delivered * 1000) / data.demand.kg_per_person_day;
     const coverage = dem && dem.tonnes_per_day > 0 ? delivered / dem.tonnes_per_day : null;
 
-    const traps = fields.filter((f) => f.in_zone && f.runway >= a.forward_min_runway_ft && f.use < a.min_usability);
-    const naive = fields.find((f) => f.runway >= a.forward_min_runway_ft) || null;
+    const traps = fields.filter((f) => f.in_zone && f.runway >= a.forward_min_runway_ft && f.best && f.use < a.min_usability);
+    const naive = fields.find((f) => f.runway >= a.forward_min_runway_ft && f.best) || null;
 
     // roles, for the table and the map
     for (const t of traps) t.role = "knocked-out";

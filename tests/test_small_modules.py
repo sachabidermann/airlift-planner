@@ -46,7 +46,7 @@ def test_demand_per_person_and_total():
 # ---- aircraft
 
 def test_which_aircraft_fit_a_runway():
-    names = lambda runway, surface: [a.name for a in usable_aircraft(runway, surface)]
+    names = lambda runway, surface, width=0: [a.name for a in usable_aircraft(runway, surface, width)]
     assert names(2999, "ASP") == []
     assert names(3000, "GRVL") == ["C-130J-30", "A400M"]
     assert names(3500, "DIRT") == ["C-130J-30", "A400M", "C-17"]
@@ -54,6 +54,12 @@ def test_which_aircraft_fit_a_runway():
     assert names(9000, "ASPH-G") == [a.name for a in AIRCRAFT]
     assert biggest_usable(12000, "GRVL").name == "C-17", "big jets need pavement"
     assert biggest_usable(1000, "ASP") is None
+    # width: AFPAM Table 1 gives 60 ft for the C-130 and 90 ft for the C-17; an unknown width (0) is not held against the field
+    assert names(5000, "ASP", 20) == []
+    assert names(5000, "ASP", 75) == ["C-130J-30", "A400M"]
+    assert names(12000, "ASP", 148) == [a.name for a in AIRCRAFT], "a 45 m runway is recorded as 148 ft and takes a 747"
+    assert names(12000, "ASP", 140) == ["C-130J-30", "A400M", "C-17"]
+    assert names(12000, "ASP", 0) == [a.name for a in AIRCRAFT]
 
 
 def test_paved_surface_text():
@@ -65,13 +71,14 @@ def test_airport_loader_skips_water_and_closed_runways(tmp_path, monkeypatch):
     (tmp_path / "airports.csv").write_text(
         "id,ident,type,name,latitude_deg,longitude_deg,iso_country\n"
         "1,AAAA,small_airport,Land,1,2,US\n2,BBBB,small_airport,Lake,3,4,US\n"
-        "3,CCCC,heliport,Pad,5,6,US\n4,DDDD,small_airport,Shut,7,8,US\n")
+        "3,CCCC,heliport,Pad,5,6,US\n4,DDDD,small_airport,Shut,7,8,US\n5,EEEE,small_airport,Tera Ultralightport,9,9,US\n")
     (tmp_path / "runways.csv").write_text(
-        "airport_ref,length_ft,surface,closed\n1,4000,ASP,0\n1,6000,TURF,0\n2,13000,WATER,0\n3,100,CON,0\n4,9000,ASP,1\n")
+        "airport_ref,length_ft,width_ft,surface,closed\n1,4000,75,ASP,0\n1,6000,100,TURF,0\n2,13000,,WATER,0\n3,100,50,CON,0\n"
+        "4,9000,150,ASP,1\n5,3500,80,TURF,0\n")
     monkeypatch.setattr(airports_module, "DATA_DIR", tmp_path)
     loaded = {a.ident: a for a in airports_module.load_airports()}
     assert set(loaded) == {"AAAA"}
-    assert loaded["AAAA"].longest_runway_ft == 6000 and loaded["AAAA"].surface == "TURF"
+    assert loaded["AAAA"].longest_runway_ft == 6000 and loaded["AAAA"].surface == "TURF" and loaded["AAAA"].width_ft == 100
     assert len(airports_module.provenance()) == 2 and len(airports_module.provenance()[0]["sha256"]) == 64
 
 

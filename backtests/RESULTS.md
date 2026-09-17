@@ -50,7 +50,7 @@ Gateway matches in 3 of the 5 events where a relief gateway was used. Events wit
 | scenario | people at MMI VIII+ | gateway | flagged as likely knocked out | airlift capacity | share of need |
 |---|---:|---|---:|---:|---:|
 | HayWired scenario, M7.0 Hayward Fault (San Francisco Bay Area) | 5.4M | KSFO San Francisco International Airport | 9 | 3,160 t/day | 51% |
-| ShakeOut scenario, M7.8 southern San Andreas (Los Angeles) | 8.5M | KLGB Long Beach International Airport | 17 | 3,168 t/day | 32% |
+| ShakeOut scenario, M7.8 southern San Andreas (Los Angeles) | 8.5M | KLGB Long Beach International Airport | 16 | 3,168 t/day | 32% |
 | Cascadia scenario, M9.0 subduction zone (Pacific Northwest) | 136k | KPDX Portland International Airport | 0 | 3,070 t/day | exceeds need |
 | Seattle Fault scenario, M7.5 (Seattle) | 2.4M | KPAE Seattle Paine Field International Airport | 4 | 1,252 t/day | 46% |
 | New Madrid scenario, M7.7 (Memphis) | 306k | KMEM Frederick W. Smith International Airport | 10 | 3,138 t/day | exceeds need |
@@ -75,8 +75,8 @@ Shaking: USGS ShakeMap v1, 2020-07-07. Exposure: US Census 2023 reconstruction (
 
 - Gateway: **KSJC Mineta San Jose International Airport**, 7 km, MMI VII, inflow 3,162 t/day
 - Forward strips: KNUQ Moffett Federal Airfield (146 t/day), KRHV Reid-Hillview Airport of Santa Clara County (73 t/day), KLVK Livermore Municipal Airport (72 t/day), KHAF Half Moon Bay Airport (72 t/day), KHWD Hayward Executive Airport (71 t/day), and 4 more
-- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 594 t/day
-- Airlift capacity into zone: **3,162 t/day** (upper bound), enough for about 2.8M people, more than the estimated need
+- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 587 t/day
+- Airlift capacity into zone: **3,162 t/day** (a ceiling for the assumed parking spots), enough for about 2.8M people, more than the estimated need
 
 **What happened**
 
@@ -85,7 +85,6 @@ Oakland (KOAK) lost 3,000 ft of its 10,000 ft main runway to liquefaction and ra
 Sources:
 
 - https://abag.ca.gov/sites/default/files/dont_wing_it.pdf
-- https://en.wikipedia.org/wiki/1989_Loma_Prieta_earthquake
 
 Dashboard: https://sachabidermann.github.io/airlift-planner/#nc216859
 
@@ -106,7 +105,7 @@ Shaking: USGS ShakeMap v1, 2020-07-09. Exposure: USGS PAGER. PAGER alert: orange
 - Gateway: **PANC Ted Stevens Anchorage International Airport**, 17 km, MMI VII, inflow 3,068 t/day
 - Forward strips: PAFR Bryant Army Airfield (71 t/day), PABV Birchwood Airport (140 t/day), PABG Beluga Airport (69 t/day), CSR Campbell Airstrip (69 t/day), PAAQ Warren "Bud" Woods Palmer Municipal Airport (137 t/day), and 6 more
 - Best foreign alternative: CYXY Whitehorse / Erik Nielsen International Airport, capacity 543 t/day
-- Airlift capacity into zone: **3,068 t/day** (upper bound), enough for about 2.7M people, more than the estimated need
+- Airlift capacity into zone: **3,068 t/day** (a ceiling for the assumed parking spots), enough for about 2.7M people, more than the estimated need
 
 **What happened**
 
@@ -135,9 +134,9 @@ Shaking: USGS ShakeMap v1, 2020-07-07. Exposure: USGS PAGER. PAGER alert: yellow
 **Plan**
 
 - Gateway: **KMHV Mojave Air &  Space Port**, 77 km, MMI V, inflow 1,337 t/day
-- Forward strips: CN37 Kelso Valley Airport (70 t/day), KL71 California City Municipal Airport (138 t/day), KL72 Trona Airport (65 t/day), 0CL8 Tera Ultralightport (64 t/day), KL05 Kern Valley Airport (60 t/day), and 7 more
-- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 654 t/day
-- Airlift capacity into zone: **1,337 t/day** (upper bound), enough for about 1.2M people, more than the estimated need
+- Forward strips: CN37 Kelso Valley Airport (70 t/day), KL71 California City Municipal Airport (138 t/day), KL72 Trona Airport (65 t/day), K9L2 Edwards Af Aux North Base Airport (59 t/day), KIYK Inyokern Airport (59 t/day), and 6 more
+- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 627 t/day
+- Airlift capacity into zone: **1,337 t/day** (a ceiling for the assumed parking spots), enough for about 1.2M people, more than the estimated need
 
 **What happened**
 
@@ -168,7 +167,7 @@ Shaking: USGS ShakeMap v1, 2022-03-10. Exposure: USGS PAGER. PAGER alert: orange
 - Gateway: **TJSJ Luis Munoz Marin International Airport**, 88 km, MMI IV, inflow 3,400 t/day
 - Forward strips: TJAB Antonio Nery Juarbe Pol Airport (147 t/day), PR27 Santa Isabel Airport (73 t/day), TJPS Mercedita International Airport (138 t/day), PR10 Boqueron Airport (68 t/day), TJMZ Eugenio Maria De Hostos Airport (135 t/day), and 4 more
 - Best foreign alternative: MDPC Punta Cana International Airport, capacity 812 t/day
-- Airlift capacity into zone: **2,974 t/day** (upper bound), enough for about 2.6M people, more than the estimated need
+- Airlift capacity into zone: **2,974 t/day** (a ceiling for the assumed parking spots), enough for about 2.6M people, more than the estimated need
 
 **What happened**
 
@@ -194,10 +193,10 @@ Shaking: USGS ShakeMap v1, 2020-07-08. Exposure: none.
 
 **Plan**
 
-- Gateway: **MTPP Toussaint Louverture International Airport**, 19 km, MMI VIII, inflow 2,047 t/day
+- Gateway: **MTPP Toussaint Louverture International Airport**, 19 km, MMI VIII, inflow 1,611 t/day
 - Forward strips: MTJA Jacmel Airport (112 t/day), MTCH Cap Haitien International Airport (10 t/day), MTCA Antoine-Simon International Airport (2 t/day)
 - Best foreign alternative: MDBH Maria Montez International Airport, capacity 430 t/day
-- Airlift capacity into zone: **2,047 t/day** (upper bound), enough for about 1.8M people
+- Airlift capacity into zone: **1,611 t/day** (a ceiling for the assumed parking spots), enough for about 1.4M people
 
 **What happened**
 
@@ -228,7 +227,7 @@ Shaking: USGS ShakeMap v1, 2020-07-07. Exposure: USGS PAGER. PAGER alert: red.
 - Gateway: **VNKT Tribhuvan International Airport**, 19 km, MMI VII, inflow 2,973 t/day
 - Forward strips: VNSI Simara Airport (66 t/day), VNJP Janakpur Airport (130 t/day), VNMG Meghauli Airport (64 t/day), VNPK Pokhara Domestic Airport (124 t/day), VNBP Bharatpur Airport (62 t/day), and 1 more
 - Best foreign alternative: VEKI Kushinagar International Airport, capacity 789 t/day
-- Airlift capacity into zone: **2,973 t/day** (upper bound), enough for about 2.6M people, 90% of estimated need
+- Airlift capacity into zone: **2,973 t/day** (a ceiling for the assumed parking spots), enough for about 2.6M people, 90% of estimated need
 
 **What happened**
 
@@ -263,11 +262,11 @@ Shaking: USGS ShakeMap v19, 2025-09-03. Exposure: USGS PAGER. PAGER alert: red.
 - Forward strips: LTCP Adıyaman Airport (126 t/day), LTAT Malatya Erhaç Airport (110 t/day), LTAO Malatya Tulga Airport (42 t/day)
 - Flagged as likely knocked out: LTCN Kahramanmaraş Airport (MMI VIII, 48%), LTDA Hatay Airport (MMI IX, 34%)
 - Best foreign alternative: OSAP Aleppo International Airport, capacity 2,103 t/day
-- Airlift capacity into zone: **3,077 t/day** (upper bound), enough for about 2.7M people, more than the estimated need
+- Airlift capacity into zone: **3,077 t/day** (a ceiling for the assumed parking spots), enough for about 2.7M people, more than the estimated need
 
 **What happened**
 
-Hatay (LTDA) runway fractured and closed for six days. Adana (LTAF) and Incirlik (LTAG) were the hubs. Gaziantep (LTAJ) and Kahramanmaras (LTCN) closed to passengers but took relief flights. Cukurova (LTDB) replaced Adana Sakirpasa in 2024 and did not exist at the time.
+Hatay (LTDA) runway fractured and closed for six days. Adana (LTAF) and Incirlik (LTAG) were the relief gateways. Gaziantep (LTAJ) and Kahramanmaras (LTCN) closed to passengers but took relief flights. Cukurova (LTDB) replaced Adana Sakirpasa in 2024 and did not exist at the time.
 
 Sources:
 
@@ -293,11 +292,11 @@ Shaking: USGS ShakeMap v14, 2023-11-06. Exposure: USGS PAGER. PAGER alert: red.
 - Gateway: **GMMX Marrakesh Menara Airport**, 5 km, MMI VI, inflow 3,236 t/day
 - Forward strips: GMMZ Ouarzazate International Airport (42 t/day)
 - Best foreign alternative: DAOF Tindouf Airport, capacity 188 t/day
-- Airlift capacity into zone: **3,236 t/day** (upper bound), enough for about 2.9M people, more than the estimated need
+- Airlift capacity into zone: **3,236 t/day** (a ceiling for the assumed parking spots), enough for about 2.9M people, more than the estimated need
 
 **What happened**
 
-Marrakech (GMMX) had no major damage and became the hub. Villages in the High Atlas were reached by helicopter and road.
+Marrakech (GMMX) had no major damage and became the relief gateway. Villages in the High Atlas were reached by helicopter and road.
 
 Sources:
 
@@ -325,11 +324,11 @@ Shaking: USGS ShakeMap v23, 2025-06-06. Exposure: USGS PAGER. PAGER alert: red.
 - Forward strips: VYPU Pakhokku Airport (61 t/day), VYMY Monywar Airport (56 t/day), VYAS Anisakan Airport (53 t/day), VYBG Bagan Airport (14 t/day), VYLY Lanywa Airport (12 t/day), and 2 more
 - Flagged as likely knocked out: VYST Shante Air Base (MMI IX, 38%), VYMD Mandalay International Airport (MMI X, 19%), VYNT Nay Pyi Taw International Airport (MMI IX, 23%), VYCZ Chanmyathazi Airport (MMI IX, 39%), VYTO Taungoo Airport (MMI IX, 41%)
 - Best foreign alternative: VTCC Chiang Mai International Airport, capacity 278 t/day
-- Airlift capacity into zone: **1,150 t/day** (upper bound), enough for about 1.0M people, 10% of estimated need
+- Airlift capacity into zone: **1,150 t/day** (a ceiling for the assumed parking spots), enough for about 1.0M people, 10% of estimated need
 
 **What happened**
 
-Nay Pyi Taw (VYNT) lost its control tower; Mandalay (VYMD) had runway, terminal and radar damage. Both closed to commercial flights for a week. Yangon (VYYY), about 530 km south, was the main entry point; military relief flights reached Nay Pyi Taw from 30 March and Mandalay from 1 April.
+Nay Pyi Taw (VYNT) lost its control tower; Mandalay (VYMD) had runway, terminal and radar damage. Both closed to commercial flights for a week. Yangon (VYYY), about 530 km south of Mandalay, was the main relief gateway; military relief flights reached Nay Pyi Taw from 30 March and Mandalay from 1 April.
 
 Sources:
 
@@ -358,10 +357,10 @@ Shaking: USGS ShakeMap v33, 2017-01-11. Exposure: US Census 2023 reconstruction 
 **Plan**
 
 - Gateway: **KSFO San Francisco International Airport**, 38 km, MMI VII, inflow 3,160 t/day
-- Forward strips: KHAF Half Moon Bay Airport (73 t/day), KSCK Stockton Metropolitan Airport (131 t/day), KMRY Monterey Regional Airport (131 t/day), KMOD Modesto City Co-Harry Sham Field (130 t/day), 05CL Pope Valley Airport (65 t/day), and 6 more
+- Forward strips: KHAF Half Moon Bay Airport (73 t/day), KSCK Stockton Metropolitan Airport (131 t/day), KMRY Monterey Regional Airport (131 t/day), KMOD Modesto City Co-Harry Sham Field (130 t/day), 05CL Pope Valley Airport (65 t/day), and 5 more
 - Flagged as likely knocked out: KLVK Livermore Municipal Airport (MMI X, 19%), KHWD Hayward Executive Airport (MMI IX, 37%), KSJC Mineta San Jose International Airport (MMI IX, 24%), KOAK Oakland San Francisco Bay Airport (MMI IX, 27%), KRHV Reid-Hillview Airport of Santa Clara County (MMI IX, 21%), KE16 San Martin Airport (MMI IX, 37%), KWVI Watsonville Municipal Airport (MMI VIII, 49%), KDVO Marin County Airport - Gnoss Field (MMI IX, 28%), KCVH Hollister Municipal Airport (MMI VIII, 47%)
-- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 581 t/day
-- Airlift capacity into zone: **3,160 t/day** (upper bound), enough for about 2.8M people, 51% of estimated need
+- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 567 t/day
+- Airlift capacity into zone: **3,160 t/day** (a ceiling for the assumed parking spots), enough for about 2.8M people, 51% of estimated need
 
 **About this scenario**
 
@@ -390,10 +389,10 @@ Shaking: USGS ShakeMap v5, 2019-08-10. Exposure: US Census 2023 reconstruction (
 **Plan**
 
 - Gateway: **KLGB Long Beach International Airport**, 47 km, MMI VII, inflow 3,168 t/day
-- Forward strips: KHHR Jack Northrop Field Hawthorne Municipal Airport (145 t/day), KSMO Santa Monica Municipal Airport (142 t/day), KSLI Los Alamitos Army Air Field (139 t/day), KTOA Zamperini Field (68 t/day), KL65 Perris Valley Airport (67 t/day), and 4 more
-- Flagged as likely knocked out: KCNO Chino Airport (MMI IX, 38%), KONT Ontario International Airport (MMI VIII, 45%), KCCB Upland-Cable Airport (MMI IX, 44%), KPOC Brackett Field (MMI IX, 43%), KFUL Fullerton Municipal Airport (MMI IX, 36%), KEMT San Gabriel Valley Airport (MMI X, 10%), KSBD San Bernardino International Airport (MMI X, 11%), KREI Redlands Municipal Airport (MMI X, 19%), 46CN Crystal Airport (MMI X, 10%), 04CA Gray Butte Field (MMI IX, 38%), KPMD Palmdale Regional Airport / USAF Plant 42 Airport (MMI X, 10%), KWJF General William J Fox Airfield (MMI X, 10%), KL00 Rosamond Skypark Airport (MMI IX, 31%), KPSP Palm Springs International Airport (MMI X, 17%), KUDD Bermuda Dunes Airport (MMI X, 10%), KTRM Jacqueline Cochran Regional Airport (MMI X, 10%), 63CA Desert Air Sky Ranch Airport (MMI X, 10%)
-- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 864 t/day
-- Airlift capacity into zone: **3,168 t/day** (upper bound), enough for about 2.8M people, 32% of estimated need
+- Forward strips: KHHR Jack Northrop Field Hawthorne Municipal Airport (145 t/day), KSMO Santa Monica Municipal Airport (142 t/day), KSLI Los Alamitos Army Air Field (139 t/day), KTOA Zamperini Field (68 t/day), KRAL Riverside Municipal Airport (134 t/day), and 4 more
+- Flagged as likely knocked out: KCNO Chino Airport (MMI IX, 38%), KONT Ontario International Airport (MMI VIII, 45%), KCCB Upland-Cable Airport (MMI IX, 44%), KPOC Brackett Field (MMI IX, 43%), KFUL Fullerton Municipal Airport (MMI IX, 36%), KEMT San Gabriel Valley Airport (MMI X, 10%), KSBD San Bernardino International Airport (MMI X, 11%), KREI Redlands Municipal Airport (MMI X, 19%), 46CN Crystal Airport (MMI X, 10%), 04CA Gray Butte Field (MMI IX, 38%), KPMD Palmdale Regional Airport / USAF Plant 42 Airport (MMI X, 10%), KWJF General William J Fox Airfield (MMI X, 10%), KPSP Palm Springs International Airport (MMI X, 17%), KUDD Bermuda Dunes Airport (MMI X, 10%), KTRM Jacqueline Cochran Regional Airport (MMI X, 10%), 63CA Desert Air Sky Ranch Airport (MMI X, 10%)
+- Best foreign alternative: MMTJ General Abelardo L. Rodriguez International Airport, capacity 856 t/day
+- Airlift capacity into zone: **3,168 t/day** (a ceiling for the assumed parking spots), enough for about 2.8M people, 32% of estimated need
 
 **About this scenario**
 
@@ -423,8 +422,8 @@ Shaking: USGS ShakeMap v1, 2017-03-02. Exposure: US Census 2023 reconstruction (
 
 - Gateway: **KPDX Portland International Airport**, 45 km, MMI VII, inflow 3,070 t/day
 - Forward strips: KVUO Pearson Field (76 t/day), KHIO Portland Hillsboro Airport (144 t/day), 1OR3 Sunset Air Strip (72 t/day), KMMV McMinnville Municipal Airport (139 t/day), K4S9 Portland Mulino Airport (69 t/day), and 6 more
-- Best foreign alternative: CYYJ Victoria International Airport, capacity 901 t/day
-- Airlift capacity into zone: **3,070 t/day** (upper bound), enough for about 2.7M people, more than the estimated need
+- Best foreign alternative: CYYJ Victoria International Airport, capacity 900 t/day
+- Airlift capacity into zone: **3,070 t/day** (a ceiling for the assumed parking spots), enough for about 2.7M people, more than the estimated need
 
 **About this scenario**
 
@@ -455,8 +454,8 @@ Shaking: USGS ShakeMap v1, 2024-04-01. Exposure: USGS PAGER. PAGER alert: red.
 - Gateway: **KPAE Seattle Paine Field International Airport**, 41 km, MMI VI, inflow 1,252 t/day
 - Forward strips: KTCM McChord Air Force Base (136 t/day), KPLU Pierce County-Thun Field (68 t/day), KSHN Sanderson Field (67 t/day), KTIW Tacoma Narrows Airport (133 t/day), KGRF Gray Army Air Field (130 t/day), and 6 more
 - Flagged as likely knocked out: KBFI King County International Airport - Boeing Field (MMI IX, 36%), KRNT Renton Municipal Airport (MMI IX, 42%), KSEA Seattle–Tacoma International Airport (MMI VIII, 46%), KPWT Bremerton National Airport (MMI VIII, 45%)
-- Best foreign alternative: CYYJ Victoria International Airport, capacity 864 t/day
-- Airlift capacity into zone: **1,252 t/day** (upper bound), enough for about 1.1M people, 46% of estimated need
+- Best foreign alternative: CYYJ Victoria International Airport, capacity 860 t/day
+- Airlift capacity into zone: **1,252 t/day** (a ceiling for the assumed parking spots), enough for about 1.1M people, 46% of estimated need
 
 **About this scenario**
 
@@ -488,7 +487,7 @@ Shaking: USGS ShakeMap v6, 2019-05-28. Exposure: USGS PAGER. PAGER alert: red.
 - Forward strips: KOLV Olive Branch Airport (72 t/day), H75 Hernando Village Airpark (71 t/day), 54M Wolf River Airport (70 t/day), TN43 Isle-A-Port STOLport (70 t/day), 7TN4 Pegasus Field (70 t/day), and 8 more
 - Flagged as likely knocked out: 6M8 Marked Tree Municipal Airport (MMI IX, 30%), K7M4 Osceola Municipal Airport (MMI IX, 44%), 4AR5 Lawrence Field (MMI IX, 32%), KMXA Manila Municipal Airport (MMI IX, 37%), KBYH Arkansas International Airport (MMI IX, 28%), KHKA Blytheville Municipal Airport (MMI IX, 33%), KM12 Steele Municipal Airport (MMI IX, 34%), KM05 Caruthersville Memorial Airport (MMI IX, 25%), M28 Mid Continent Airport (MMI IX, 35%), US-8864 Ridgely Airport (MMI IX, 25%)
 - Best foreign alternative: CYQG Windsor International Airport, capacity 549 t/day
-- Airlift capacity into zone: **3,138 t/day** (upper bound), enough for about 2.8M people, more than the estimated need
+- Airlift capacity into zone: **3,138 t/day** (a ceiling for the assumed parking spots), enough for about 2.8M people, more than the estimated need
 
 **About this scenario**
 
@@ -518,7 +517,7 @@ Shaking: USGS ShakeMap v1, 2025-06-23. Exposure: US Census 2023 reconstruction (
 - Gateway: **TJSJ Luis Munoz Marin International Airport**, 35 km, MMI VIII, inflow 2,110 t/day
 - Forward strips: TJPS Mercedita International Airport (126 t/day), PR10 Boqueron Airport (63 t/day), PR27 Santa Isabel Airport (62 t/day), TISX Henry E. Rohlsen Airport (117 t/day), TJVQ Antonio Rivera Rodriguez Airport (107 t/day), and 4 more
 - Best foreign alternative: MDPC Punta Cana International Airport, capacity 695 t/day
-- Airlift capacity into zone: **2,110 t/day** (upper bound), enough for about 1.9M people, 88% of estimated need
+- Airlift capacity into zone: **2,110 t/day** (a ceiling for the assumed parking spots), enough for about 1.9M people, 88% of estimated need
 
 **About this scenario**
 

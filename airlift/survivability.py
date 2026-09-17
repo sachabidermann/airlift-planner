@@ -1,31 +1,31 @@
 """Probability that an airfield can take relief flights after shaking.
 
-Maps shaking intensity (MMI) at the airfield to a usability probability for
-the first days. The curve is a judgment call. It was set by hand while looking
-at the international earthquakes below, so for those the backtests check
-consistency, not out-of-sample skill. The US events (Oakland, Anchorage) were
-added later and the curve was left unchanged.
+Maps shaking intensity (MMI) at the airfield to the probability that it can
+take relief flights in the first three days. The curve is a judgment call. It
+was set by hand while looking at the five international earthquakes below, so
+for those the backtests check consistency, not out-of-sample skill. The four
+US events were added later and the curve was left unchanged; Oakland,
+Anchorage and China Lake are listed here.
 
-  Marrakech 2023       MMI VI     no major damage, became the hub
+  Marrakech 2023       MMI VI     no major damage, became the relief gateway
   Oakland 1989         MMI VII    lost 3,000 ft of runway to liquefaction (a miss: see below)
   Kathmandu 2015       MMI VII    stayed open; runway later damaged by heavy jets
   Anchorage 2018       MMI VII    tower evacuated, reopened the same day
   Gaziantep 2023       MMI VII    closed to passengers, took relief flights
   Kahramanmaras 2023   MMI VIII   closed to passengers, took relief flights (the curve flags it: a false alarm)
   Port-au-Prince 2010  MMI VIII   runway intact, tower unusable, field saturated
+  China Lake 2019      MMI VIII   declared not mission capable (a miss: the curve gives 64%)
   Hatay 2023           MMI IX     runway fractured, closed six days
-  Nay Pyi Taw 2025     MMI IX     control tower collapsed, closed a week
-  Mandalay 2025        MMI IX-X   runway, terminal and radar damage, closed a week
+  Nay Pyi Taw 2025     MMI IX     control tower collapsed; closed to commercial flights for a week, relief flights from day 2
+  Mandalay 2025        MMI IX-X   runway, terminal and radar damage; closed to commercial flights for a week, relief flights from day 4
 
 Published alternatives exist and are the first planned replacement. FEMA's
 Hazus earthquake model (Technical Manual, section 7.7) has fragility curves
 for control towers, terminals and fuel facilities, and treats runway damage
 as a ground-failure problem: "Little damage is attributed to ground shaking."
-That is exactly the Oakland miss: intensity does not see soft fill. Roark,
-Truman and Gould (2000) published an airport functionality curve against peak
-ground acceleration for the New Madrid region. A rough conversion of the Hazus
-tower curve gives 100, 98, 89, 67, 37 and 18 percent for MMI V to X, close to
-the values below.
+That is the Oakland miss: intensity does not see soft fill. Roark, Truman and
+Gould (2000) published an airport functionality curve against peak ground
+acceleration for the New Madrid region.
 """
 
 import math

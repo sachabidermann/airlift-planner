@@ -6,7 +6,7 @@
 <title>Airlift Planner</title>
 <meta name="description" content="After an earthquake: which airfields can still take relief flights, how much cargo is needed, and how much an airlift could move. A planning model on public USGS, Census and OurAirports data.">
 <meta property="og:title" content="Airlift Planner">
-<meta property="og:description" content="Which airfields survive an earthquake, and what an airlift through them could move. Public data, planning model.">
+<meta property="og:description" content="Which airfields can likely still take relief flights after an earthquake, and what an airlift through them could move. Public data, planning model.">
 <meta property="og:image" content="https://sachabidermann.github.io/airlift-planner/haywired.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%232a78d6'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="">
@@ -104,7 +104,7 @@
 
   <section class="two-col">
     <div class="card">
-      <div class="card-head"><h2>Forward strip capacity</h2><span class="card-sub">metric tons per day, after usability</span></div>
+      <div class="card-head"><h2>Forward strip capacity</h2><span class="card-sub">metric tons per day, after usability and road share</span></div>
       <div class="chart" id="bars-chart"></div>
     </div>
     <div class="card">
@@ -149,7 +149,7 @@
     <div class="method">
       <div>
         <h3>1. Airfield usability</h3>
-        <p>USGS ShakeMap gives shaking intensity (MMI) on a grid, with values up to X. The intensity at each airport is mapped to a probability that it can take relief flights in the first days. The curve is a judgment call, set by hand while looking at the international backtests.</p>
+        <p>USGS ShakeMap gives shaking intensity (MMI) on a grid, with values up to X. The intensity at each airport is mapped to a probability that it can take relief flights in the first three days. The curve is a judgment call, set by hand while looking at the international backtests.</p>
         <p class="formula" id="curve-text"></p>
       </div>
       <div>
@@ -165,7 +165,8 @@
     </div>
     <h3>Limitations</h3>
     <ul class="limits">
-      <li>A planning model, not an operational tool. Capacity is an upper bound: parking spots are assumed from airport size, not taken from real ramp plans.</li>
+      <li>A planning model, not an operational tool. Capacity is a ceiling for an assumed number of parking spots, not a forecast. Every limit the model leaves out can only lower it; the spot counts are guesses and can be wrong in either direction.</li>
+      <li>Forward strips are picked on runway length and width. Pavement strength and ownership are not checked, so private and turf strips appear.</li>
       <li>The usability curve is judgment, and the international backtests use the same earthquakes it was set on.</li>
       <li>Straight-line distances. No liquefaction, tsunami, fuel, customs, handling, weather, airspace or roads.</li>
       <li>The airport table and Census population are current, including for replays of older events.</li>

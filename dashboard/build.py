@@ -59,7 +59,7 @@ def export_event(event, airports, meta=None, group="week"):
     q = event.quake
     # Keep every airfield any slider setting could use, plus the nearest-airfield
     # pick and the watch list so the dashboard can always show them.
-    naive = next((f for f in fields if f.airport.longest_runway_ft >= EXPORT_A.forward_min_runway_ft), None)
+    naive = next((f for f in fields if f.airport.longest_runway_ft >= EXPORT_A.forward_min_runway_ft and f.best_aircraft), None)
     always = set(meta.get("watch", [])) | ({naive.airport.ident} if naive else set())
     keep = []
     for f in fields:
@@ -71,7 +71,7 @@ def export_event(event, airports, meta=None, group="week"):
         keep.append({
             "ident": ap.ident, "name": ap.name, "country": ap.country, "kind": ap.kind,
             "lat": round(ap.lat, 6), "lon": round(ap.lon, 6),
-            "runway": ap.longest_runway_ft, "surface": ap.surface, "paved": is_paved(ap.surface),
+            "runway": ap.longest_runway_ft, "width": ap.width_ft, "surface": ap.surface, "paved": is_paved(ap.surface),
             "mmi": round(f.mmi, 6), "dist": round(f.dist_km, 6),
             "best": f.best_aircraft.name if f.best_aircraft else None,
         })
@@ -145,7 +145,7 @@ def main() -> int:
         "built": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "inputs": provenance(),
         "aircraft": [
-            {"name": a.name, "min_runway": a.min_runway_ft, "needs_paved": a.needs_paved,
+            {"name": a.name, "min_runway": a.min_runway_ft, "min_width": a.min_width_ft, "needs_paved": a.needs_paved,
              "payload": a.payload_tonnes, "ground": a.ground_time_h}
             for a in AIRCRAFT
         ],

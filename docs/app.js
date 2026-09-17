@@ -122,7 +122,7 @@
     const quiet = !p.fields.some((f) => f.mmi >= 6);
     $("kpis").innerHTML = [
       kpi("Airlift capacity into zone", `${fmtInt.format(p.delivered)}<small>t/day</small>`,
-        g ? `upper bound, via ${esc(g.field.ident)}; t = metric tons` : p.candidates ? "airports qualify as gateways, but nothing can reach the zone" : "no usable gateway in range"),
+        g ? `a ceiling for the assumed parking spots, via ${esc(g.field.ident)}; t = metric tons` : p.candidates ? "airports qualify as gateways, but nothing can reach the zone" : "no usable gateway in range"),
       kpi("People it could supply", people(p.people), `at ${fmt2.format(DATA.demand.kg_per_person_day)} kg per person per day`),
       kpi("Share of need", share, shareSub),
       kpi("Priority population", d ? people(d.priority) : "n/a", d ? `at MMI VIII or above; ${people(d.affected)} at VII or above` : "no population exposure"),
@@ -256,7 +256,7 @@
       ["Runway", `${fmtInt.format(f.runway)} ft ${esc(f.surface || "")}`],
       ["Aircraft and parking spots", `${esc(g.aircraft.name)} × ${A.mog_gateway[f.kind]}`],
       ["Can receive", `${fmtInt.format(g.inflow)} t/day`],
-      ["Road share", `${Math.round(M.directCredit(f.dist, A) * 100)}% of that reaches the zone by road`, "n wrap"],
+      ["Road share", `${pct(M.directCredit(f.dist, A))} of that reaches the zone by road`, "n wrap"],
     ];
     let html = `<div class="card-head"><h2>Gateway</h2><span class="card-sub">where heavy jets land</span></div><table class="kv">` +
       rows.map(([k, v, cls]) => `<tr><td class="k">${k}</td><td class="${cls || "n"}">${v}</td></tr>`).join("") + `</table>`;
@@ -360,15 +360,30 @@
       const hit = svgEl("circle", { cx, cy, r: 9, class: "hit" });
       attachTip(hit, fieldTip(f, f.role === "candidate" ? "" : f.role.replace("knocked-out", "likely knocked out")));
       svg.appendChild(hit);
-      if ((f.role === "gateway" || f.role === "knocked-out") && labeled.length < 5) labeled.push({ f, cx, cy });
+      if (f.role === "gateway") labeled.unshift({ f, cx, cy });
+      else if (f.role === "knocked-out" && labeled.filter((l) => l.f.role !== "gateway").length < 4) labeled.push({ f, cx, cy });
     }
-    labeled.sort((a, b) => a.cy - b.cy);
-    let lastY = -100;
-    for (const l of labeled) {
-      const ly = Math.max(l.cy - 10, lastY + 13);
-      lastY = ly;
-      const anchor = l.cx > W - 140 ? "end" : "start";
-      svg.appendChild(svgEl("text", { x: l.cx + (anchor === "end" ? -9 : 9), y: ly, "text-anchor": anchor, class: "lab" }, `${l.f.ident} ${pct(l.f.use)}`));
+    // Labels never sit on the curve. Left of the chart they go above and to the
+    // right of their marker, where the falling curve leaves room. On the right
+    // they stack in a column below the curve, each tied to its marker by a line.
+    const text = (l) => `${l.f.ident} ${pct(l.f.use)}`;
+    const above = labeled.filter((l) => l.cx <= W - 140).sort((a, b) => b.cy - a.cy);
+    let lastY = 1000;
+    for (const l of above) {
+      lastY = Math.min(l.cy - 10, lastY - 13);
+      svg.appendChild(svgEl("text", { x: l.cx + 9, y: lastY, "text-anchor": "start", class: "lab" }, text(l)));
+    }
+    const column = labeled.filter((l) => l.cx > W - 140).sort((a, b) => a.cy - b.cy);
+    if (column.length) {
+      const colX = Math.min(...column.map((l) => l.cx)) - 18;
+      lastY = -100;
+      for (const l of column) { l.ly = Math.max(l.cy + 6, lastY + 13); lastY = l.ly; }
+      const over = Math.max(0, lastY - (H - padB - 5));
+      for (const l of column) {
+        const ly = l.ly - over;
+        svg.appendChild(svgEl("line", { x1: colX + 4, y1: ly - 4, x2: l.cx - 7, y2: l.cy, class: "leader" }));
+        svg.appendChild(svgEl("text", { x: colX, y: ly, "text-anchor": "end", class: "lab" }, text(l)));
+      }
     }
     host.appendChild(svg);
   }

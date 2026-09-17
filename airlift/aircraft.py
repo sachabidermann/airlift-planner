@@ -15,16 +15,17 @@ from dataclasses import dataclass
 class Aircraft:
     name: str
     min_runway_ft: int      # shortest runway it can use (AFPAM Table 1, manufacturer data)
+    min_width_ft: int       # narrowest runway it can use (AFPAM Table 1; A400M and 747-8F are judgment)
     needs_paved: bool       # False = can use gravel or dirt strips
     payload_tonnes: float   # planning payload per flight, metric tons
     ground_time_h: float    # hours on the ramp to offload and turn around
 
 
-C130 = Aircraft("C-130J-30", 3000, False, 16.3, 1.75)
-A400M = Aircraft("A400M", 3000, False, 28.0, 2.0)
-C17 = Aircraft("C-17", 3500, False, 59.0, 2.25)
-C5 = Aircraft("C-5M", 6000, True, 90.7, 3.75)
-B747F = Aircraft("747-8F", 9000, True, 100.0, 3.0)
+C130 = Aircraft("C-130J-30", 3000, 60, False, 16.3, 1.75)
+A400M = Aircraft("A400M", 3000, 60, False, 28.0, 2.0)
+C17 = Aircraft("C-17", 3500, 90, False, 59.0, 2.25)
+C5 = Aircraft("C-5M", 6000, 147, True, 90.7, 3.75)
+B747F = Aircraft("747-8F", 9000, 147, True, 100.0, 3.0)    # 45 m, the standard width for this class; recorded as 147-148 ft
 
 AIRCRAFT = [C130, A400M, C17, C5, B747F]
 
@@ -42,12 +43,21 @@ def is_paved(surface: str) -> bool:
     return surface.strip().upper().startswith(PAVED_PREFIXES)
 
 
-def usable_aircraft(runway_ft: int, surface: str) -> list[Aircraft]:
-    """Every aircraft that can use a runway of this length and surface."""
+def usable_aircraft(runway_ft: int, surface: str, width_ft: int = 0) -> list[Aircraft]:
+    """Every aircraft that can use a runway of this length, surface and width.
+
+    A width of 0 means OurAirports does not record one (about 6 percent of
+    runways); an unknown width is not held against the airfield.
+    """
     paved = is_paved(surface)
-    return [a for a in AIRCRAFT if runway_ft >= a.min_runway_ft and (paved or not a.needs_paved)]
+    return [
+        a for a in AIRCRAFT
+        if runway_ft >= a.min_runway_ft
+        and (paved or not a.needs_paved)
+        and (width_ft <= 0 or width_ft >= a.min_width_ft)
+    ]
 
 
-def biggest_usable(runway_ft: int, surface: str) -> Aircraft | None:
-    fits = usable_aircraft(runway_ft, surface)
+def biggest_usable(runway_ft: int, surface: str, width_ft: int = 0) -> Aircraft | None:
+    fits = usable_aircraft(runway_ft, surface, width_ft)
     return max(fits, key=lambda a: a.payload_tonnes) if fits else None

@@ -367,8 +367,8 @@ def _product(products: dict, *names: str) -> dict | None:
 def fetch_event(quake_id: str, refresh: bool = False) -> Event:
     """Load one quake (real or scenario) plus ShakeMap and PAGER, cached on disk.
 
-    ShakeMap is revised for hours or days after a quake. Pass refresh=True
-    during a live response to fetch the latest version. The new copy replaces
+    USGS revises ShakeMaps, often within hours and sometimes years later. Pass
+    refresh=True during a live response to fetch the latest version. The new copy replaces
     the cached one only after every download has succeeded.
     """
     # The id becomes a folder name that refresh later deletes, so it must be a

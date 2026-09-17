@@ -21,11 +21,11 @@ git clone https://github.com/sachabidermann/airlift-planner
 cd airlift-planner
 uv sync
 uv run main.py --quake gllegacyhaywiredm7p05_se     # any USGS event or scenario id
-uv run main.py --list                                # significant quakes this week
+uv run main.py --list                                # M5.5 and above in the past week
 uv run main.py --latest                              # plan for the newest one
 ```
 
-Abridged output for the HayWired scenario (`...` marks lines left out):
+Abridged output for the HayWired scenario (`...` marks lines left out; terms are defined below):
 
 ```
 M 7.0  Haywired M7.05 Scenario  (USGS scenario, simulated)
@@ -45,7 +45,7 @@ likely knocked out:
 GATEWAY   KSFO San Francisco International Airport        38 km   MMI VII  usable 92%
           747-8F x 6 spots, 11,870 ft   inflow 3,160 t/day
 ...
-AIRLIFT CAPACITY INTO ZONE    3,160 t/day   (upper bound; t = metric tons)
+AIRLIFT CAPACITY INTO ZONE    3,160 t/day   (ceiling for the assumed parking spots; t = metric tons)
 people it could supply         2.8M
 share of need                   51%   the rest must come by road, sea or local supply
 ```
@@ -69,16 +69,18 @@ scripts/check.sh              # also reruns the backtests, the verification and 
 - **Forward strip:** any usable airfield inside the damage zone, from a small strip to an international airport, served by C-130s from the gateway.
 - **Parking spot:** room for one cargo aircraft to unload. How many an airfield can work at once (the Air Force term is MOG, maximum on ground) limits throughput more than runway length does.
 - **Sortie:** one round trip by one aircraft between the gateway and a forward strip.
-- **Usability:** the model's probability that an airfield can take relief flights in the first days. Below 50% it is flagged as likely knocked out.
+- **Usability:** the model's probability that an airfield can take relief flights in the first three days. Below 50% it is flagged as likely knocked out.
+- **Damage center:** the average position of the people shaken above MMI VI, weighted by how far above. All distances are measured from it.
+- **Zone:** airfields within 150 km of the damage center, or shaken at MMI 6.5 or more.
 - **t/day:** metric tons (1,000 kg) per day.
 
 ## How it works
 
 Formulas and the source of every constant are in [METHOD.md](METHOD.md).
 
-1. **Usability.** Read the ShakeMap intensity at every airport within 1,000 km of the damage center and map it to a usability probability. A nearest-airfield rule picks the airport that was shaken hardest; this step is what avoids that.
+1. **Usability.** Read the ShakeMap intensity at every airport within 1,000 km of the damage center and map it to a usability probability. The airfield nearest the damage is often among the hardest shaken, so nearest is a bad rule. This step replaces it.
 2. **Need.** Take the people at MMI VIII and above, from PAGER, or from a Census reconstruction where PAGER was not run. Multiply by a daily ration of food, medical supplies and a share of a shelter kit: 1.13 kg per person per day.
-3. **Airbridge.** Heavy jets fly into a gateway; C-130s shuttle cargo on to forward strips. Throughput uses the formula in Air Force Pamphlet 10-1403: parking spots × planning payload × operating hours ÷ ground time × 0.85. Every candidate gateway is worked out in full. The one that moves the most into the zone wins, except that candidates within 10% of the best count as tied and the nearest of them wins. Gateways in the affected country are preferred.
+3. **Airbridge.** Heavy jets fly into a gateway; C-130s shuttle cargo on to forward strips. Throughput uses the formula in Air Force Pamphlet 10-1403: parking spots × payload × operating hours ÷ ground time × 0.85, then multiplied by the airfield's usability. The inputs used here are more generous than the pamphlet's own examples; METHOD.md gives the comparison. Every candidate gateway is worked out in full. The one that moves the most into the zone wins, except that candidates within 10% of the best count as tied and the nearest of them wins. Gateways in the affected country are preferred.
 4. **Result.** Airlift capacity into the zone in t/day, how many people that could supply, and the share of need.
 
 | module | job |
@@ -114,11 +116,13 @@ Nine real earthquakes, compared with what happened. Generated detail, including 
 
 Gateway matches in 3 of the 5 events where a relief gateway was used. The other four earthquakes had no sustained relief airlift, so they only test the flags.
 
-Three airports closed after the shaking (Hatay, Mandalay, Nay Pyi Taw) and the model flagged all three. Hatay was shut for six days. Nay Pyi Taw took military relief flights two days after the earthquake and Mandalay after four, so those two flags are only partly borne out. The model also flagged Kahramanmaras at 48%, which stayed open to relief flights, and three other Myanmar fields whose outcome I could not find. It missed Oakland in 1989: the runway cracked from liquefaction at MMI VII, where the curve gives 92%. Intensity does not capture soft ground.
+This is weak evidence. The usability curve was set by hand while looking at the five international earthquakes, so for those this is a consistency check, not an out-of-sample test. The US events were added later without changing the curve. In the three matches the airport used was the obvious one: the capital's international airport in Haiti and Nepal, and the city airport beside the damage in Morocco. Nine earthquakes is a small sample either way.
+
+Flags. Three airports closed after the shaking and the model flagged all three: Hatay for six days, and Mandalay and Nay Pyi Taw for a week to commercial flights, though military relief flights reached Nay Pyi Taw two days after the earthquake and Mandalay after four. Judged strictly on relief flights in the first three days, Hatay and Mandalay are hits, Nay Pyi Taw is a miss, and Kahramanmaras at 48% is a false alarm: it stayed open to relief flights. Three other Myanmar fields were flagged and I could not find what happened to them.
+
+Misses. Oakland in 1989 lost 3,000 ft of runway to liquefaction at MMI 6.7, where the curve gives 92%; intensity does not capture soft ground. China Lake in 2019 was declared not mission capable, and the model gave it 64%.
 
 In Turkey and Myanmar the model picks an intact airport close to the damage. Responders used a larger airport farther away. The model cannot explain that choice because it does not see customs, fuel or cargo handling. Gaziantep did take relief flights in 2023.
-
-The usability curve was set by hand while looking at the five international earthquakes, so for those this is a consistency check, not an out-of-sample test. The US events were added later without changing the curve. Nine earthquakes is a small sample either way.
 
 ## Scenarios
 
@@ -127,7 +131,7 @@ Scenario earthquakes from the USGS scenario catalog, run through the planner unc
 | scenario | people at MMI VIII+ | gateway | flagged as likely knocked out | airlift capacity | share of need |
 |---|---:|---|---|---:|---:|
 | HayWired M7.0, San Francisco Bay Area | 5.4M | San Francisco | 9, including Oakland, San Jose, Hayward and Livermore | 3,160 t/day | 51% |
-| ShakeOut M7.8, Los Angeles | 8.5M | Long Beach | 17, including Ontario, San Bernardino, Chino and Fullerton | 3,168 t/day | 32% |
+| ShakeOut M7.8, Los Angeles | 8.5M | Long Beach | 16, including Ontario, San Bernardino, Chino and Fullerton | 3,168 t/day | 32% |
 | Cascadia M9.0, Pacific Northwest | 136k | Portland | none; tsunami is not modeled | 3,070 t/day | exceeds need |
 | Seattle Fault M7.5 | 2.4M | Paine Field | 4: Sea-Tac, Boeing Field, Renton, Bremerton | 1,252 t/day | 46% |
 | New Madrid M7.7, Memphis | 306k | Memphis | 10 airfields in Arkansas, Missouri and Tennessee | 3,138 t/day | exceeds need |
@@ -135,20 +139,23 @@ Scenario earthquakes from the USGS scenario catalog, run through the planner unc
 
 Seattle and New Madrid use USGS PAGER exposure. The other four use the Census reconstruction, which counts US residents only.
 
+In all six scenarios the gateway is within 50 km of the damage center, so all of its cargo counts as delivered and capacity equals what the gateway can receive. The shuttle fleet only decides how much of that cargo is flown forward. The share of need therefore rests on the assumed parking spots.
+
 ## Verification
 
 `uv run backtests/verify_shaking.py` writes [backtests/VERIFICATION.md](backtests/VERIFICATION.md):
 
-1. Our grid is read at 4,155 cities from the USGS PAGER city lists for nine events and compared with the intensity PAGER assigned. For eight events the mean difference is 0.16 or less. Anchorage is +0.44; its ShakeMap was revised 489 days after PAGER ran, which is a likely cause. The largest single-city difference is 1.53. This checks that the grid is read correctly. It says nothing about whether ShakeMap itself is right.
+1. Our grid is read at 4,155 cities from the USGS PAGER city lists for nine events and compared with the intensity PAGER assigned. For eight events the mean difference is 0.16 or less in absolute value. Anchorage is +0.44. Its ShakeMap was revised 489 days after PAGER ran, which may explain part of it, but five other events were also revised later and agree within 0.16, so the cause is open. The largest single-city difference is 1.53. This checks that the grid is read correctly. It says nothing about whether ShakeMap itself is right.
 2. The parser for the older `grid.xml` format agrees with the current format at 500 random points: mean difference 0.004, largest 0.39.
-3. The fallback distance formula, used only until USGS publishes a ShakeMap, is off by 0.70 intensity units on average across 1,532 airports.
-4. The Census reconstruction, run on events that also have PAGER, gives 0.87 of PAGER's count at MMI VIII and above for the Seattle scenario and 1.05 for New Madrid. At MMI VII and above the ratios run from 0.47 (Anchorage, where the Census point for a very large municipality sits 33 km from the city) to 0.99. Small counts are unreliable.
+3. The fallback distance formula, used only until USGS publishes a ShakeMap, is off by 0.70 intensity units on average across 1,519 airports, and by 0.49 where MMI is V or above.
+4. The Census reconstruction, run on events that also have PAGER, gives 0.87 of PAGER's count at MMI VIII and above for the Seattle scenario and 1.05 for New Madrid. It does worse on smaller events. At MMI VII and above the ratios are 0.47 for Anchorage, where the Census point for a very large municipality sits 33 km from the city, and 0.64 for Ridgecrest. At MMI VIII and above it put 29,161 people where PAGER has 1,691 for Puerto Rico 2020. Small counts are unreliable.
 
 The browser port of the model is checked against the Python planner on 135 cases (`node dashboard/test_model.js`).
 
 ## Limitations
 
-- Capacity is an upper bound. Parking spots are assumed from airport size (6 at a large gateway, 3 at a medium one), not taken from real ramp plans.
+- Capacity is a ceiling for an assumed number of parking spots (6 at a large gateway, 3 at a medium one), not a forecast. Every limit the model leaves out can only lower it. The spot counts are guesses and can be wrong in either direction: a cargo hub such as Memphis parks far more than six freighters.
+- Forward strips are picked on runway length and width. Pavement strength and ownership are not checked, so private and turf strips appear in the lists.
 - The usability curve is a judgment call, not a fitted model. FEMA's Hazus has published fragility curves that should replace it.
 - Distances are straight lines.
 - The model ignores liquefaction, tsunami, fuel supply, customs, ground handling, weather, airspace limits and road conditions.
@@ -177,7 +184,7 @@ Earthquakes, ShakeMap and PAGER: U.S. Geological Survey (public domain). Populat
 
 ## Related work
 
-USGS [ShakeCast](https://www.usgs.gov/news/featured-story/usgs-shakecast-system) sends facility-level shaking alerts from ShakeMap to operators such as Caltrans. FEMA's [Hazus](https://www.fema.gov/sites/default/files/documents/fema_hazus-earthquake-model-technical-manual-6-1.pdf) has airport fragility curves and reads ShakeMaps. A 2021 [Washington State study](https://mil.wa.gov/asset/634989baeb821) rated 20 airports against the USGS Cascadia M9 scenario. [Air Force Pamphlet 10-1403](https://static.e-publishing.af.mil/production/1/af_a3/publication/afpam10-1403/afpam10-1403.pdf) gives the airfield throughput formula used here. I have not found a public tool that chains these: ShakeMap in; airfield ranking, relief need and an airbridge plan out.
+USGS [ShakeCast](https://www.usgs.gov/news/featured-story/usgs-shakecast-system) sends facility-level shaking alerts from ShakeMap to operators such as Caltrans. FEMA's [Hazus](https://www.fema.gov/sites/default/files/documents/fema_hazus-earthquake-model-technical-manual-6-1.pdf) has airport fragility curves and reads ShakeMaps. A 2021 [CISA and Washington State study](https://mil.wa.gov/asset/634989baeb821) rated the runways of 20 airports against the USGS Cascadia M9.0 scenario. [Air Force Pamphlet 10-1403](https://static.e-publishing.af.mil/production/1/af_a3/publication/afpam10-1403/afpam10-1403.pdf) gives the airfield throughput formula used here. I have not found a public tool that goes from a ShakeMap to an airfield ranking, a relief need and an airbridge plan.
 
 Palantir's disaster work with [Direct Relief](https://www.directrelief.org/2013/02/palantir-expands-commitment-to-help-improve-disaster-response/), [Team Rubicon](https://www.prnewswire.com/news-releases/palantir-technologies-creates-clinton-global-initiative-commitment-to-action-partners-with-team-rubicon-and-direct-relief-to-revolutionize-disaster-response-efforts-193074341.html) and the [World Food Programme](https://www.wfp.org/news/palantir-and-wfp-partner-help-transform-global-humanitarian-delivery) integrates an organization's own data into one operating picture. A model like this could run on top of that.
 

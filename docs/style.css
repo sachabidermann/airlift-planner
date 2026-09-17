@@ -222,6 +222,7 @@ input[type="search"] {
 .chart .lab { fill: var(--ink); }
 .chart .grid { stroke: var(--grid); stroke-width: 1; }
 .chart .axis { stroke: var(--axis); stroke-width: 1; }
+.chart .leader { stroke: var(--cand); stroke-width: 1; opacity: 0.8; }
 .chart .hit { fill: transparent; cursor: default; }
 
 /* ---------- ledger */

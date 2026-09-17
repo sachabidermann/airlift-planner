@@ -25,6 +25,9 @@ USABLE_TYPES = {"large_airport", "medium_airport", "small_airport"}
 # Surfaces that are not something a cargo aircraft can land on.
 NOT_A_RUNWAY = ("WATER", "WTR", "ICE", "SNO")
 
+# Fields whose own name says they are not built for transport aircraft.
+NOT_FOR_TRANSPORTS = ("ULTRALIGHT", "GLIDERPORT", "GLIDER PORT")
+
 
 @dataclass(frozen=True)
 class Airport:
@@ -36,6 +39,7 @@ class Airport:
     lon: float
     longest_runway_ft: int
     surface: str        # surface of the longest open runway
+    width_ft: int = 0   # width of that runway; 0 when OurAirports does not record it
 
     @property
     def label(self) -> str:
@@ -74,7 +78,7 @@ def load_airports() -> list[Airport]:
     runways_csv = _download(RUNWAYS_URL, DATA_DIR / "runways.csv")
 
     # Step 1: for each airport, find its longest open runway on land.
-    longest: dict[str, tuple[int, str]] = {}
+    longest: dict[str, tuple[int, str, int]] = {}
     with runways_csv.open(newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
             if row.get("closed") == "1":
@@ -85,15 +89,21 @@ def load_airports() -> list[Airport]:
                 length_ft = int(float(row["length_ft"]))
             except (ValueError, KeyError):
                 continue
+            try:
+                width_ft = int(float(row.get("width_ft") or 0))
+            except ValueError:
+                width_ft = 0
             ref = row["airport_ref"]
             if ref not in longest or length_ft > longest[ref][0]:
-                longest[ref] = (length_ft, row.get("surface", ""))
+                longest[ref] = (length_ft, row.get("surface", ""), width_ft)
 
     # Step 2: build Airport objects for usable fields that have a runway.
     airports = []
     with airports_csv.open(newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
             if row["type"] not in USABLE_TYPES:
+                continue
+            if any(word in row["name"].upper() for word in NOT_FOR_TRANSPORTS):
                 continue
             runway = longest.get(row["id"])
             if runway is None:
@@ -108,6 +118,7 @@ def load_airports() -> list[Airport]:
                     lon=float(row["longitude_deg"]),
                     longest_runway_ft=runway[0],
                     surface=runway[1],
+                    width_ft=runway[2],
                 )
             )
     return airports

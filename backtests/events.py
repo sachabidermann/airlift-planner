@@ -21,7 +21,6 @@ EVENTS = [
         ),
         "sources": [
             "https://abag.ca.gov/sites/default/files/dont_wing_it.pdf",
-            "https://en.wikipedia.org/wiki/1989_Loma_Prieta_earthquake",
         ],
     },
     {
@@ -109,7 +108,7 @@ EVENTS = [
         "closed": "Hatay (runway fractured, closed six days)",
         "hub_used": ["LTAF", "LTAG"], "hub_text": "Adana and Incirlik",
         "happened": (
-            "Hatay (LTDA) runway fractured and closed for six days. Adana (LTAF) and Incirlik (LTAG) were the hubs. "
+            "Hatay (LTDA) runway fractured and closed for six days. Adana (LTAF) and Incirlik (LTAG) were the relief gateways. "
             "Gaziantep (LTAJ) and Kahramanmaras (LTCN) closed to passengers but took relief flights. "
             "Cukurova (LTDB) replaced Adana Sakirpasa in 2024 and did not exist at the time."
         ),
@@ -126,7 +125,7 @@ EVENTS = [
         "closed": "none",
         "hub_used": ["GMMX"], "hub_text": "Marrakech",
         "happened": (
-            "Marrakech (GMMX) had no major damage and became the hub. Villages in the High Atlas were reached by helicopter and road."
+            "Marrakech (GMMX) had no major damage and became the relief gateway. Villages in the High Atlas were reached by helicopter and road."
         ),
         "sources": [
             "https://medias24.com/2023/09/09/infrastructures-aeroportuaires-aucuns-degats-majeurs-le-trafic-se-poursuit-onda/",
@@ -140,7 +139,7 @@ EVENTS = [
         "hub_used": ["VYYY"], "hub_text": "Yangon",
         "happened": (
             "Nay Pyi Taw (VYNT) lost its control tower; Mandalay (VYMD) had runway, terminal and radar damage. Both closed to "
-            "commercial flights for a week. Yangon (VYYY), about 530 km south, was the main entry point; military relief flights "
+            "commercial flights for a week. Yangon (VYYY), about 530 km south of Mandalay, was the main relief gateway; military relief flights "
             "reached Nay Pyi Taw from 30 March and Mandalay from 1 April."
         ),
         "sources": [

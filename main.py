@@ -27,7 +27,7 @@ def main() -> int:
     parser.add_argument("--min-mag", type=float, default=5.5, help="minimum magnitude for --list/--latest (default 5.5)")
     parser.add_argument("--fleet", type=int, default=12, help="C-130-class shuttle aircraft available (default 12)")
     parser.add_argument("--forward-km", type=float, default=150, help="forward strips within this distance of the damage center (default 150)")
-    parser.add_argument("--refresh", action="store_true", help="re-download this event's USGS products (ShakeMap is revised for days after a quake)")
+    parser.add_argument("--refresh", action="store_true", help="re-download this event's USGS products (USGS revises ShakeMaps, sometimes years later)")
     args = parser.parse_args()
 
     try:

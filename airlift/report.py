@@ -95,7 +95,7 @@ def render_text(plan: Plan) -> str:
         )
 
     lines.append("")
-    lines.append(f"AIRLIFT CAPACITY INTO ZONE  {plan.delivered_tpd:>7,.0f} t/day   (upper bound; t = metric tons)")
+    lines.append(f"AIRLIFT CAPACITY INTO ZONE  {plan.delivered_tpd:>7,.0f} t/day   (ceiling for the assumed parking spots; t = metric tons)")
     lines.append(f"people it could supply      {fmt_people(plan.people_sustained):>7}")
     if plan.demand and plan.demand.tonnes_per_day < NEGLIGIBLE_TPD:
         lines.append(f"share of need               {'n/a':>7}   need is negligible")

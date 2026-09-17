@@ -122,7 +122,7 @@ def main() -> int:
             need = ""
             if plan.coverage is not None:
                 need = ", more than the estimated need" if plan.coverage >= 1 else f", {pct(plan.coverage)} of estimated need"
-            md.append(f"- Airlift capacity into zone: **{plan.delivered_tpd:,.0f} t/day** (upper bound), enough for about {fmt_people(plan.people_sustained)} people{need}")
+            md.append(f"- Airlift capacity into zone: **{plan.delivered_tpd:,.0f} t/day** (a ceiling for the assumed parking spots), enough for about {fmt_people(plan.people_sustained)} people{need}")
             md += ["", "**What happened**" if "hub_used" in ev else "**About this scenario**", "", ev["happened"], ""]
             if ev.get("sources"):
                 md += ["Sources:", ""] + [f"- {u}" for u in ev["sources"]] + [""]

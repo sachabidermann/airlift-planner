@@ -17,8 +17,10 @@ Throughput follows Air Force Pamphlet 10-1403, Air Mobility Planning Factors
 
 The 0.85 is the pamphlet's queuing efficiency. Parking spots ("maximum on
 ground", MOG) are assumed from airport size, because real ramp plans are not
-public. The result is a capacity, an upper bound on what an airlift could
-move, not a forecast of what one would deliver.
+public. The result is a ceiling for those assumed spots, not a forecast: every
+limit left out (fuel, handling, crews, airspace, aircraft availability) can
+only lower it, while the spot counts themselves are guesses that can be wrong
+in either direction.
 """
 
 from __future__ import annotations
@@ -50,7 +52,8 @@ class Assumptions:
     near_tie: float = 0.10         # gateways within this share of the best are treated as equal; the nearer wins
     domestic_only: bool = True     # forward strips must be in the affected country
     # Assumed working parking spots by OurAirports size class. Port-au-Prince in
-    # 2010 had six unloading spots (Veatch and Goentzel 2018).
+    # 2010 could unload six aircraft at once at first and nine later (Veatch and
+    # Goentzel 2018).
     mog_gateway: dict = field(default_factory=lambda: {"large_airport": 6, "medium_airport": 3})   # small airports are never gateways
     mog_forward: dict = field(default_factory=lambda: {"large_airport": 3, "medium_airport": 2, "small_airport": 1})
 
@@ -172,7 +175,7 @@ def evaluate_fields(event: Event, airports: list[Airport], center, a: Assumption
                 dist_km=d,
                 mmi=mmi,
                 usability=runway_usability(mmi),
-                best_aircraft=biggest_usable(ap.longest_runway_ft, ap.surface),
+                best_aircraft=biggest_usable(ap.longest_runway_ft, ap.surface, ap.width_ft),
                 in_zone=(d <= a.forward_max_km or mmi >= a.zone_min_mmi),
             )
         )
@@ -206,6 +209,7 @@ def forward_candidates(fields: list[Field], country: str | None, a: Assumptions)
         f for f in fields
         if f.in_zone
         and f.airport.longest_runway_ft >= a.forward_min_runway_ft
+        and f.best_aircraft is not None          # long enough, and wide enough for a C-130
         and f.usability >= a.min_usability
         and (not a.domestic_only or country is None or same_country(f.airport.country, country))
     ]
@@ -313,9 +317,10 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
         f for f in fields
         if f.in_zone
         and f.airport.longest_runway_ft >= a.forward_min_runway_ft
+        and f.best_aircraft is not None
         and f.usability < a.min_usability
     ]
-    naive = next((f for f in fields if f.airport.longest_runway_ft >= a.forward_min_runway_ft), None)
+    naive = next((f for f in fields if f.airport.longest_runway_ft >= a.forward_min_runway_ft and f.best_aircraft is not None), None)
 
     return Plan(
         event=event, center=center, center_basis=basis, country=country, demand=dem,
