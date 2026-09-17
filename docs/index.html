@@ -126,7 +126,7 @@
   </section>
 
   <section class="card">
-    <div class="card-head"><h2>Backtest scorecard</h2><span class="card-sub">real earthquakes replayed, compared with what relief operations actually did</span></div>
+    <div class="card-head"><h2>Backtest scorecard</h2><span class="card-sub">real earthquakes replayed against what relief operations did</span></div>
     <div class="table-wrap">
       <table class="scorecard" id="scorecard">
         <thead><tr>
@@ -143,35 +143,37 @@
     <div class="method">
       <div>
         <h3>1. Airfield survivability</h3>
-        <p>The USGS ShakeMap gives estimated shaking intensity (MMI) on a grid around every significant quake, real or simulated. The intensity at each airport is turned into a probability that it can accept relief flights in the first days. The curve is a judgement anchored on nine real events, not a fitted model, and every backtest prints what the model saw at the airports that mattered so the curve can be argued with. The grid is checked against USGS's own city intensities (see the verification table in the repository).</p>
+        <p>USGS ShakeMap gives shaking intensity (MMI) on a grid. The intensity at each airport is mapped to a probability it can accept relief flights in the first days. The curve is a judgement anchored on nine real events; each backtest prints what the model saw at the airports that mattered.</p>
         <p class="formula" id="curve-text"></p>
       </div>
       <div>
         <h3>2. Demand</h3>
-        <p>USGS PAGER counts people exposed at each intensity. For US scenarios without PAGER, exposure is rebuilt from Census county and city populations sampled against the shaking grid. People at MMI VIII and above are the airbridge priority: severe damage, roads often cut. Each needs a daily minimum of food, medicine and a share of a family shelter kit spread over the first week. Water is excluded, because at 15 litres per person per day it is never flown at scale.</p>
+        <p>USGS PAGER counts people at each intensity. For scenarios without PAGER, exposure is rebuilt from Census county and city populations. People at MMI VIII and above are the priority. Each needs a daily minimum of food, medicine and a share of a shelter kit over the first week. Water is excluded; it is not flown at scale.</p>
         <p class="formula" id="demand-text"></p>
       </div>
       <div>
         <h3>3. Airbridge</h3>
-        <p>Heavy jets fly into a gateway; C-130s shuttle the last leg into strips inside the damage zone. Capacity is ramp spots times daily turnarounds times payload, discounted by usability. Gateways are chosen in the affected country first; cargo landing near the damage centre counts as delivered by road, fading to nothing at the forward radius. Regional airports are capped at C-17 class aircraft.</p>
+        <p>Heavy jets into a gateway; C-130s shuttle into strips inside the damage zone. Capacity is ramp spots, turnarounds per day and payload, discounted by usability. Gateways in the affected country are preferred. Cargo landing near the damage centre counts as delivered by road, fading to zero at the forward radius. Regional airports are capped at C-17 class.</p>
         <p class="formula">delivered = min(inflow, road share + shuttle tonnes)</p>
       </div>
     </div>
     <h3>Limitations</h3>
     <ul class="limits">
-      <li>Not an operational tool. The usability curve is judgement. Aircraft figures are public planning approximations.</li>
-      <li>Straight-line distances. No fuel stocks, customs, handling equipment, weather, airspace or road network, which is why the model diverges from reality in Turkey 2023 and Myanmar 2025.</li>
-      <li>The airport table is today's, so replays of older events can offer airports that did not exist at the time.</li>
-      <li>Small quakes without a ShakeMap fall back to a published intensity-vs-distance formula (Allen, Wald and Worden, 2012).</li>
+      <li>Not an operational tool. The usability curve is judgement; aircraft figures are public planning approximations.</li>
+      <li>Straight-line distances. No fuel, customs, handling, weather, airspace or road network.</li>
+      <li>No liquefaction or tsunami.</li>
+      <li>The airport table is current; older replays can include airports that did not exist at the time.</li>
+      <li>ShakeMap is revised for days after a quake; the version used is shown above.</li>
+      <li>Small quakes without a ShakeMap use a distance formula (Allen, Wald and Worden 2012), labelled as such.</li>
     </ul>
     <h3>Data</h3>
-    <p class="note">USGS Earthquake Hazards Program: event feed, ShakeMap, PAGER. OurAirports: airports and runways, public domain. All free, no keys. Map tiles by OpenStreetMap contributors.</p>
+    <p class="note">USGS: event feed, scenario catalog, ShakeMap, PAGER. US Census: population estimates and Gazetteer. OurAirports: airports and runways. Map tiles: OpenStreetMap contributors.</p>
   </section>
 
 </main>
 
 <footer class="foot">
-  <span>Airlift Planner. Built by Sacha Bidermann as a public-data decision-support study.</span>
+  <span>Airlift Planner. Sacha Bidermann, 2026.</span>
   <span id="foot-built"></span>
 </footer>
 

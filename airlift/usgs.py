@@ -285,10 +285,16 @@ class Event:
     exposure: Exposure | None    # None when there is no PAGER product
     contours: dict | None        # GeoJSON MMI contour lines, for the map
     alert: str | None            # PAGER alert level: green / yellow / orange / red
+    shake_version: int | None = None
+    shake_updated: datetime | None = None
 
     @property
     def mmi_source(self) -> str:
-        return "USGS ShakeMap" if self.shake else "distance formula (no ShakeMap yet)"
+        if not self.shake:
+            return "distance formula (no ShakeMap yet)"
+        if self.shake_version:
+            return f"USGS ShakeMap v{self.shake_version}, {self.shake_updated:%Y-%m-%d}"
+        return "USGS ShakeMap"
 
     def mmi_at(self, lat: float, lon: float) -> float:
         if self.shake:
@@ -316,9 +322,16 @@ def _product(products: dict, *names: str) -> dict | None:
     return None
 
 
-def fetch_event(quake_id: str) -> Event:
-    """Load one quake (real or scenario) plus ShakeMap and PAGER, cached on disk."""
+def fetch_event(quake_id: str, refresh: bool = False) -> Event:
+    """Load one quake (real or scenario) plus ShakeMap and PAGER, cached on disk.
+
+    ShakeMap is revised for hours or days after a quake. Pass refresh=True
+    during a live response to discard the cache and fetch the latest version.
+    """
     folder = CACHE_DIR / quake_id
+    if refresh and folder.exists():
+        import shutil
+        shutil.rmtree(folder)
     scenario = quake_id.endswith("_se")      # USGS scenario ids end in _se
     if scenario:
         # The regular feed answers for some scenario ids with a hollow record
@@ -341,10 +354,17 @@ def fetch_event(quake_id: str) -> Event:
     products = detail["properties"].get("products", {})
 
     shake = exposure = contours = alert = None
+    shake_version = shake_updated = None
 
     sm = _product(products, "shakemap", "shakemap-scenario")
     if sm:
         contents = sm.get("contents", {})
+        try:
+            shake_version = int(sm.get("properties", {}).get("version"))
+        except (TypeError, ValueError):
+            shake_version = None
+        if sm.get("updateTime"):
+            shake_updated = datetime.fromtimestamp(sm["updateTime"] / 1000, tz=timezone.utc)
         # Medium resolution (about 5 km cells) for airport lookups; the dashboard
         # downsamples for drawing. Low resolution is the fallback.
         url = contents.get("download/coverage_mmi_medium_res.covjson", {}).get("url")
@@ -373,4 +393,5 @@ def fetch_event(quake_id: str) -> Event:
                 exposure = Exposure.from_pager_xml(_cached_get(url, folder / "pager.xml").decode("utf-8", "replace"))
         alert = pager.get("properties", {}).get("alertlevel")
 
-    return Event(quake=quake, shake=shake, exposure=exposure, contours=contours, alert=alert)
+    return Event(quake=quake, shake=shake, exposure=exposure, contours=contours, alert=alert,
+                 shake_version=shake_version, shake_updated=shake_updated)

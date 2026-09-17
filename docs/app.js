@@ -406,7 +406,7 @@
   function renderLedger() {
     renderLedgerHead();
     const q = $("ledger-filter").value.trim().toLowerCase();
-    let rows = plan.fields.filter((f) => f.in_zone || f.role !== "candidate" || f.dist <= A.forward_max_km * 2 || (f.kind !== "small_airport" && f.runway >= A.gateway_min_runway_ft && f.dist <= 500));
+    let rows = plan.fields.filter((f) => f.in_zone || f.role !== "candidate" || f.dist <= A.forward_max_km * 2 || (f.kind !== "small_airport" && f.runway >= A.gateway_min_runway_ft && f.dist <= 300));
     if (q) rows = rows.filter((f) => [f.ident, f.name, f.country, ROLE_LABEL[f.role], f.kind].join(" ").toLowerCase().includes(q));
     const k = ledgerSort.key, dir = ledgerSort.desc ? -1 : 1;
     rows.sort((a, b) => {
@@ -446,8 +446,8 @@
       tr.addEventListener("click", () => selectEvent(e.id));
       body.appendChild(tr);
     }
-    $("scorecard-note").textContent = `Gateway matches reality in ${hits} of ${total} events where an airlift hub was actually used, under the current assumptions. ` +
-      (current.note ? `${current.scenario ? "About this scenario" : "What happened"}: ${current.note}` : "");
+    $("scorecard-note").textContent = `Gateway matches in ${hits} of ${total} events where a hub was used, under the current assumptions. ` +
+      (current.note ? `${current.scenario ? "This scenario" : "What happened"}: ${current.note}` : "");
   }
 
   // ------------------------------------------------------------------ method text

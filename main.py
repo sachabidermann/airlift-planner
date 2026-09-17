@@ -3,6 +3,7 @@
     uv run main.py --list                recent significant quakes
     uv run main.py --latest              airbridge plan for the newest one
     uv run main.py --quake us7000pn9s    airbridge plan for any USGS event id
+    uv run main.py --quake <id> --refresh   fetch the latest ShakeMap version
 """
 
 import argparse
@@ -10,6 +11,7 @@ import sys
 
 from airlift.airbridge import Assumptions, build_plan
 from airlift.airports import load_airports
+from airlift.population import ensure_exposure
 from airlift.report import render_text, write_html
 from airlift.usgs import fetch_event, fetch_recent
 
@@ -24,6 +26,7 @@ def main() -> int:
     parser.add_argument("--fleet", type=int, default=12, help="C-130-class shuttle aircraft available (default 12)")
     parser.add_argument("--forward-km", type=float, default=150, help="forward strips within this distance of the damage centre")
     parser.add_argument("--no-html", action="store_true", help="skip writing the HTML map")
+    parser.add_argument("--refresh", action="store_true", help="re-download this event's USGS products (ShakeMap is revised for hours after a quake)")
     args = parser.parse_args()
 
     if args.list or args.latest:
@@ -39,7 +42,7 @@ def main() -> int:
     else:
         quake_id = args.quake
 
-    event = fetch_event(quake_id)
+    event = ensure_exposure(fetch_event(quake_id, refresh=args.refresh))
     airports = load_airports()
     plan = build_plan(event, airports, Assumptions(shuttle_fleet=args.fleet, forward_max_km=args.forward_km))
     print(render_text(plan))

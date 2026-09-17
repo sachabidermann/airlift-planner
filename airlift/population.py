@@ -11,7 +11,7 @@ from public Census files:
 Cities become points with their own population. What is left of each county
 after subtracting its cities is spread over a disc the size of the county.
 Each point is sampled against the ShakeMap grid and its people are binned by
-intensity. Coarser than PAGER's 1 km population grid, but honest and free.
+intensity. Coarser than PAGER's 1 km population grid.
 
 Puerto Rico: the municipio population file is not published in the same
 folder; municipios are taken from the Gazetteer with the island's 2023 total

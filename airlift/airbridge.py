@@ -260,9 +260,8 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
     strips = forward_candidates(fields, country, a)
 
     cands = gateway_candidates(fields, a)
-    # Every candidate is worked out in full: ranking by raw inflow first would
-    # drop a slightly shaken airport next to the damage in favour of pristine
-    # ones hundreds of kilometres away.
+    # Every candidate is worked out in full; pre-ranking on inflow would drop a
+    # slightly shaken airport near the damage in favour of distant ones.
     domestic = [g for g in cands if same_country(g.field.airport.country, country)]
     foreign = [g for g in cands if not same_country(g.field.airport.country, country)]
 
@@ -276,8 +275,8 @@ def build_plan(event: Event, airports: list[Airport], a: Assumptions | None = No
         if _better(opt, best_foreign):
             best_foreign = opt
 
-    # Domestic first: a cross-border hub needs diplomatic clearance the first
-    # days rarely allow. Fall back to foreign only if nothing domestic works.
+    # Domestic first; a cross-border hub needs clearance. Foreign only if
+    # nothing domestic works.
     if best_domestic and best_domestic.delivered_tpd > 0:
         chosen, alternatives = best_domestic, [o for o in [best_foreign] if o]
     else:

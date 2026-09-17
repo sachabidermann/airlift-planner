@@ -1,10 +1,8 @@
 """Did the airfield survive the shaking?
 
-The nearest airport to an earthquake is often the worst choice, because it
-was shaken too. This module turns shaking intensity (MMI) at the airfield
-into a rough probability that it can accept relief flights in the first days.
-
-These are judgement figures anchored on history, not a fitted model:
+Turns shaking intensity (MMI) at an airfield into a probability that it can
+accept relief flights in the first days. Judgement figures anchored on
+history, not a fitted model:
 
   Kathmandu 2015        MMI about VII    stayed open, but heavy jets damaged the runway
   Port-au-Prince 2010   MMI about VIII   runway intact, tower and ATC lost, chaos for days
@@ -17,8 +15,7 @@ These are judgement figures anchored on history, not a fitted model:
   Oakland 1989          MMI about VI     main runway cracked by liquefaction: a miss.
                                          Intensity alone does not see soft fill.
 
-The backtests replay those events and print the MMI the model sees at each
-of those airports, so anyone can judge the table below.
+The backtests print the MMI the model sees at each of these airports.
 """
 
 # (mmi, probability the airfield is usable)

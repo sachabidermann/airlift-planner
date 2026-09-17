@@ -74,6 +74,7 @@ def export_event(event, airports, meta=None, group="week"):
         "lat": q.lat, "lon": q.lon,
         "alert": event.alert,
         "mmi_source": event.mmi_source,
+        "shake_version": event.shake_version,
         "exposure_source": event.exposure.source if event.exposure else None,
         "centre": [round(centre[0], 4), round(centre[1], 4)],
         "country": country,

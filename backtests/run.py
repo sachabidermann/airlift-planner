@@ -29,10 +29,7 @@ EVENTS = [
         "closed": "Oakland main runway (liquefaction cracking)",
         "actual": "San Francisco and San Jose both open; relief mostly by road", "actual_ident": "KSFO", "actual_idents": ["KSFO", "KSJC"],
         "happened": (
-            "Oakland International (KOAK) lost its main runway to liquefaction cracking and it stayed closed for "
-            "repairs. San Francisco (KSFO) was inspected and reopened within hours; San Jose (KSJC) stayed open. "
-            "The story was collapsed freeways and the Bay Bridge, not airlift. No PAGER product exists for 1989, "
-            "so there is no demand estimate."
+            'Oakland (KOAK) lost its main runway to liquefaction. San Francisco (KSFO) reopened within hours; San Jose (KSJC) stayed open. Relief moved by road. No PAGER product exists for 1989.'
         ),
     },
     {
@@ -41,9 +38,7 @@ EVENTS = [
         "closed": "none (Anchorage inspected and reopened the same day)",
         "actual": "Anchorage (PANC); no airbridge needed", "actual_ident": "PANC",
         "happened": (
-            "Ted Stevens Anchorage International (PANC), one of the world's busiest cargo airports, closed for "
-            "runway and terminal inspection and reopened within hours. Joint Base Elmendorf-Richardson (PAED) "
-            "next door stayed operational. Roads were cut in places and repaired within days."
+            'Anchorage (PANC) closed for inspection and reopened the same day. Elmendorf (PAED) stayed open. Roads were repaired within days; no airlift was needed.'
         ),
     },
     {
@@ -52,9 +47,7 @@ EVENTS = [
         "closed": "China Lake naval air station facilities (runway usable)",
         "actual": "none needed; roads stayed open", "actual_ident": None,
         "happened": (
-            "Naval Air Weapons Station China Lake (KNID) took heavy facility damage and was declared not mission "
-            "capable for weeks. Inyokern (KIYK) stayed open. Ridgecrest is small and Highway 395 stayed open, "
-            "so no airlift was needed."
+            'China Lake (KNID) took heavy facility damage. Inyokern (KIYK) stayed open. Highway 395 stayed open; no airlift was needed.'
         ),
     },
     {
@@ -63,9 +56,7 @@ EVENTS = [
         "closed": "none",
         "actual": "none needed; road from San Juan", "actual_ident": None,
         "happened": (
-            "No airport closed. Ponce Mercedita (TJPS) is 20 km from the epicentre and stayed open; relief moved "
-            "by road from San Juan (TJSJ), 90 km away. The problems were power, housing and aftershock fear, "
-            "not access."
+            'No airport closed. Ponce (TJPS) stayed open; supplies came by road from San Juan (TJSJ).'
         ),
     },
     # ---------------------------------------------------------------- International
@@ -75,10 +66,7 @@ EVENTS = [
         "closed": "none; Port-au-Prince lost its tower and saturated",
         "actual": "Port-au-Prince (Santo Domingo overflow)", "actual_ident": "MTPP",
         "happened": (
-            "Port-au-Prince (MTPP) runway survived but the tower and air traffic control were lost; "
-            "the US Air Force took over the field and it was saturated for days, turning aircraft away. "
-            "Santo Domingo (MDSD) in the Dominican Republic became the overflow hub. "
-            "The USGS never produced a PAGER product for this event, so there is no demand estimate."
+            'Port-au-Prince (MTPP) runway survived but the tower was lost; the US Air Force ran the field and it saturated for days. Santo Domingo (MDSD) took the overflow. No PAGER product exists for this event.'
         ),
     },
     {
@@ -87,10 +75,7 @@ EVENTS = [
         "closed": "none; Kathmandu runway damaged by heavy jets",
         "actual": "Kathmandu", "actual_ident": "VNKT",
         "happened": (
-            "Kathmandu (VNKT) was the only international gateway and saturated immediately; heavy jets "
-            "damaged the runway and aircraft over 196 t were banned. Pokhara (VNPK) and small strips "
-            "served as forward fields for helicopters and light aircraft. Data caveat: the airport "
-            "table is current, and Pokhara International (NP-0003) only opened in 2023."
+            'Kathmandu (VNKT) was the only gateway and saturated; heavy jets damaged the runway and aircraft over 196 t were banned. Pokhara (VNPK) served light aircraft and helicopters. Pokhara International (NP-0003) opened in 2023 and did not exist at the time.'
         ),
     },
     {
@@ -99,10 +84,7 @@ EVENTS = [
         "closed": "Hatay (runway fractured)",
         "actual": "Adana and Incirlik", "actual_ident": "LTAF",
         "happened": (
-            "Hatay (LTDA) runway fractured and closed for days. Adana (LTAF) and Incirlik air base (LTAG) "
-            "became the hubs; Gaziantep (LTAJ) and Kahramanmaras (LTCN) also took relief flights. "
-            "Data caveat: Cukurova (LTDB) replaced Adana Sakirpasa in 2024, so today's table offers it "
-            "where 2023 planners had LTAF, 30 km away."
+            'Hatay (LTDA) runway fractured and closed. Adana (LTAF) and Incirlik (LTAG) became the hubs; Gaziantep (LTAJ) and Kahramanmaras (LTCN) also took flights. Cukurova (LTDB) replaced Adana Sakirpasa in 2024.'
         ),
     },
     {
@@ -111,8 +93,7 @@ EVENTS = [
         "closed": "none",
         "actual": "Marrakech", "actual_ident": "GMMX",
         "happened": (
-            "Marrakech Menara (GMMX) was undamaged and became the hub. The High Atlas villages were "
-            "reached by helicopter and road; fixed-wing forward strips played almost no role."
+            'Marrakech (GMMX) was undamaged and became the hub. Villages were reached by helicopter and road.'
         ),
     },
     {
@@ -121,11 +102,7 @@ EVENTS = [
         "closed": "Mandalay and Nay Pyi Taw (towers collapsed)",
         "actual": "Yangon", "actual_ident": "VYYY",
         "happened": (
-            "Mandalay (VYMD) and Nay Pyi Taw (VYNT) control towers collapsed and both airports closed. "
-            "Yangon (VYYY), about 600 km south, became the entry point for international relief. "
-            "The model instead prefers a closer regional airport; real operations valued Yangon's "
-            "customs, fuel and handling, which the model does not yet see. Open question: does an "
-            "intact regional hub with C-17 access beat a distant international one? Nobody tested it."
+            'Mandalay (VYMD) and Nay Pyi Taw (VYNT) towers collapsed and both airports closed. Yangon (VYYY), 600 km south, became the entry point. The model prefers a closer regional airport; it does not see customs, fuel or handling capacity.'
         ),
     },
 ]
@@ -137,56 +114,42 @@ SCENARIOS = [
         "id": "gllegacyhaywiredm7p05_se", "name": "HayWired scenario, M7.0 Hayward Fault (San Francisco Bay Area)",
         "group": "us-scenario", "watch": ["KOAK", "KSFO", "KSJC", "KSMF", "KSUU"],
         "happened": (
-            "USGS HayWired scenario (2018): a M7.05 rupture of the Hayward Fault under the East Bay. Oakland "
-            "International sits on bay fill beside the fault; San Francisco and San Jose are within 30 km. "
-            "The USGS study estimated about 800 deaths and 18,000 injuries. Population exposure here is "
-            "rebuilt from Census county and city data because PAGER is not run for this scenario."
+            'USGS HayWired scenario (2018): M7.05 on the Hayward Fault under the East Bay. Oakland International sits on bay fill beside the fault. Exposure is rebuilt from Census data; PAGER was not run.'
         ),
     },
     {
         "id": "sclegacyshakeout2full_se", "name": "ShakeOut scenario, M7.8 southern San Andreas (Los Angeles)",
         "group": "us-scenario", "watch": ["KLAX", "KONT", "KPSP", "KSBD", "KEDW"],
         "happened": (
-            "USGS ShakeOut scenario (2008): a M7.8 rupture of the southern San Andreas from the Salton Sea to "
-            "Lake Hughes. Los Angeles International is about 70 km from the fault; Palm Springs and San "
-            "Bernardino sit on top of it. The study estimated 1,800 deaths and $200 billion in losses."
+            'USGS ShakeOut scenario (2008): M7.8 on the southern San Andreas from the Salton Sea to Lake Hughes. Exposure is rebuilt from Census data.'
         ),
     },
     {
         "id": "gllegacycasc9p0expanded_se", "name": "Cascadia scenario, M9.0 subduction zone (Pacific Northwest)",
         "group": "us-scenario", "watch": ["KSEA", "KPDX", "KGEG", "KEUG", "KOTH"],
         "happened": (
-            "USGS Cascadia M9.0 scenario: a full-length rupture of the subduction zone off Oregon and "
-            "Washington. Coastal airports also face a tsunami, which this model does not include, so treat "
-            "coastal strips as optimistic. Seattle, Portland and Spokane are the candidate hubs."
+            'USGS Cascadia M9.0 scenario: full-length rupture off Oregon and Washington. Tsunami is not modelled, so coastal strips are optimistic. Exposure is rebuilt from Census data.'
         ),
     },
     {
         "id": "wa22sfz01_se", "name": "Seattle Fault scenario, M7.5 (Seattle)",
         "group": "us-scenario", "watch": ["KSEA", "KBFI", "KPAE", "KTCM", "KPDX"],
         "happened": (
-            "Washington Geological Survey / USGS 2022 scenario: a M7.5 rupture of the Seattle Fault directly "
-            "under the city. Sea-Tac, Boeing Field and McChord are all inside the strongest shaking. PAGER "
-            "was run for this scenario, so exposure is USGS's own."
+            'Washington Geological Survey and USGS 2022 scenario: M7.5 on the Seattle Fault under the city. Exposure is USGS PAGER.'
         ),
     },
     {
         "id": "nm19fema_m7p7_mt_se", "name": "New Madrid scenario, M7.7 (Memphis)",
         "group": "us-scenario", "watch": ["KMEM", "KJBR", "KLIT", "KBNA", "KSTL"],
         "happened": (
-            "FEMA and USGS 2019 New Madrid scenario: a M7.7 rupture of the southern fault near Marked Tree, "
-            "Arkansas. Memphis International, FedEx's global hub, is about 60 km away. PAGER was run for "
-            "this scenario, so exposure is USGS's own."
+            'FEMA and USGS 2019 scenario: M7.7 on the southern New Madrid fault near Marked Tree, Arkansas. Memphis is about 60 km away. Exposure is USGS PAGER.'
         ),
     },
     {
         "id": "caribe25puertorico_2_se", "name": "Puerto Rico Trench scenario, M8.5 (Caribbean)",
         "group": "us-scenario", "watch": ["TJSJ", "TJBQ", "TJPS", "TJMZ"],
         "happened": (
-            "USGS Caribbean 2025 scenario: a M8.5 rupture of the Puerto Rico Trench north of the island. Every "
-            "airport on the island is inside the shaking footprint; the nearest mainland hub is Miami, about "
-            "1,600 km away, beyond this model's gateway radius. Population exposure is a Census approximation "
-            "spread by municipio land area."
+            'USGS 2025 scenario: M8.5 on the Puerto Rico Trench. Every airport on the island is inside the footprint; Miami is 1,600 km away, beyond the gateway radius. Exposure is a Census approximation by municipio land area.'
         ),
     },
 ]

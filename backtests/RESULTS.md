@@ -6,7 +6,7 @@ Real earthquakes replayed through the planner and compared with public reporting
 
 ## Loma Prieta 1989, M6.9 (San Francisco Bay Area)  (`nc216859`)
 
-Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
+Shaking data: USGS ShakeMap v1, 2020-07-07. Exposure: US Census (county and city points).
 
 **What the model saw at the airports that mattered**
 
@@ -26,13 +26,13 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 **What happened**
 
-Oakland International (KOAK) lost its main runway to liquefaction cracking and it stayed closed for repairs. San Francisco (KSFO) was inspected and reopened within hours; San Jose (KSJC) stayed open. The story was collapsed freeways and the Bay Bridge, not airlift. No PAGER product exists for 1989, so there is no demand estimate.
+Oakland (KOAK) lost its main runway to liquefaction. San Francisco (KSFO) reopened within hours; San Jose (KSJC) stayed open. Relief moved by road. No PAGER product exists for 1989.
 
 Map: `out/nc216859.html`
 
 ## Anchorage 2018, M7.1 (Alaska)  (`ak20419010`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: orange.
+Shaking data: USGS ShakeMap v1, 2020-07-09. Exposure: USGS PAGER. PAGER alert: orange.
 
 **What the model saw at the airports that mattered**
 
@@ -51,13 +51,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: orange.
 
 **What happened**
 
-Ted Stevens Anchorage International (PANC), one of the world's busiest cargo airports, closed for runway and terminal inspection and reopened within hours. Joint Base Elmendorf-Richardson (PAED) next door stayed operational. Roads were cut in places and repaired within days.
+Anchorage (PANC) closed for inspection and reopened the same day. Elmendorf (PAED) stayed open. Roads were repaired within days; no airlift was needed.
 
 Map: `out/ak20419010.html`
 
 ## Ridgecrest 2019, M7.1 (California desert)  (`ci38457511`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: yellow.
+Shaking data: USGS ShakeMap v1, 2020-07-07. Exposure: USGS PAGER. PAGER alert: yellow.
 
 **What the model saw at the airports that mattered**
 
@@ -76,13 +76,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: yellow.
 
 **What happened**
 
-Naval Air Weapons Station China Lake (KNID) took heavy facility damage and was declared not mission capable for weeks. Inyokern (KIYK) stayed open. Ridgecrest is small and Highway 395 stayed open, so no airlift was needed.
+China Lake (KNID) took heavy facility damage. Inyokern (KIYK) stayed open. Highway 395 stayed open; no airlift was needed.
 
 Map: `out/ci38457511.html`
 
 ## Puerto Rico 2020, M6.4 (Guánica)  (`us70006vll`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: orange.
+Shaking data: USGS ShakeMap v1, 2022-03-10. Exposure: USGS PAGER. PAGER alert: orange.
 
 **What the model saw at the airports that mattered**
 
@@ -101,13 +101,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: orange.
 
 **What happened**
 
-No airport closed. Ponce Mercedita (TJPS) is 20 km from the epicentre and stayed open; relief moved by road from San Juan (TJSJ), 90 km away. The problems were power, housing and aftershock fear, not access.
+No airport closed. Ponce (TJPS) stayed open; supplies came by road from San Juan (TJSJ).
 
 Map: `out/us70006vll.html`
 
 ## Haiti 2010, M7.0  (`usp000h60h`)
 
-Shaking data: USGS ShakeMap. Exposure: none.
+Shaking data: USGS ShakeMap v1, 2020-07-08. Exposure: none.
 
 **What the model saw at the airports that mattered**
 
@@ -125,13 +125,13 @@ Shaking data: USGS ShakeMap. Exposure: none.
 
 **What happened**
 
-Port-au-Prince (MTPP) runway survived but the tower and air traffic control were lost; the US Air Force took over the field and it was saturated for days, turning aircraft away. Santo Domingo (MDSD) in the Dominican Republic became the overflow hub. The USGS never produced a PAGER product for this event, so there is no demand estimate.
+Port-au-Prince (MTPP) runway survived but the tower was lost; the US Air Force ran the field and it saturated for days. Santo Domingo (MDSD) took the overflow. No PAGER product exists for this event.
 
 Map: `out/usp000h60h.html`
 
 ## Nepal 2015, M7.8  (`us20002926`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
+Shaking data: USGS ShakeMap v1, 2020-07-07. Exposure: USGS PAGER. PAGER alert: red.
 
 **What the model saw at the airports that mattered**
 
@@ -149,13 +149,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **What happened**
 
-Kathmandu (VNKT) was the only international gateway and saturated immediately; heavy jets damaged the runway and aircraft over 196 t were banned. Pokhara (VNPK) and small strips served as forward fields for helicopters and light aircraft. Data caveat: the airport table is current, and Pokhara International (NP-0003) only opened in 2023.
+Kathmandu (VNKT) was the only gateway and saturated; heavy jets damaged the runway and aircraft over 196 t were banned. Pokhara (VNPK) served light aircraft and helicopters. Pokhara International (NP-0003) opened in 2023 and did not exist at the time.
 
 Map: `out/us20002926.html`
 
 ## Turkey 2023, M7.8  (`us6000jllz`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
+Shaking data: USGS ShakeMap v19, 2025-09-03. Exposure: USGS PAGER. PAGER alert: red.
 
 **What the model saw at the airports that mattered**
 
@@ -177,13 +177,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **What happened**
 
-Hatay (LTDA) runway fractured and closed for days. Adana (LTAF) and Incirlik air base (LTAG) became the hubs; Gaziantep (LTAJ) and Kahramanmaras (LTCN) also took relief flights. Data caveat: Cukurova (LTDB) replaced Adana Sakirpasa in 2024, so today's table offers it where 2023 planners had LTAF, 30 km away.
+Hatay (LTDA) runway fractured and closed. Adana (LTAF) and Incirlik (LTAG) became the hubs; Gaziantep (LTAJ) and Kahramanmaras (LTCN) also took flights. Cukurova (LTDB) replaced Adana Sakirpasa in 2024.
 
 Map: `out/us6000jllz.html`
 
 ## Morocco 2023, M6.8  (`us7000kufc`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
+Shaking data: USGS ShakeMap v14, 2023-11-06. Exposure: USGS PAGER. PAGER alert: red.
 
 **What the model saw at the airports that mattered**
 
@@ -200,13 +200,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **What happened**
 
-Marrakech Menara (GMMX) was undamaged and became the hub. The High Atlas villages were reached by helicopter and road; fixed-wing forward strips played almost no role.
+Marrakech (GMMX) was undamaged and became the hub. Villages were reached by helicopter and road.
 
 Map: `out/us7000kufc.html`
 
 ## Myanmar 2025, M7.7  (`us7000pn9s`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
+Shaking data: USGS ShakeMap v23, 2025-06-06. Exposure: USGS PAGER. PAGER alert: red.
 
 **What the model saw at the airports that mattered**
 
@@ -226,7 +226,7 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **What happened**
 
-Mandalay (VYMD) and Nay Pyi Taw (VYNT) control towers collapsed and both airports closed. Yangon (VYYY), about 600 km south, became the entry point for international relief. The model instead prefers a closer regional airport; real operations valued Yangon's customs, fuel and handling, which the model does not yet see. Open question: does an intact regional hub with C-17 access beat a distant international one? Nobody tested it.
+Mandalay (VYMD) and Nay Pyi Taw (VYNT) towers collapsed and both airports closed. Yangon (VYYY), 600 km south, became the entry point. The model prefers a closer regional airport; it does not see customs, fuel or handling capacity.
 
 Map: `out/us7000pn9s.html`
 
@@ -234,7 +234,7 @@ Map: `out/us7000pn9s.html`
 
 ## HayWired scenario, M7.0 Hayward Fault (San Francisco Bay Area)  (`gllegacyhaywiredm7p05_se`)
 
-Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
+Shaking data: USGS ShakeMap v33, 2017-01-11. Exposure: US Census (county and city points).
 
 **What the model saw at the airports that mattered**
 
@@ -256,13 +256,13 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 **About this scenario**
 
-USGS HayWired scenario (2018): a M7.05 rupture of the Hayward Fault under the East Bay. Oakland International sits on bay fill beside the fault; San Francisco and San Jose are within 30 km. The USGS study estimated about 800 deaths and 18,000 injuries. Population exposure here is rebuilt from Census county and city data because PAGER is not run for this scenario.
+USGS HayWired scenario (2018): M7.05 on the Hayward Fault under the East Bay. Oakland International sits on bay fill beside the fault. Exposure is rebuilt from Census data; PAGER was not run.
 
 Map: `out/gllegacyhaywiredm7p05_se.html`
 
 ## ShakeOut scenario, M7.8 southern San Andreas (Los Angeles)  (`sclegacyshakeout2full_se`)
 
-Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
+Shaking data: USGS ShakeMap v5, 2019-08-10. Exposure: US Census (county and city points).
 
 **What the model saw at the airports that mattered**
 
@@ -284,13 +284,13 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 **About this scenario**
 
-USGS ShakeOut scenario (2008): a M7.8 rupture of the southern San Andreas from the Salton Sea to Lake Hughes. Los Angeles International is about 70 km from the fault; Palm Springs and San Bernardino sit on top of it. The study estimated 1,800 deaths and $200 billion in losses.
+USGS ShakeOut scenario (2008): M7.8 on the southern San Andreas from the Salton Sea to Lake Hughes. Exposure is rebuilt from Census data.
 
 Map: `out/sclegacyshakeout2full_se.html`
 
 ## Cascadia scenario, M9.0 subduction zone (Pacific Northwest)  (`gllegacycasc9p0expanded_se`)
 
-Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
+Shaking data: USGS ShakeMap v1, 2017-03-02. Exposure: US Census (county and city points).
 
 **What the model saw at the airports that mattered**
 
@@ -311,13 +311,13 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 **About this scenario**
 
-USGS Cascadia M9.0 scenario: a full-length rupture of the subduction zone off Oregon and Washington. Coastal airports also face a tsunami, which this model does not include, so treat coastal strips as optimistic. Seattle, Portland and Spokane are the candidate hubs.
+USGS Cascadia M9.0 scenario: full-length rupture off Oregon and Washington. Tsunami is not modelled, so coastal strips are optimistic. Exposure is rebuilt from Census data.
 
 Map: `out/gllegacycasc9p0expanded_se.html`
 
 ## Seattle Fault scenario, M7.5 (Seattle)  (`wa22sfz01_se`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
+Shaking data: USGS ShakeMap v1, 2024-04-01. Exposure: USGS PAGER. PAGER alert: red.
 
 **What the model saw at the airports that mattered**
 
@@ -339,13 +339,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **About this scenario**
 
-Washington Geological Survey / USGS 2022 scenario: a M7.5 rupture of the Seattle Fault directly under the city. Sea-Tac, Boeing Field and McChord are all inside the strongest shaking. PAGER was run for this scenario, so exposure is USGS's own.
+Washington Geological Survey and USGS 2022 scenario: M7.5 on the Seattle Fault under the city. Exposure is USGS PAGER.
 
 Map: `out/wa22sfz01_se.html`
 
 ## New Madrid scenario, M7.7 (Memphis)  (`nm19fema_m7p7_mt_se`)
 
-Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
+Shaking data: USGS ShakeMap v6, 2019-05-28. Exposure: USGS PAGER. PAGER alert: red.
 
 **What the model saw at the airports that mattered**
 
@@ -367,13 +367,13 @@ Shaking data: USGS ShakeMap. Exposure: USGS PAGER. PAGER alert: red.
 
 **About this scenario**
 
-FEMA and USGS 2019 New Madrid scenario: a M7.7 rupture of the southern fault near Marked Tree, Arkansas. Memphis International, FedEx's global hub, is about 60 km away. PAGER was run for this scenario, so exposure is USGS's own.
+FEMA and USGS 2019 scenario: M7.7 on the southern New Madrid fault near Marked Tree, Arkansas. Memphis is about 60 km away. Exposure is USGS PAGER.
 
 Map: `out/nm19fema_m7p7_mt_se.html`
 
 ## Puerto Rico Trench scenario, M8.5 (Caribbean)  (`caribe25puertorico_2_se`)
 
-Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
+Shaking data: USGS ShakeMap v1, 2025-06-23. Exposure: US Census (county and city points).
 
 **What the model saw at the airports that mattered**
 
@@ -393,6 +393,6 @@ Shaking data: USGS ShakeMap. Exposure: US Census (county and city points).
 
 **About this scenario**
 
-USGS Caribbean 2025 scenario: a M8.5 rupture of the Puerto Rico Trench north of the island. Every airport on the island is inside the shaking footprint; the nearest mainland hub is Miami, about 1,600 km away, beyond this model's gateway radius. Population exposure is a Census approximation spread by municipio land area.
+USGS 2025 scenario: M8.5 on the Puerto Rico Trench. Every airport on the island is inside the footprint; Miami is 1,600 km away, beyond the gateway radius. Exposure is a Census approximation by municipio land area.
 
 Map: `out/caribe25puertorico_2_se.html`
